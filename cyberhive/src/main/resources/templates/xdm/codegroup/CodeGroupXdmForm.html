@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<table>
+<form action="/xdm/codeGroup/codeGroupXdmInst" method="post" id="form">
+	seq: <input type="text" name="seq" id="seq" maxlength="10" disabled/>
+	name: <input type="text" name="name" id="name" placeholder="무슨 타입"/>	
+	delNy: <input type="text" name="delNy" id="delNy" placeholder="무슨 타입"/>	
+	<button type="button" id="btnSave">저장adfasdf</button>
+</form>
+
+<script type="text/javascript">
+
+	document.getElementById("btnSave").onclick = function() {
+		document.getElementById("form").submit();
+	}
+	
+	/* document.getElementById("btnSave").onclick = function() {
+		alert("asdfasdf");
+	} */
+	
+// 	document.getElementById("name").onchange = function() {
+// 		alert("name");
+// 	}
+	
+</script>	
+</table>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.module.code.CodeDao">
+	<resultMap id="resultMapObj" type="com.example.module.code.CodeDto"></resultMap> 
+	
+	<sql id="selectCommon">
+		FROM code
+		WHERE 1=1
+	</sql>
+	
+	
+	<select id="selectOneCount" resultType="Integer">
+	SELECT COUNT(*)
+	<include refid="selectCommon"></include>
+	</select>
+	
+	<select id="selectList" resultMap="resultMapObj">
+	  	SELECT 
+			seq,
+			name,
+			delNy,
+		<include refid="selectCommon"></include>
+		ORDER BY seq DESC
+	</select>
+	
+	<select id="selectOne" resultMap="resultMapObj">
+	SELECT 
+		seq,
+		name,
+		delNy,
+	FROM
+		code
+		WHERE 1=1
+			AND seq = #{seq}
+		ORDER BY seq DESC
+	</select>
+	
+	<insert id="insert">
+	INSERT INTO code (					
+			name,
+			delNy,
+		) values (			
+			#{name},
+			#{delNy},
+		)
+		<selectKey resultType="String" keyProperty="seq" order="AFTER">
+			SELECT last_insert_id()
+		</selectKey>		
+	</insert>
+	
+	<update id="update">
+		UPDATE code SET
+			name ="김지"
+		WHERE seq = #{seq}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM code WHERE seq = #{seq}
+	</delete> 	
+	
+	<update id="uelete">
+		UPDATE code SET
+			delNy = 1
+		WHERE seq = #{seq}
+	</update>
+	
+	<select id="getUserList" resultType="com.example.module.code.CodeDto">
+    SELECT * 
+    FROM code 
+    ORDER BY id DESC
+    LIMIT #{offset}, #{pageSize}
+	</select>
+</mapper>

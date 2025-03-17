@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+<form action="/code/codeXdmInst" method="post" id="form">
+	<input type="hidden" name="seq" th:value="${item?.seq}"/>
+	seq: <input type="text" name="seq" id="seq" maxlength="10" disabled th:value="${item?.seq}"/>
+	<!-- ?붙이면 없으면 없는대로 가겠다란뜻 -->
+	name: <input type="text" name="name" id="name" placeholder="무슨 타입" th:value="${item?.name}"/>	
+	DelNy: <input type="text" name="DelNy" id="DelNy" placeholder="무슨 타입" th:value="${item?.DelNy}"/>
+	code_seq: <input type="text" name="code_seq" id="code_seq" placeholder="무슨 타입" th:value="${item?.code_seq}"/>
+	<button type="button" id="btnSave">저장</button>
+</form>
+
+<script type="text/javascript">
+	
+	document.getElementById("btnSave").onclick = function() {
+		document.getElementById("form").submit();
+	}
+	
+	/* document.getElementById("btnSave").onclick = function() {
+		alert("asdfasdf");
+	} */
+	
+// 	document.getElementById("name").onchange = function() {
+// 		alert("name");
+// 	}
+	
+</script>	
+</table>
+</body>
+</html>

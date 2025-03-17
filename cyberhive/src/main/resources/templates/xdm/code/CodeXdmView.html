@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+<table>
+	<tr>
+		<th>Seq</th>
+		<th>Name</th>
+		<th>DelNy</th>
+	</tr>
+	<tr>
+		<td th:text="${item.seq}"></td>
+		<td th:text="${item.name}"></td>		
+		<td th:text="${item.DelNy}"></td>		
+	</tr>
+	
+</table>
+
+<a href="/code/codeXdmList">목록</a>
+<a th:href="@{/code/codeXdmDele(seq=${item.seq})}" id="delete">삭제</a>
+<a th:href="@{/code/codeXdmMfom(seq=${item.seq})}">수정</a>
+<a th:href="@{/code/codeXdmUele(seq=${item.seq})}" id="uelete">업제</a>
+
+<script type="text/javascript">
+
+	document.getElementById("uelete").onclick = function() {
+		if(confirm("진짜요?")){
+			// 삭제 고고
+		} else {
+			// 아무것도 하지 않아도 됩니다.
+			return false;
+		}
+	}
+	
+</script>
+
+</body>
+</html>
