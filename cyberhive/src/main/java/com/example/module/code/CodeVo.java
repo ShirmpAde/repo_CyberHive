@@ -112,5 +112,4 @@ public class CodeVo {
 	public void setStartRnumForMysql(int startRnumForMysql) {
 		this.startRnumForMysql = startRnumForMysql;
 	}
-	
 }

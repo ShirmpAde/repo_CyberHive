@@ -16,19 +16,34 @@
 	</select>
 	
 	<select id="selectList" resultMap="resultMapObj">
+	select aa.* from (
 	  	SELECT 
 			seq,
+			num,
+			defaultNum,
 			name,
-			delNy
+			nameEng,
+			count,
+			delNy,
+			regDate,
+			modDate
 		<include refid="selectCommon"></include>
 		ORDER BY seq DESC
+		) aa
+	limit #{rowNumToShow} offset #{startRnumForMysql}
 	</select>
 	
 	<select id="selectOne" resultMap="resultMapObj">
 	SELECT 
 		seq,
+		num,
+		defaultNum,
 		name,
-		delNy
+		nameEng,
+		count,
+		delNy,
+		regDate,
+		modDate
 	FROM
 		codeGroup
 		WHERE 1=1
@@ -38,11 +53,23 @@
 	
 	<insert id="insert">
 	INSERT INTO codeGroup (					
+			num,
+			defaultNum,
 			name,
-			delNy
+			nameEng,
+			count,
+			delNy,
+			regDate,
+			modDate
 		) values (			
+			#{num},
+			#{defaultNum},
 			#{name},
-			#{delNy}
+			#{nameEng},
+			#{count},
+			#{delNy},
+			#{regDate},
+			#{modDate},
 		)
 		<selectKey resultType="String" keyProperty="seq" order="AFTER">
 			SELECT last_insert_id()

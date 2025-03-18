@@ -3,13 +3,17 @@ package com.example.module.codegroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.module.code.CodeVo;
+
 @Controller
+//@RequestMapping(value = "/codeGroupXdmList")
 public class CodeGroupController {
 	
-//	@Autowired
-//	CodeGroupService service;
+	@Autowired
+	CodeGroupService service;
 //	
 //	@Autowired
 //	CodeService codeService;
@@ -22,7 +26,7 @@ public class CodeGroupController {
 		
 		vo.setParamsPaging(codeGroupService.seletOneCount());
 		
-		model.addAttribute("list", codeGroupService.selectList());
+		model.addAttribute("list", codeGroupService.selectList(vo));
 		
 		model.addAttribute("vo", vo);
 		
@@ -90,5 +94,19 @@ public class CodeGroupController {
 		codeGroupService.uelete(codeGroupDto);
 		
 		return "redirect:/xdm/codeGroup/codeGroupXdmList";
+	}
+	
+	@RequestMapping(value = "/codeXdmForm")
+	public String codeXdmForm(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception {
+		
+		model.addAttribute("listCodeGroup", codeGroupService.selectListWithoutPaging(null));
+		
+		if (vo.getDelNy().equals("0") || vo.getDelNy().equals("")) {
+			//	insert
+		} else {
+			model.addAttribute("item", service.selectOne(vo));
+		}
+		
+		return pathCommonXdm + "codeXdmForm";
 	}
 }

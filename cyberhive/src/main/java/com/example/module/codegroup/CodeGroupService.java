@@ -11,8 +11,8 @@ public class CodeGroupService {
 	@Autowired
 	CodeGroupDao codeGroupDao;
 	
-	public List<CodeGroupDto> selectList(){
-		return codeGroupDao.selectList();
+	public List<CodeGroupDto> selectList(CodeGroupVo vo){
+		return codeGroupDao.selectList(vo);
 	}
 	
 	public int seletOneCount(){
@@ -21,6 +21,10 @@ public class CodeGroupService {
 	
 	public Object selectOne(CodeGroupDto codeGroupDto) {
 		return codeGroupDao.selectOne(codeGroupDto);
+	}
+	
+	public Object selectOne(CodeGroupVo codeGroupVo) {
+		return codeGroupDao.selectOne(codeGroupVo);
 	}
 	
 	public int insert(CodeGroupDto codeGroupDto) {
@@ -37,5 +41,9 @@ public class CodeGroupService {
 	
 	public int uelete(CodeGroupDto codeGroupDto) {
 		return codeGroupDao.uelete(codeGroupDto);
+	}
+	
+	public int selectListWithoutPaging(CodeGroupVo codeGroupVo) {
+		return codeGroupDao.selectListWithoutPaging(codeGroupVo);
 	}
 }

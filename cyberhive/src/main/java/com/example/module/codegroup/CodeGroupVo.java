@@ -11,8 +11,9 @@ public class CodeGroupVo {
 	private int totalPages;										// 전체 페이지 번호
 	private int startPage;										// 시작 페이지 번호
 	private int endPage;										// 마지막 페이지 번호
-
+	
 	private int startRnumForMysql = 0;							// 쿼리 시작 row
+	private int delNy;
 	
 	public void setParamsPaging(int totalRows) {
 //		setThisPage(3);
@@ -121,5 +122,14 @@ public class CodeGroupVo {
 	public void setStartRnumForMysql(int startRnumForMysql) {
 		this.startRnumForMysql = startRnumForMysql;
 	}
+
+	public int getDelNy() {
+		return delNy;
+	}
+
+	public void setDelNy(int delNy) {
+		this.delNy = delNy;
+	}
+	
 	
 }
