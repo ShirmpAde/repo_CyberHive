@@ -1,19 +1,124 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta content="Codescandy" name="author">
+      <title>Order List Dashboard eCommerce HTML Template - FreshCart</title>
+      <!-- Favicon icon-->
+<link rel="shortcut icon" type="image/x-icon" href="/xdm/template/admin_ui/images/favicon/favicon.ico">
+
+<!-- Libs CSS -->
+<link href="/xdm/template/admin_ui/libs/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="/xdm/template/admin_ui/libs/feather-webfont/dist/feather-icons.css" rel="stylesheet">
+<link href="/xdm/template/admin_ui/libs/simplebar/dist/simplebar.min.css" rel="stylesheet">
+<!-- Theme CSS -->
+<link rel="stylesheet" href="/xdm/template/admin_ui/css/theme.min.css">
 </head>
 <body>
 <table>
 <form action="/xdm/codeGroup/codeGroupXdmInst" method="post" id="form">
 	seq: <input type="text" name="seq" id="seq" maxlength="10" disabled/>
-	name: <input type="text" name="name" id="name" placeholder="무슨 타입"/>	
-	delNy: <input type="text" name="delNy" id="delNy" placeholder="무슨 타입"/>	
-	<button type="button" id="btnSave">저장adfasdf</button>
+	num: <input type="text" name="num" id="num" placeholder="무슨 숫자"/>	
+	defaultNum: <input type="text" name="defaultNum" id="defaultNum" placeholder="이름을 입력"/>
+	name: <input type="text" name="name" id="name" placeholder="이름을 입력"/>
+	nameEng: <input type="text" name="nameEng" id="nameEng" placeholder="이름을 입력"/>
+	count: <input type="text" name="count" id="count" placeholder="이름을 입력"/>
+	delNy: <input type="text" name="delNy" id="delNy" placeholder="이름을 입력"/>
+	regDate: <input type="text" name="regDate" id="regDate" placeholder="이름을 입력"/>
+	modDate: <input type="text" name="modDate" id="modDate" placeholder="이름을 입력"/>
+	<!-- Button trigger modal -->	
+	<button type="button" id="btnSave" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+	  저장
+	</button>
 </form>
+</table>
+<div class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script type="text/javascript">
 
+	var a = 1;
+	
+	//alert(a);
+	//alert("a");
+	
+	let name = document.getElementById("name");
+	
 	document.getElementById("btnSave").onclick = function() {
+		
+		if (document.getElementById("num").value.trim() == null || document.getElementById("num").value.trim() == "") {
+		    
+			showModal("이름을 입력하세요.");
+		    document.getElementById("num").focus();
+		    return false;
+		}
+
+		if(document.getElementById("defaultNum").value.trim() == null || document.getElementById("defaultNum").value.trim() == ""){
+			
+			alert("이름을 입력하세요2.");
+			document.getElementById("defaultNum").focus();
+			return false;
+		}
+		
+		if(document.getElementById("name").value.trim() == null || document.getElementById("name").value.trim() == ""){
+			
+			alert("이름을 입력하세요3.");
+			document.getElementById("name").focus();
+			return false;
+		}
+		
+		if(document.getElementById("nameEng").value.trim() == null || document.getElementById("nameEng").value.trim() == ""){
+			
+			alert("이름을 입력하세요4.");
+			document.getElementById("nameEng").focus();
+			return false;
+		}
+		
+		if(document.getElementById("count").value.trim() == null || document.getElementById("count").value.trim() == ""){
+			
+			alert("이름을 입력하세요5.");
+			document.getElementById("count").focus();
+			return false;
+		}
+		
+		if(document.getElementById("delNy").value.trim() == null || document.getElementById("delNy").value.trim() == ""){
+			
+			alert("이름을 입력하세요6.");
+			document.getElementById("delNy").focus();
+			return false;
+		}
+		
+		if(document.getElementById("count").value.trim() == null || document.getElementById("regDate").value.trim() == ""){
+			
+			alert("이름을 입력하세요7.");
+			document.getElementById("regDate").focus();
+			return false;
+		}
+		
+		if(document.getElementById("modDate").value.trim() == null || document.getElementById("modDate").value.trim() == ""){
+			
+			alert("이름을 입력하세요8.");
+			document.getElementById("modDate").focus();
+			return false;
+		}
+
 		document.getElementById("form").submit();
 	}
 	
@@ -24,8 +129,24 @@
 // 	document.getElementById("name").onchange = function() {
 // 		alert("name");
 // 	}
-	
-</script>	
-</table>
+	<!-- Modal -->
+	<div class="modal fade" id="btnSave" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="btnSaveLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h1 class="modal-title fs-5" id="btnSaveLabel">Modal title</h1>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        ...
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary">Understood</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</script>
 </body>
 </html>

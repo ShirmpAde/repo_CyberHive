@@ -52,29 +52,30 @@
 	</select>
 	
 	<insert id="insert">
-	INSERT INTO codeGroup (					
-			num,
-			defaultNum,
-			name,
-			nameEng,
-			count,
-			delNy,
-			regDate,
-			modDate
-		) values (			
-			#{num},
-			#{defaultNum},
-			#{name},
-			#{nameEng},
-			#{count},
-			#{delNy},
-			#{regDate},
-			#{modDate},
-		)
-		<selectKey resultType="String" keyProperty="seq" order="AFTER">
-			SELECT last_insert_id()
-		</selectKey>		
-	</insert>
+    INSERT INTO codeGroup (					
+        num,
+        defaultNum,
+        name,
+        nameEng,
+        count,
+        delNy,
+        regDate,
+        modDate
+    ) values (			
+        #{num},
+        #{defaultNum},
+        #{name},
+        #{nameEng},
+        #{count},
+        #{delNy},
+        #{regDate},
+        #{modDate}
+    )
+    <selectKey resultType="Integer" keyProperty="seq" order="AFTER">
+        SELECT last_insert_id()
+    </selectKey>		
+</insert>
+
 	
 	<update id="update">
 		UPDATE codeGroup SET

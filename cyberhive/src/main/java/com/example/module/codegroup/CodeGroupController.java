@@ -46,10 +46,10 @@ public class CodeGroupController {
 		return "xdm/codeGroup/codeGroupXdmView";
 	}
 	
-	@RequestMapping(value = "/codeGroup/codeGroupXdmForm")
+	@RequestMapping(value = "/xdm/codeGroup/codeGroupXdmForm")
 	public String codeGroupXdmForm() {
-		
-		return "codeGroup/codeGroupXdmForm";
+
+		return "xdm/codeGroup/codeGroupXdmForm";
 	}
 	
 	@RequestMapping(value = "/xdm/codeGroup/codeGroupXdmInst")
