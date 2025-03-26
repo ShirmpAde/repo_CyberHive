@@ -11,23 +11,23 @@ public class CodeController {
 	@Autowired
 	CodeService codeService;
 
-	@RequestMapping(value = "/code/codeXdmList")
+	@RequestMapping(value = "/xdm/code/codeXdmList")
 	public String codeXdmList(Model model, CodeVo vo) throws Exception{
 		
 		vo.setParamsPaging(codeService.seletOneCount());
 		
-		model.addAttribute("list", codeService.selectList());
+		model.addAttribute("list", codeService.selectList(vo));
 		
 		model.addAttribute("vo", vo);
 		
-		return "code/CodeXdmList";
+		return "xdm/code/CodeXdmList";
 	}
 	
-	@RequestMapping(value = "/code/codeXdmView")
+	@RequestMapping(value = "/xdm/code/codeXdmView")
 	public String codeXdmList(Model model, CodeDto codeDto) {
 		System.out.println("codeDto.getSeq(): " + codeDto.getSeq());
 		model.addAttribute("item", codeService.selectOne(codeDto));
-		return "code/codeXdmView";
+		return "xdm/code/codeXdmView";
 	}
 	
 	@RequestMapping(value = "/xdm/code/codeXdmForm")

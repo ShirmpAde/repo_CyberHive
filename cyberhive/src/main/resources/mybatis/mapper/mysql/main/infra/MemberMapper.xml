@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.module.codegroup.CodeGroupDao">
-	<resultMap id="resultMapObj" type="com.example.module.codegroup.CodeGroupDto"></resultMap> 
+<mapper namespace="com.example.module.member.MemberDao">
+	<resultMap id="resultMapObj" type="com.example.module.member.MemberDto"></resultMap> 
 	
 	<sql id="selectCommon">
-		FROM codeGroup
+		FROM member
 		WHERE 1=1
 	</sql>
 	
@@ -16,13 +16,13 @@
 	</select>
 	
 	<select id="selectList" resultMap="resultMapObj">
-	select aa.* from (
+  	select aa.* from (
 	  	SELECT 
 			seq,
+			id,
 			name,
-			delNy,
-			regDate,
-			modDate
+			gender_code,
+			telecom_code
 		<include refid="selectCommon"></include>
 		ORDER BY seq DESC
 		) aa
@@ -32,53 +32,53 @@
 	<select id="selectOne" resultMap="resultMapObj">
 	SELECT 
 		seq,
+		id,
 		name,
-		delNy,
-		regDate,
-		modDate
+		gender_code,
+		telecom_code
 	FROM
-		codeGroup
+		member
 		WHERE 1=1
 			AND seq = #{seq}
 		ORDER BY seq DESC
 	</select>
 	
 	<insert id="insert">
-    INSERT INTO codeGroup (					
-		name,
-		delNy,
-		regDate,
-		modDate
-    ) values (			
-        #{name},
-        #{delNy},
-        #{modDate}
-    )
-    <selectKey resultType="Integer" keyProperty="seq" order="AFTER">
-        SELECT last_insert_id()
-    </selectKey>		
-</insert>
-
+	INSERT INTO member (					
+			id,
+			name,
+			gender_code,
+			telecom_code
+		) values (			
+			#{id},
+			#{name},	
+			#{gender_code},
+			#{telecom_code}
+		)
+		<selectKey resultType="String" keyProperty="seq" order="AFTER">
+			SELECT last_insert_id()
+		</selectKey>		
+	</insert>
 	
 	<update id="update">
-		UPDATE codeGroup SET
-			name ="김지"
+		UPDATE member SET
+			name = #{name}
 		WHERE seq = #{seq}
 	</update>
 	
 	<delete id="delete">
-		DELETE FROM codeGroup WHERE seq = #{seq}
+		DELETE FROM member WHERE seq = #{seq}
 	</delete> 	
 	
 	<update id="uelete">
-		UPDATE codeGroup SET
+		UPDATE member SET
 			delNy = 1
 		WHERE seq = #{seq}
 	</update>
 	
-	<select id="getUserList" resultType="com.example.module.codegroup.CodeGroupDto">
+	<select id="getUserList" resultType="com.example.module.member.MemberDto">
     SELECT * 
-    FROM codeGroup 
+    FROM member 
     ORDER BY id DESC
     LIMIT #{offset}, #{pageSize}
 	</select>

@@ -1,7 +1,7 @@
-package com.example.module.codegroup;
+package com.example.module.member;
 
-public class CodeGroupVo {
-
+public class MemberVo {
+	
 //	paging
 	private int thisPage = 1;									// 현재 페이지
 	private int rowNumToShow = 5;								// 화면에 보여줄 데이터 줄 갯수
@@ -11,7 +11,7 @@ public class CodeGroupVo {
 	private int totalPages;										// 전체 페이지 번호
 	private int startPage;										// 시작 페이지 번호
 	private int endPage;										// 마지막 페이지 번호
-	
+
 	private int startRnumForMysql = 0;							// 쿼리 시작 row
 	private int delNy;
 	private String seq;
@@ -48,15 +48,6 @@ public class CodeGroupVo {
 		} else {
 			setStartRnumForMysql((getRowNumToShow() * (getThisPage()-1)));
 		}
-		
-		System.out.println("getThisPage():" + getThisPage());
-		System.out.println("getTotalRows():" + getTotalRows());
-		System.out.println("getRowNumToShow():" + getRowNumToShow());
-		System.out.println("getTotalPages():" + getTotalPages());
-		System.out.println("getStartPage():" + getStartPage());
-		System.out.println("getEndPage():" + getEndPage());		
-		System.out.println("getStartRnumForMysql(): " + getStartRnumForMysql());
-		
 	}
 //	-----
 
@@ -139,5 +130,7 @@ public class CodeGroupVo {
 	public void setSeq(String seq) {
 		this.seq = seq;
 	}
-
+	
+	
 }
+

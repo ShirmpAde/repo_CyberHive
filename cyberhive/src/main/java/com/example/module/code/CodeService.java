@@ -1,9 +1,12 @@
 package com.example.module.code;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import jakarta.annotation.PostConstruct;
 
 @Service
 public class CodeService {
@@ -11,32 +14,33 @@ public class CodeService {
 	@Autowired
 	CodeDao codeDao;
 	
-	public List<CodeDao> selectList(){
-		return codeDao.selectList();
+	public List<CodeDto> selectList(CodeVo vo){
+		return codeDao.selectList(vo);
 	}
 	
 	public int seletOneCount(){
 		return codeDao.selectOneCount();
 	}
 	
-	public Object selectOne(CodeDao codeDao) {
-		return codeDao.selectOne(codeDao);
+	public Object selectOne(CodeDto codeDto) {
+		return codeDao.selectOne(codeDto);
+	}
+		
+	public int insert(CodeDto codeDto) {
+		return codeDao.insert(codeDto);
 	}
 	
-	public int insert(CodeDao codeDao) {
-		return codeDao.insert(codeDao);
+	public int update(CodeDto codeDto) {
+		return codeDao.update(codeDto);
 	}
 	
-	public int update2(CodeDao codeDao) {
-		return codeDao.update(codeDao);
+	public int delete(CodeDto codeDto) {
+		return codeDao.delete(codeDto);
 	}
 	
-	public int delete2(CodeDao codeDao) {
-		return codeDao.delete(codeDao);
+	public int uelete(CodeDto codeDto) {
+		return codeDao.uelete(codeDto);
 	}
 	
-	public int uelete2(CodeDao codeDao) {
-		return codeDao.uelete(codeDao);
-	}
 }
 

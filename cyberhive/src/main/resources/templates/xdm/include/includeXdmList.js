@@ -4,3 +4,13 @@ goList = function (thisPage) {
     form.action = "/codegroup/g";
     form.submit();
 }
+
+document.getElementById("btnForm").onclick = function () {
+    goForm(0);
+}
+
+goForm = function (keyValue) {
+    seq.value = keyValue;
+    form.action = goUrlXdmForm;
+    form.submit();
+}

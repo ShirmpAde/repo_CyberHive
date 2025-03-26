@@ -231,7 +231,7 @@
 								<a class="nav-link " href="../dashboard/order-single.html">Single</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link " href="/xdm/codeGroup/CodeGroupXdmList.html">코드</a>
+								<a class="nav-link " href="/xdm/member/MemberXdmList.html">코드</a>
 							</li>
 						</ul>
 					</div>
@@ -696,7 +696,7 @@
                   <div class="col-md-12">
                      <!-- page header -->
                      <div>
-                        <h2>코드그룹</h2>
+                        <h2>회원 관리</h2>
                         <!-- breacrumb -->
                         <nav aria-label="breadcrumb">
                            <ol class="breadcrumb mb-0">
@@ -719,7 +719,6 @@
                                  <form class="d-flex" role="search" name="formList" method="post">
                                  <input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
 								 <input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
-								 <input type="hidden" name="seq">
 									<!-- select -->
 									<select class="form-select me-2">
                                     	<option selected>N</option>
@@ -754,6 +753,7 @@
                               </div>
                            </div>
                         </div>
+                        </div>
                         <!-- card body -->
                         <div class="card-body p-0">
                            <!-- table responsive -->
@@ -768,26 +768,26 @@
                                           </div>
                                        </th>
                                        <th>seq</th>
+                                       <th>id</th>
                                        <th>name</th>
-                                       <th>delNy</th>
-                                       <th>regDate</th>
-                                       <th>modDate</th>
+                                       <th>gender_code</th>
+                                       <th>telecom_code</th>
                                        <th></th>
                                     </tr>
                                  </thead>
                                  <tbody>
-                                       	<tr th:each="codeGroup : ${list}">
+                                       	<tr th:each="member : ${list}">
                                        	<td>
                                				<div class="form-check">
-                                             <input class="form-check-input" type="checkbox" name="selectedItems" th:value="${codeGroup.seq}"/>
+                                             <input class="form-check-input" type="checkbox" name="selectedItems" th:value="${member.seq}"/>
                                              <label class="form-check-label"></label>
                                           	</div>
                                        	</td>
-						                <td th:text="${codeGroup.seq}"></td>
-						                <td><a href="javascript:void(0);" th:text="${codeGroup.name}" th:attr="onclick=|goForm('${codeGroup.seq}')|"></a></td>
-						                <td th:text="${codeGroup.delNy}"></td>
-						                <td th:text="${codeGroup.regDate}"></td>
-						                <td th:text="${codeGroup.modDate}"></td>
+						                <td th:text="${member.seq}"></td>
+						                <td th:text="${member.id}"></td>
+						                <td th:text="${member.name}"></td>
+						                <td th:text="${member.gender_code}"></td>
+						                <td th:text="${member.telecom_code}"></td>
 						                <td>
 						                	<div class="dropdown">
                                              <a href="#" class="text-reset" data-bs-toggle="dropdown" aria-expanded="false">
@@ -831,7 +831,6 @@
 						</ul>
 						<div class="d-flex justify-content-end mt-3">
                         	<button class="btn btn-primary" type="button" id="btnForm">
-                        		<i class="fas fa-plus fa-lg"></i>
                              	<img src="/xdm/template/admin_ui/images/plus.svg" alt="이미지 설명">            
                         	</button>
                         </div>
@@ -842,9 +841,7 @@
          </main>
       </div>
 </form>
-
 <script>
-let goUrlXdmForm = "/xdm/codeGroup/codeGroupXdmForm";
 let seq = document.querySelector("input[name=seq]");
 document.getElementById("btnForm").onclick = function () {
     goForm(0);
@@ -867,7 +864,7 @@ goForm = function (keyValue) {
 let form = document.querySelector("form[name=formList]");
 goList = function (thisPage) {
     document.querySelector("input[name=thisPage]").value = thisPage;
-    form.action = "/xdm/codeGroup/codeGroupXdmList";
+    form.action = "/xdm/member/memberXdmList";
     form.submit();
 }
 </script>

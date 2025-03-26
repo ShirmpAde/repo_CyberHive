@@ -16,19 +16,26 @@
 	</select>
 	
 	<select id="selectList" resultMap="resultMapObj">
+  	select aa.* from (
 	  	SELECT 
 			seq,
-			name,
-			delNy,
+            name,
+            delNy,
+            useNy,
+            codeGroup_seq
 		<include refid="selectCommon"></include>
 		ORDER BY seq DESC
+		) aa
+	limit #{rowNumToShow} offset #{startRnumForMysql}
 	</select>
 	
 	<select id="selectOne" resultMap="resultMapObj">
 	SELECT 
 		seq,
-		name,
-		delNy,
+        name,
+        delNy,
+        useNy,
+        codeGroup_seq
 	FROM
 		code
 		WHERE 1=1
@@ -38,11 +45,15 @@
 	
 	<insert id="insert">
 	INSERT INTO code (					
-			name,
-			delNy,
+            name,
+            delNy,
+            useNy,
+            codeGroup_seq
 		) values (			
 			#{name},
 			#{delNy},
+			#{useNy},
+			#{codeGroup_seq}
 		)
 		<selectKey resultType="String" keyProperty="seq" order="AFTER">
 			SELECT last_insert_id()
