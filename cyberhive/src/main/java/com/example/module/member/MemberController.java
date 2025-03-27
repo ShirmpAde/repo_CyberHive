@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpSession;
-
 @Controller
 public class MemberController {
 	
@@ -86,27 +85,22 @@ public class MemberController {
 		return "redirect:xdm/member/memberXdmList";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value = "/xdm/member/signinXdmProc")
-	public Map<String, Object> signinXdmProc(MemberDto dto) throws Exception {
-		Map<String, Object> returnMap = memberService.signinChk();
-//		if (rt != null) {
-//			returnMap.put("rt", "sucess");
-//		} else {
-//			returnMap.put("rt", "fail");
-//		}
-		return returnMap;
+	@RequestMapping(value = "/xdm/member/signinXdmForm")
+	public String signinXdmForm() {
+		
+		return "xdm/member/SigninXdmForm";
 	}
 	
-//	@ResponseBody
-//	@RequestMapping(value = "/xdm/member/signinXdmProc")
-//	public Map<String, Object> signinXdmProc(MemberDto dto, HttpSession httpSession) throws Exception {
-//		Map<String, Object> returnMap = new HashMap<String, Object>();
-//		UtilCookie.deleteCookieXdm();
-//		httpSession.setAttribute("sessSeqXdm", null);
-//		httpSession.setAttribute("sessIdXdm", null);
-//		httpSession.setAttribute("sessNameXdm", null);
-//			returnMap.put("rt", "fail");
-//		return returnMap;
-//	}
+	@ResponseBody
+	@RequestMapping(value = "/xdm/member/signinXdmProc")
+	public Map<String, Object> signinXdmProc(MemberDto memberDto, HttpSession httpSession) throws Exception {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		MemberDto rt = memberService.signinChk(memberDto);
+		if (rt != null) {
+			returnMap.put("rt", "success");
+		} else {
+			returnMap.put("rt", "fail");
+		}
+		return returnMap;
+	}
 }

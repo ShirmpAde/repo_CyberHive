@@ -22,7 +22,8 @@
 			id,
 			name,
 			gender_code,
-			telecom_code
+			telecom_code,
+			password
 		<include refid="selectCommon"></include>
 		ORDER BY seq DESC
 		) aa
@@ -35,7 +36,8 @@
 		id,
 		name,
 		gender_code,
-		telecom_code
+		telecom_code,
+		password
 	FROM
 		member
 		WHERE 1=1
@@ -48,12 +50,14 @@
 			id,
 			name,
 			gender_code,
-			telecom_code
+			telecom_code,
+			password
 		) values (			
 			#{id},
 			#{name},	
 			#{gender_code},
-			#{telecom_code}
+			#{telecom_code},
+			#{password}
 		)
 		<selectKey resultType="String" keyProperty="seq" order="AFTER">
 			SELECT last_insert_id()
@@ -86,20 +90,8 @@
 	<select id="signinChk" resultType="com.example.module.member.MemberDto">
 	SELECT * 
     FROM member
-    	(					
-			userId,
-			name,
-			gender_code,
-			telecom_code,
-			password
-		) values (			
-			#{id},
-			#{name},	
-			#{gender_code},
-			#{telecom_code},
-			#{password}
-		)
-		WHERE userId = #{userId} 
+		WHERE id = #{id} 
       	AND password = #{password}
+      	ORDER BY seq DESC
 	</select>
 </mapper>

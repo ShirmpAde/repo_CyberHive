@@ -6,7 +6,8 @@ public class MemberDto {
 	private String name;
 	private Integer gender_code;
 	private Integer telecom_code;
-//	-----
+	private String password;
+//-----
 	public String getSeq() {
 		return seq;
 	}
@@ -37,6 +38,11 @@ public class MemberDto {
 	public void setTelecom_code(Integer telecom_code) {
 		this.telecom_code = telecom_code;
 	}
-	
-	
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 }

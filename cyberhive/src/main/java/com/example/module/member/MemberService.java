@@ -40,7 +40,7 @@ public class MemberService {
 		return memberDao.uelete(memberDto);
 	}
 	
-	public Map<String, Object> signinChk(MemberDto memberDto){
-		return memberDao.returnMap(memberDto);
+	public MemberDto signinChk(MemberDto memberDto){
+		return memberDao.signinChk(memberDto);
 	}
 }

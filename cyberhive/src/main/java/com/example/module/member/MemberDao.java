@@ -14,5 +14,5 @@ public interface MemberDao {
 	public int update(MemberDto memberDto);
 	public int delete(MemberDto memberDto);
 	public int uelete(MemberDto memberDto);
-	public Map<String, Object> returnMap(MemberDto memberDto);
+	public MemberDto signinChk(MemberDto memberDto);
 }
