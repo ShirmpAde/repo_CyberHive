@@ -1,6 +1,7 @@
 package com.example.module.member;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,9 @@ public class MemberService {
 	
 	public int uelete(MemberDto memberDto) {
 		return memberDao.uelete(memberDto);
+	}
+	
+	public Map<String, Object> signinChk(MemberDto memberDto){
+		return memberDao.returnMap(memberDto);
 	}
 }

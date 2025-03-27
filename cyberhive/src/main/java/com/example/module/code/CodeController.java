@@ -30,11 +30,11 @@ public class CodeController {
 		return "xdm/code/codeXdmView";
 	}
 	
-	@RequestMapping(value = "/xdm/code/codeXdmForm")
-	public String codeXdmForm() {
-		
-		return "xdm/code/codeXdmForm";
-	}
+//	@RequestMapping(value = "/xdm/code/codeXdmForm")
+//	public String codeXdmForm() {
+//		
+//		return "xdm/code/codeXdmForm";
+//	}
 	
 	@RequestMapping(value = "/xdm/code/codeXdmInst")
 	public String codeXdmInst(CodeDto codeDto) {

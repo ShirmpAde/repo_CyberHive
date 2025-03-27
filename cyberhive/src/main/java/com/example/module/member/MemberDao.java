@@ -1,6 +1,7 @@
 package com.example.module.member;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -13,4 +14,5 @@ public interface MemberDao {
 	public int update(MemberDto memberDto);
 	public int delete(MemberDto memberDto);
 	public int uelete(MemberDto memberDto);
+	public Map<String, Object> returnMap(MemberDto memberDto);
 }

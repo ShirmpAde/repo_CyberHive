@@ -19,7 +19,7 @@
 <body>
 <table>
 <form action="/xdm/codeGroup/codeGroupXdmInst" method="post" id="form">
-	seq: <input type="text" name="seq" id="seq" maxlength="10" disabled/>
+	seq: <input type="text" id="seq" name="seq" th:value="${item?.seq}" maxlength="20" placeholder="자동생성" disabled class="form-control"/>
 	num: <input type="text" name="num" id="num" placeholder="무슨 숫자"/>	
 	defaultNum: <input type="text" name="defaultNum" id="defaultNum" placeholder="이름을 입력"/>
 	name: <input type="text" name="name" id="name" placeholder="이름을 입력"/>
@@ -32,8 +32,10 @@
 	<button type="button" id="btnSave" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#btnSave">
 	  저장
 	</button>
+	<button type="button" id="btnSubmit" class="btn btn-primary btn_custom"><i class="fa-solid fa-database fa-lg"></i></button>
 </form>
 </table>
+<div th:replace="~{xdm/codegroup/codeGroupXdmVo :: vo}"></div>
 <div class="modal" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -51,7 +53,18 @@
     </div>
   </div>
 </div>
+<script>
+let seq = document.querySelector("input[name=ifcgSeq]");							/* ### */
 
+function validationInst() {
+    if(validationUpdt() == false) return false;
+}
+
+function validationUpdt() {
+		if(!checkOnlyEnglishNumber('ifcgSeqAnother', 2, 1, "코드그룹 코드 (Another)는 영대소문자, 숫자만 입력 가능합니다.")) return false;
+
+}
+</script>
 <script type="text/javascript">
 
 	var a = 1;
@@ -143,17 +156,17 @@
 // 		alert("name");
 // 	}
 </script>
-<script>
-let seq = document.querySelector("input[name=ifcgSeq]");							/* ### */
+<!-- <script> -->
+// let seq = document.querySelector("input[name=ifcgSeq]");							/* ### */
 
-function validationInst() {
-    if(validationUpdt() == false) return false;
-}
+// function validationInst() {
+//     if(validationUpdt() == false) return false;
+// }
 
-function validationUpdt() {
-		if(!checkOnlyEnglishNumber('ifcgSeqAnother', 2, 1, "코드그룹 코드 (Another)는 영대소문자, 숫자만 입력 가능합니다.")) return false;
+// function validationUpdt() {
+// 		if(!checkOnlyEnglishNumber('ifcgSeqAnother', 2, 1, "코드그룹 코드 (Another)는 영대소문자, 숫자만 입력 가능합니다.")) return false;
 
-}
-</script>
+// }
+<!-- </script> -->
 </body>
 </html>

@@ -82,4 +82,24 @@
     ORDER BY id DESC
     LIMIT #{offset}, #{pageSize}
 	</select>
+	
+	<select id="signinChk" resultType="com.example.module.member.MemberDto">
+	SELECT * 
+    FROM member
+    	(					
+			userId,
+			name,
+			gender_code,
+			telecom_code,
+			password
+		) values (			
+			#{id},
+			#{name},	
+			#{gender_code},
+			#{telecom_code},
+			#{password}
+		)
+		WHERE userId = #{userId} 
+      	AND password = #{password}
+	</select>
 </mapper>

@@ -13,6 +13,7 @@ public class CodeVo {
 	private int endPage;										// 마지막 페이지 번호
 
 	private int startRnumForMysql = 0;							// 쿼리 시작 row
+	private String delNy;
 	
 	public void setParamsPaging(int totalRows) {
 //		setThisPage(3);
@@ -112,4 +113,13 @@ public class CodeVo {
 	public void setStartRnumForMysql(int startRnumForMysql) {
 		this.startRnumForMysql = startRnumForMysql;
 	}
+
+	public String getDelNy() {
+		return delNy;
+	}
+
+	public void setDelNy(String delNy) {
+		this.delNy = delNy;
+	}
+
 }

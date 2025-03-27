@@ -1,9 +1,15 @@
 package com.example.module.member;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MemberController {
@@ -79,5 +85,28 @@ public class MemberController {
 		
 		return "redirect:xdm/member/memberXdmList";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/xdm/member/signinXdmProc")
+	public Map<String, Object> signinXdmProc(MemberDto dto) throws Exception {
+		Map<String, Object> returnMap = memberService.signinChk();
+//		if (rt != null) {
+//			returnMap.put("rt", "sucess");
+//		} else {
+//			returnMap.put("rt", "fail");
+//		}
+		return returnMap;
+	}
+	
+//	@ResponseBody
+//	@RequestMapping(value = "/xdm/member/signinXdmProc")
+//	public Map<String, Object> signinXdmProc(MemberDto dto, HttpSession httpSession) throws Exception {
+//		Map<String, Object> returnMap = new HashMap<String, Object>();
+//		UtilCookie.deleteCookieXdm();
+//		httpSession.setAttribute("sessSeqXdm", null);
+//		httpSession.setAttribute("sessIdXdm", null);
+//		httpSession.setAttribute("sessNameXdm", null);
+//			returnMap.put("rt", "fail");
+//		return returnMap;
+//	}
 }
-

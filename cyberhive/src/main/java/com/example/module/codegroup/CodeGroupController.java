@@ -46,11 +46,11 @@ public class CodeGroupController {
 		return "xdm/codeGroup/codeGroupXdmView";
 	}
 	
-	@RequestMapping(value = "/xdm/codeGroup/codeGroupXdmForm")
-	public String codeGroupXdmForm() {
-
-		return "xdm/codeGroup/codeGroupXdmForm";
-	}
+//	@RequestMapping(value = "/xdm/codeGroup/codeGroupXdmForm")
+//	public String codeGroupXdmForm() {
+//
+//		return "xdm/codeGroup/codeGroupXdmForm";
+//	}
 	
 	@RequestMapping(value = "/xdm/codeGroup/codeGroupXdmInst")
 	public String codeGroupXdmInst(CodeGroupDto codeGroupDto) {
@@ -96,7 +96,7 @@ public class CodeGroupController {
 		return "redirect:/xdm/codeGroup/codeGroupXdmList";
 	}
 	
-	@RequestMapping(value = "/codeXdmForm")
+	@RequestMapping(value = "/xdm/code/codeXdmForm")
 	public String codeXdmForm(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception {
 		
 		model.addAttribute("listCodeGroup", codeGroupService.selectListWithoutPaging(null));
@@ -106,8 +106,18 @@ public class CodeGroupController {
 		} else {
 			model.addAttribute("item", service.selectOne(vo));
 		}
-		
-		return pathCommonXdm + "codeXdmForm";
+		return "xdm/code/codeXdmForm";
 	}
 	
+	@RequestMapping(value = "/xdm/codeGroup/codeGroupXdmForm")
+	public String codeGroupXdmForm(@ModelAttribute("vo") CodeGroupVo vo, Model model) throws Exception{
+		
+		if (vo.getSeq().equals("0") || vo.getSeq().equals("")) {
+//			insert mode
+		} else {
+//			update mode
+			model.addAttribute("item", service.selectOne(vo));
+		}
+		return "xdm/codeGroup/codeGroupXdmForm";
+	}
 }

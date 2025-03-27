@@ -3,7 +3,22 @@
 
 <th:block th:fragment="vo">	
 	
-	<input type="hidden" name="ifcgSeq" th:value="${vo.ifcgSeq}">		<!-- ### -->
+	<input type="hidden" name="seq" th:value="${vo.seq}">		<!-- ### -->
 </th:block>
 
+<script>
+document.getElementById("btnSubmit").onclick = function () {
+	if(seq.value == "0" || seq.value == "") {
+		if(validationInst() == false) return false;
+		$("#modalLoading").modal("show");
+		form.action = goUrlXdmInst;
+		form.submit();
+	} else {
+		if(validationUpdt() == false) return false;
+		$("#modalLoading").modal("show");
+		form.action = goUrlXdmUpdt;
+		form.submit();
+	}
+}
+</script>
 </html>
