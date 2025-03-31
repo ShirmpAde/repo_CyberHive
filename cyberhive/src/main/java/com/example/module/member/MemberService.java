@@ -1,7 +1,6 @@
 package com.example.module.member;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,4 +42,5 @@ public class MemberService {
 	public MemberDto signinChk(MemberDto memberDto){
 		return memberDao.signinChk(memberDto);
 	}
+	
 }

@@ -12,8 +12,8 @@ import com.example.module.code.CodeVo;
 //@RequestMapping(value = "/codeGroupXdmList")
 public class CodeGroupController {
 	
-	@Autowired
-	CodeGroupService service;
+//	@Autowired
+//	CodeGroupService service;
 //	
 //	@Autowired
 //	CodeService codeService;
@@ -96,7 +96,7 @@ public class CodeGroupController {
 		return "redirect:/xdm/codeGroup/codeGroupXdmList";
 	}
 	
-	@RequestMapping(value = "/xdm/code/codeXdmForm")
+	@RequestMapping(value = "/xdm/codeGroupXdmForm/codeGroupXdmForm")
 	public String codeXdmForm(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception {
 		
 		model.addAttribute("listCodeGroup", codeGroupService.selectListWithoutPaging(null));
@@ -104,9 +104,9 @@ public class CodeGroupController {
 		if (vo.getDelNy().equals("0") || vo.getDelNy().equals("")) {
 			//	insert
 		} else {
-			model.addAttribute("item", service.selectOne(vo));
+			model.addAttribute("item", codeGroupService.selectOne(vo));
 		}
-		return "xdm/code/codeXdmForm";
+		return "xdm/codeGroupXdm/codeGroupXdmForm";
 	}
 	
 	@RequestMapping(value = "/xdm/codeGroup/codeGroupXdmForm")
@@ -116,7 +116,7 @@ public class CodeGroupController {
 //			insert mode
 		} else {
 //			update mode
-			model.addAttribute("item", service.selectOne(vo));
+			model.addAttribute("item", codeGroupService.selectOne(vo));
 		}
 		return "xdm/codeGroup/codeGroupXdmForm";
 	}

@@ -54,14 +54,14 @@
               <p>FreshCart에 오신걸 환영합니다!</p>
             </div>
 
-            <form class="needs-validation" novalidate>
+            <form class="needs-validation" novalidate method="post">
               <div class="row g-3">
                 <!-- row -->
 
                 <div class="col-12">
                   <!-- input -->
                   <label for="formSigninEmail" class="form-label visually-hidden">Email address</label>
-                  <input type="text" class="form-control" id="id" name="id" placeholder="Email" required />
+                  <input type="text" class="form-control" id="id" name="id" placeholder="Email" required/>
                   <div class="invalid-feedback">Please enter name.</div>
                 </div>
                 <div class="col-12">
@@ -89,7 +89,7 @@
                   </div>
                 </div>
                 <!-- btn -->
-                <div class="col-12 d-grid"><button class="btn btn-primary w-100 mb-3" id="buttonSignIn" onclick="loginLogic()">로그인</button></div>
+                <div class="col-12 d-grid"><button class="btn btn-primary w-100 mb-3" id="buttonSignIn" type="button">로그인</button></div>
                 <!-- link -->
                 <div>
                   아이디가 없으신가요?
@@ -285,7 +285,7 @@
   <script>
   document.getElementById("buttonSignIn").onclick = function () {
 	loginLogic();
-
+	
 	}
   </script>
 <script>

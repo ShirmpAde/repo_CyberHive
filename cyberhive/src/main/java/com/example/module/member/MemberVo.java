@@ -15,6 +15,13 @@ public class MemberVo {
 	private int startRnumForMysql = 0;							// 쿼리 시작 row
 	private int delNy;
 	private String seq;
+	private int shDelNy;
+	private int shUseNy;
+	private int shOptionDate;
+	private String shDateStart;
+	private String shDateEnd;
+	private int shOption;
+	private String shValue;
 	
 	public void setParamsPaging(int totalRows) {
 //		setThisPage(3);
@@ -50,7 +57,6 @@ public class MemberVo {
 		}
 	}
 //	-----
-
 	public int getThisPage() {
 		return thisPage;
 	}
@@ -131,6 +137,60 @@ public class MemberVo {
 		this.seq = seq;
 	}
 	
+	public int getShDelNy() {
+		return shDelNy;
+	}
+	
+	public void setShDelNy(int shDelNy) {
+		this.shDelNy = shDelNy;
+	}
+	
+	public int getShUseNy() {
+		return shUseNy;
+	}
+	
+	public void setShUseNy(int shUseNy) {
+		this.shUseNy = shUseNy;
+	}
+	
+	public int getShOptionDate() {
+		return shOptionDate;
+	}
+	
+	public void setShOptionDate(int shOptionDate) {
+		this.shOptionDate = shOptionDate;
+	}
+	
+	public String getShDateStart() {
+		return shDateStart;
+	}
+	
+	public void setShDateStart(String shDateStart) {
+		this.shDateStart = shDateStart;
+	}
+	
+	public String getShDateEnd() {
+		return shDateEnd;
+	}
+	
+	public void setShDateEnd(String shDateEnd) {
+		this.shDateEnd = shDateEnd;
+	}
+	
+	public int getShOption() {
+		return shOption;
+	}
+	
+	public void setShOption(int shOption) {
+		this.shOption = shOption;
+	}
+	
+	public String getShValue() {
+		return shValue;
+	}
+	
+	public void setShValue(String shValue) {
+		this.shValue = shValue;
+	}
 	
 }
-

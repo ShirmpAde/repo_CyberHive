@@ -714,23 +714,63 @@
                      <div class="card h-100 card-lg">
                         <div class="p-6">
                            <div class="row justify-content-between">
-                              <div class="col-md-4 col-12 mb-2 mb-md-0">
+                              <div class="col-md-10 col-12 mb-2 mb-md-0">
                                  <!-- form -->
                                  <form class="d-flex" role="search" name="formList" method="post">
                                  <input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
-		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
-                                    <input class="form-control" type="search" placeholder="Search" aria-label="Search" />
+								 <input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
+									<!-- select -->
+									<div class="col-md-2">
+									<select id="shDelNy" name="shDelNy" class="form-select form-select-sm">
+										<option value="" th:selected="${vo.shDelNy == null}">삭제여부</option>
+										<option value="1" th:selected="${vo.shDelNy == 1}">Y</option>
+										<option value="0" th:selected="${vo.shDelNy == 0}">N</option>            
+									</select>
+                                 	</div>
+                             		<div class="col-md-2">
+									<select name="shUseNy" id="shUseNy" class="form-select form-select-sm">
+										<option value="" th:selected="${vo.shUseNy == null}">사용여부</option>
+										<option value="1" th:selected="${vo.shUseNy == 1}">Y</option>
+										<option value="0" th:selected="${vo.shUseNy == 0}">N</option>
+									</select>
+                                 	</div>
+<!--                                  	<div class="col-md-2"> -->
+<!-- 										<select id="shOptionDate" name="shOptionDate" class="form-select form-select-sm"> -->
+<!-- 											<option value="" th:selected="${vo.shOptionDate == null}">날짜</option> -->
+<!-- 											<option value="1" th:selected="${vo.shOptionDate == 1}">등록일</option> -->
+<!-- 											<option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option> -->
+<!-- 										</select> -->
+<!--                                  	</div> -->
+<!--                                 	<div class="col-md-2"> -->
+<!--                                     <input type="text" id="shDateStart" name="shDateStart" th:value="${#strings.substring(vo.shDateStart, 0, 10)}" placeholder="시작일" class="form-control form-control-sm" autocomplete="off"> -->
+<!--                                     </div> -->
+<!--                                     <div class="col-md-2"> -->
+<!--                                    <input type="text" id="shDateEnd" name="shDateEnd" th:value="${#strings.substring(vo.shDateEnd, 0, 10)}" placeholder="종료일" class="form-control form-control-sm" autocomplete="off"> -->
+<!--                                     </div> -->
                               </div>
-                              <div class="col-lg-2 col-md-4 col-12">
-                                 <!-- select -->
-                                 <select class="form-select">
-                                    <option selected>Status</option>
-                                    <option value="Success">Success</option>
-                                    <option value="Pending">Pending</option>
-                                    <option value="Cancel">Cancel</option>
-                                 </select>
+                           <div class="row justify-content-start">
+                              <div class="col-md-10 col-12 mb-2 mb-md-0">
+                              	<div class="d-flex align-items-center gap-2">
+                              	<div class="col-md-2">
+									<select id="shOption" name="shOption" class="form-select form-select-sm">
+										<option value="" th:selected="${vo.shOption == null}">검색구분</option>
+										<option value="1" th:selected="${vo.shOption == 1}">name</option>
+<!-- 										<option value="3" th:selected="${vo.shOption == 3}">코드그룹 이름 (영문)</option> -->
+<!-- 										<option value="4" th:selected="${vo.shOption == 4}">코드</option> -->
+<!-- 										<option value="5" th:selected="${vo.shOption == 5}">코드 이름</option> -->
+<!-- 										<option value="6" th:selected="${vo.shOption == 6}">코드 이름 (영문)</option> -->
+									</select>
+                                 	</div>
+                                 	<div class="col-md-2">
+						                <input type="text" id="shValue" name="shValue" th:value="${vo.shValue}" onkeyup="enterkey()" placeholder="검색어" class="form-control form-control-sm">
+						            </div>
+						            <div class="col-md-2">
+                                     <button type="button" id="btnSearch" class="btn btn-outline-dark"><i class="bi bi-search"></i></button>
+                                     <button  type="button" id="btnReset" class="btn btn-outline-dark"><i class="bi bi-arrow-clockwise"></i></button>
+                                     </div>
                               </div>
                            </div>
+                        </div>
                         </div>
                         <!-- card body -->
                         <div class="card-body p-0">
@@ -748,8 +788,7 @@
                                        <th>seq</th>
                                        <th>name</th>
                                        <th>delNy</th>
-                                       <th>gender</th>
-                                       <th>telecom</th>
+                                       <th>useNy</th>
                                        <th>codeGroup_seq</th>
                                        <th></th>
                                    	   </tr>
@@ -765,8 +804,7 @@
 						                <td th:text="${code.seq}"></td>
 						                <td th:text="${code.name}"></td>
 						                <td th:text="${code.delNy}"></td>
-						                <td th:text="${code.gender}"></td>
-						                <td th:text="${code.telecom}"></td>
+						                <td th:text="${code.useNy}"></td>
 						                <td th:text="${code.codeGroup_seq}"></td>
 						                <td>
 						                	<div class="dropdown">
@@ -816,6 +854,7 @@
          </main>
       </div>
 </form>
+<script src="/xdm/jquery/jquery-3.7.1.min.js"></script>
       <!-- Libs JS -->
 <!-- <script src="/xdm/template/admin_ui/libs/jquery/dist/jquery.min.js"></script> -->
 <script src="/xdm/template/admin_ui/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -823,8 +862,24 @@
 
 <!-- Theme JS -->
 <script src="/xdm/template/admin_ui/js/theme.min.js"></script>
-<script>
+<script type="text/javascript">
 let form = document.querySelector("form[name=formList]");
+let seq = document.querySelector("input[name=seq]");
+
+document.getElementById("btnForm").onclick = function () {
+    goForm(0);
+}
+
+goForm = function (keyValue) {
+    seq.value = keyValue;
+    form.action = goUrlXdmForm;
+    form.submit();
+
+document.getElementById("btnSearch").onclick = function () {
+  	form.action = "/xdm/code/codeXdmList";
+  	form.submit();
+	}
+
 goList = function (thisPage) {
     document.querySelector("input[name=thisPage]").value = thisPage;
     form.action = "/xdm/code/codeXdmList";

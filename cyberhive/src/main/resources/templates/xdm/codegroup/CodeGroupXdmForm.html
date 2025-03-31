@@ -20,11 +20,7 @@
 <table>
 <form action="/xdm/codeGroup/codeGroupXdmInst" method="post" id="form">
 	seq: <input type="text" id="seq" name="seq" th:value="${item?.seq}" maxlength="20" placeholder="자동생성" disabled class="form-control"/>
-	num: <input type="text" name="num" id="num" placeholder="무슨 숫자"/>	
-	defaultNum: <input type="text" name="defaultNum" id="defaultNum" placeholder="이름을 입력"/>
 	name: <input type="text" name="name" id="name" placeholder="이름을 입력"/>
-	nameEng: <input type="text" name="nameEng" id="nameEng" placeholder="이름을 입력"/>
-	count: <input type="text" name="count" id="count" placeholder="이름을 입력"/>
 	delNy: <input type="text" name="delNy" id="delNy" placeholder="이름을 입력"/>
 	regDate: <input type="text" name="regDate" id="regDate" placeholder="이름을 입력"/>
 	modDate: <input type="text" name="modDate" id="modDate" placeholder="이름을 입력"/>
@@ -54,23 +50,23 @@
   </div>
 </div>
 <script>
-let seq = document.querySelector("input[name=ifcgSeq]");							/* ### */
+</script>
+<script type="text/javascript">
+
+let seq = document.querySelector("input[name=seq]");							/* ### */
 
 function validationInst() {
     if(validationUpdt() == false) return false;
 }
 
 function validationUpdt() {
-		if(!checkOnlyEnglishNumber('ifcgSeqAnother', 2, 1, "코드그룹 코드 (Another)는 영대소문자, 숫자만 입력 가능합니다.")) return false;
+		if(!checkOnlyEnglishNumber('seqAnother', 2, 1, "코드그룹 코드 (Another)는 영대소문자, 숫자만 입력 가능합니다.")) return false;
 
 }
-</script>
-<script type="text/javascript">
 
-	var a = 1;
-	
-	//alert(a);
-	//alert("a");
+// 	var a = 1;
+// 	alert(a);
+// 	alert("a");
 	
 	let name = document.getElementById("name");
 	
@@ -148,6 +144,17 @@ function validationUpdt() {
 		
 	document.getElementById("modal").style.display = "none";
 	}
+	
+let seq = document.querySelector("input[name=ifcgSeq]");							/* ### */
+
+function validationInst() {
+    if(validationUpdt() == false) return false;
+}
+
+function validationUpdt() {
+		if(!checkOnlyEnglishNumber('ifcgSeqAnother', 2, 1, "코드그룹 코드 (Another)는 영대소문자, 숫자만 입력 가능합니다.")) return false;
+
+}
 	/* document.getElementById("btnSave").onclick = function() {
 		alert("asdfasdf");
 	} */
@@ -156,17 +163,5 @@ function validationUpdt() {
 // 		alert("name");
 // 	}
 </script>
-<!-- <script> -->
-// let seq = document.querySelector("input[name=ifcgSeq]");							/* ### */
-
-// function validationInst() {
-//     if(validationUpdt() == false) return false;
-// }
-
-// function validationUpdt() {
-// 		if(!checkOnlyEnglishNumber('ifcgSeqAnother', 2, 1, "코드그룹 코드 (Another)는 영대소문자, 숫자만 입력 가능합니다.")) return false;
-
-// }
-<!-- </script> -->
 </body>
 </html>

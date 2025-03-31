@@ -19,6 +19,7 @@
 
 <!-- Theme CSS -->
 <link rel="stylesheet" href="/xdm/template/admin_ui/css/theme.min.css">
+<link rel="stylesheet" type="text/css" href="/xdm/jquery/datetimepicker-master/jquery.datetimepicker.css"/ >
    </head>
 
    <body>
@@ -141,7 +142,7 @@
 
 						<div class="dropdown-menu dropdown-menu-end p-0">
 							<div class="lh-1 px-5 py-4 border-bottom">
-								<h5 class="mb-1 h6">FreshCart Admin</h5>
+								<h5 class="mt-2 text-black">[[${session.sessNameXdm}]]</h5>
 								<small>admindemo@email.com</small>
 							</div>
 
@@ -157,9 +158,7 @@
 									<a class="dropdown-item" href="#!">Settings</a>
 								</li>
 							</ul>
-							<div class="border-top px-5 py-3">
-								<a href="#">Log Out</a>
-							</div>
+							<div class="px-3"> <a id="btnSignout" class="btn btn-phoenix-secondary d-flex flex-center w-100" href="javascript:void(0);"> <span class="me-2" data-feather="log-out"> </span>Sign out</a></div>
 						</div>
 					</li>
 				</ul>
@@ -720,36 +719,55 @@
                                  <input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
 								 <input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
 									<!-- select -->
-									<select class="form-select me-2">
-                                    	<option selected>N</option>
-                                    	<option value="Y">Y</option>
-                                 	</select>
-									<select class="form-select me-2">
-                                    	<option selected>Y</option>
-                                    	<option value="N">N</option>
-                                 	</select>
-									<select class="form-select me-2">
-                                    	<option selected>날짜</option>
-                                    	<option value="N">등록일</option>
-                                    	<option value="N">수정일</option>
-                                 	</select>
-                                    <input class="form-control me-2" type="search" placeholder="2025-01-05" aria-label="Search" />
-                                    <input class="form-control" type="search" placeholder="2025-02-04" aria-label="Search" />
+									<div class="col-md-2">
+									<select id="shDelNy" name="shDelNy" class="form-select form-select-sm">
+										<option value="" th:selected="${vo.shDelNy == null}">삭제여부</option>
+										<option value="1" th:selected="${vo.shDelNy == 1}">Y</option>
+										<option value="0" th:selected="${vo.shDelNy == 0}">N</option>            
+									</select>
+                                 	</div>
+                             		<div class="col-md-2">
+									<select name="shUseNy" id="shUseNy" class="form-select form-select-sm">
+										<option value="" th:selected="${vo.shUseNy == null}">사용여부</option>
+										<option value="1" th:selected="${vo.shUseNy == 1}">Y</option>
+										<option value="0" th:selected="${vo.shUseNy == 0}">N</option>
+									</select>
+                                 	</div>
+<!--                                  	<div class="col-md-2"> -->
+<!-- 										<select id="shOptionDate" name="shOptionDate" class="form-select form-select-sm"> -->
+<!-- 											<option value="" th:selected="${vo.shOptionDate == null}">날짜</option> -->
+<!-- 											<option value="1" th:selected="${vo.shOptionDate == 1}">등록일</option> -->
+<!-- 											<option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option> -->
+<!-- 										</select> -->
+<!--                                  	</div> -->
+<!--                                 	<div class="col-md-2"> -->
+<!--                                     <input type="text" id="shDateStart" name="shDateStart" th:value="${#strings.substring(vo.shDateStart, 0, 10)}" placeholder="시작일" class="form-control form-control-sm" autocomplete="off"> -->
+<!--                                     </div> -->
+<!--                                     <div class="col-md-2"> -->
+<!--                                    <input type="text" id="shDateEnd" name="shDateEnd" th:value="${#strings.substring(vo.shDateEnd, 0, 10)}" placeholder="종료일" class="form-control form-control-sm" autocomplete="off"> -->
+<!--                                     </div> -->
                               </div>
                            <div class="row justify-content-start">
-                              <div class="col-md-5 col-12 mb-2 mb-md-0 mt-3">
+                              <div class="col-md-10 col-12 mb-2 mb-md-0">
                               	<div class="d-flex align-items-center gap-2">
-									<select class="form-select me-2">
-                                    	<option selected>검색구분</option>
-                                    	<option value="Y">코드그룹</option>
-                                 	</select>
-                                    <input class="form-control" type="search" placeholder="검색어" aria-label="Search" />
-                                     <button class="btn btn-primary" type="button">
-                                         <img src="/xdm/template/admin_ui/images/search.svg" alt="이미지 설명">            
-                                     </button>
-                                     <button class="btn btn-primary" type="button">
-                                         <img src="/xdm/template/admin_ui/images/rotate-cw.svg" alt="이미지 설명">            
-                                     </button>
+                              	<div class="col-md-2">
+									<select id="shOption" name="shOption" class="form-select form-select-sm">
+										<option value="" th:selected="${vo.shOption == null}">검색구분</option>
+										<option value="1" th:selected="${vo.shOption == 1}">id</option>
+										<option value="2" th:selected="${vo.shOption == 2}">name</option>
+<!-- 										<option value="3" th:selected="${vo.shOption == 3}">코드그룹 이름 (영문)</option> -->
+<!-- 										<option value="4" th:selected="${vo.shOption == 4}">코드</option> -->
+<!-- 										<option value="5" th:selected="${vo.shOption == 5}">코드 이름</option> -->
+<!-- 										<option value="6" th:selected="${vo.shOption == 6}">코드 이름 (영문)</option> -->
+									</select>
+                                 	</div>
+                                 	<div class="col-md-2">
+						                <input type="text" id="shValue" name="shValue" th:value="${vo.shValue}" onkeyup="enterkey()" placeholder="검색어" class="form-control form-control-sm">
+						            </div>
+						            <div class="col-md-2">
+                                     <button type="button" id="btnSearch" class="btn btn-outline-dark"><i class="bi bi-search"></i></button>
+                                     <button  type="button" id="btnReset" class="btn btn-outline-dark"><i class="bi bi-arrow-clockwise"></i></button>
+                                     </div>
                               </div>
                            </div>
                         </div>
@@ -841,8 +859,46 @@
          </main>
       </div>
 </form>
+<script src="/xdm/jquery/jquery-3.7.1.min.js"></script>
+<script src="/xdm/jquery/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
+<!-- Libs JS -->
+<!-- <script src="/xdm/template/admin_ui/libs/jquery/dist/jquery.min.js"></script> -->
+<script src="/xdm/template/admin_ui/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/xdm/template/admin_ui/libs/simplebar/dist/simplebar.min.js"></script>
+
+<!-- Theme JS -->
+<script src="/xdm/template/admin_ui/js/theme.min.js"></script>
 <script>
+  function logoutLogic (){
+$("#btnSignout").on("click", function(){
+	$.ajax({
+		async: true 
+		,cache: false
+		,type: "post"
+		,url: "/xdm/member/signoutXdmProc"
+		,data: {}
+		,success: function(response) {
+			if(response.rt == "success") {
+				location.href = "/xdm/member/signinXdmForm";
+			} else {
+				// by pass
+			}
+		}
+		,error : function(jqXHR, textStatus, errorThrown){
+			alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+		}
+	});
+});
+  document.getElementById("btnSignout").onclick = function () {
+	logoutLogic();
+
+	}
+  
+</script>
+<script type="text/javascript">
+let form = document.querySelector("form[name=formList]");
 let seq = document.querySelector("input[name=seq]");
+
 document.getElementById("btnForm").onclick = function () {
     goForm(0);
 }
@@ -852,22 +908,42 @@ goForm = function (keyValue) {
     form.action = goUrlXdmForm;
     form.submit();
 }
-</script>
-<!-- Libs JS -->
-<!-- <script src="/xdm/template/admin_ui/libs/jquery/dist/jquery.min.js"></script> -->
-<script src="/xdm/template/admin_ui/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/xdm/template/admin_ui/libs/simplebar/dist/simplebar.min.js"></script>
-
-<!-- Theme JS -->
-<script src="/xdm/template/admin_ui/js/theme.min.js"></script>
-<script>
-let form = document.querySelector("form[name=formList]");
+document.getElementById("btnSearch").onclick = function () {
+  	form.action = "/xdm/member/memberXdmList";
+  	form.submit();
+	}
 goList = function (thisPage) {
     document.querySelector("input[name=thisPage]").value = thisPage;
     form.action = "/xdm/member/memberXdmList";
     form.submit();
 }
-</script>
 
+
+</script>
+<script type="text/javascript">
+jQuery("#datetimepicker").datetimepicker({
+	i18n:{
+		  de:{
+		   months:[
+		    'Januar','Februar','März','April',
+		    'Mai','Juni','Juli','August',
+		    'September','Oktober','November','Dezember',
+		   ],
+		   dayOfWeek:[
+		    "So.", "Mo", "Di", "Mi",
+		    "Do", "Fr", "Sa.",
+		   ]
+		  }
+		 },
+		 timepicker:false,
+		 format:'d.m.Y'
+});
+}
+
+jQuery("#datetimepicker2").datetimepicker({
+	datepicker:false,
+	format:'H:i'
+});
+</script>
    </body>
 </html>
