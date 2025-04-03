@@ -16,145 +16,144 @@
 <!-- Theme CSS -->
 <link rel="stylesheet" href="/xdm/template/admin_ui/css/theme.min.css">
 </head>
+
 <body>
-<table>
-<form action="/xdm/codeGroup/codeGroupXdmInst" method="post" id="form">
-	seq: <input type="text" id="seq" name="seq" th:value="${item?.seq}" maxlength="20" placeholder="자동생성" disabled class="form-control"/>
-	name: <input type="text" name="name" id="name" placeholder="이름을 입력"/>
-	delNy: <input type="text" name="delNy" id="delNy" placeholder="이름을 입력"/>
-	regDate: <input type="text" name="regDate" id="regDate" placeholder="이름을 입력"/>
-	modDate: <input type="text" name="modDate" id="modDate" placeholder="이름을 입력"/>
-	<!-- Button trigger modal -->	
-	<button type="button" id="btnSave" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#btnSave">
-	  저장
-	</button>
-	<button type="button" id="btnSubmit" class="btn btn-primary btn_custom"><i class="fa-solid fa-database fa-lg"></i></button>
-</form>
-</table>
-<div th:replace="~{xdm/codegroup/codeGroupXdmVo :: vo}"></div>
-<div class="modal" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" id="close" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-<script>
-</script>
+<section class="section">
+	<div class="row">
+	 <div class="col-lg-12">
+     	<div class="card" >
+        	<div class="card-body">
+              <h1 class="card-title" style="height: 100px;" >기본정보</h1>
+              
+             <!-- Validation --> 
+			<form  class="row g-3" method="post" id="form">
+			 <div class="col-md-3">
+			 	<input type="hidden" name="seq" th:value="${item?.seq}"/>
+			 	<input type="hidden" name="updtDate" />	               		
+               	<label for="cdgcode" class="form-label">코드그룹 코드 <sup>*</sup></label>
+			 	<input type="text" class="form-control" id ="seq" value="" placeholder="자동생성" disabled th:value="${item?.seq}"/>
+			 </div>
+			 <div class="col-md-3">
+			 	<label for="name" class="form -label">코드그룹 이름 <sup>*</sup></label>
+			 	<input type="text" class="form-control" name="name" id="name" placeholder="이름을 입력" th:value="${item?.name}"/>
+			 </div>
+			 <div class="col-md-3">
+			 	<label for="delNy" class="form -label">delNy <sup>*</sup></label>
+			 	<input type="text" class="form-control" name="delNy" id="delNy" placeholder="숫자를 입력"/>
+			 </div>
+			 <div class="col-md-3">
+			 	<label for="regDate" class="form -label">regDate <sup>*</sup></label>
+			 	<input type="text"  class="form-control" name="regDate" id="regDate" placeholder="날짜를 입력"/>
+			 </div>
+			 <div class="col-md-3">
+			 	<label for="modDate" class="form -label">modDate <sup>*</sup></label>
+			 	<input type="text" class="form-control" name="modDate" id="modDate" placeholder="날짜를 입력"/>
+			 </div>
+			<!-- Button trigger modal -->
+			<div class="col-md-6"></div>
+			<div class="col-md-6">
+				<a href="/xdm/codeGroup/codeGroupXdmList" class="btn btn-outline-dark"><i class="bi bi-blockquote-right"></i></a>
+				<button class="btn btn-danger">X</button>
+                <button type="button" class="btn btn-danger" id="btnUelete" ><i class="bi bi-trash"></i></button>
+			</div>
+			<div class="col-md-6">
+				<div style="disaplay: flex;justify-content: end;"><button class="btn btn-primary" id="btnSubmit"><i class="bi bi-server"></i></button></div>
+				</div>
+		</form>
+			</div>
+	   	</div>
+<!-- <div th:replace="~{xdm/codegroup/codeGroupXdmVo :: vo}"></div> -->
+<!-- <div class="modal" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true"> -->
+<!--   <div class="modal-dialog"> -->
+<!--     <div class="modal-content"> -->
+<!--       <div class="modal-header"> -->
+<!--         <h5 class="modal-title">Modal title</h5> -->
+<!--         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+<!--       </div> -->
+<!--       <div class="modal-body"> -->
+<!--         <p>Modal body text goes here.</p> -->
+<!--       </div> -->
+<!--       <div class="modal-footer"> -->
+<!--         <button type="button" class="btn btn-secondary" id="close" data-bs-dismiss="modal">Close</button> -->
+<!--         <button type="button" class="btn btn-primary">Save changes</button> -->
+<!--       </div> -->
+<!--     </div> -->
+<!--   </div> -->
+<!-- </div> -->
+	  </div>
+     </div>
+ </div>
+</section>
+<script src="/xdm/jquery/jquery-3.7.1.min.js"></script>
+<script src="/xdm/jquery/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
+<!-- Libs JS -->
+<!-- <script src="/xdm/template/admin_ui/libs/jquery/dist/jquery.min.js"></script> -->
+<script src="/xdm/template/admin_ui/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/xdm/template/admin_ui/libs/simplebar/dist/simplebar.min.js"></script>
+
+<!-- Theme JS -->
+<script src="/xdm/template/admin_ui/js/theme.min.js"></script>
+
 <script type="text/javascript">
+	let seq = document.querySelector("input[name=seq]");
+	let form = document.querySelector("form[name=form]");
 
-let seq = document.querySelector("input[name=seq]");							/* ### */
+	function validationInst() {
+	    if(validationUpdt() == false) return false;
+	}
 
-function validationInst() {
-    if(validationUpdt() == false) return false;
-}
-
-function validationUpdt() {
-		if(!checkOnlyEnglishNumber('seqAnother', 2, 1, "코드그룹 코드 (Another)는 영대소문자, 숫자만 입력 가능합니다.")) return false;
-
-}
-
-// 	var a = 1;
-// 	alert(a);
-// 	alert("a");
-	
-	let name = document.getElementById("name");
-	
-	document.getElementById("btnSave").onclick = function() {
-		var regExp = /^[ㄱ-ㅎ가-힣0-9]$/
-		
-		if(!regExp.text(document.getElementById("num").value.trim())){
-			
-			alert("한글과 숫자로 넣어라 이놈아!");
+	function validationUpdt() {
+		if(document.getElementById("name").value.trim() == null || document.getElementById("cdgName").value.trim() == "") {
+			alertModal()
 			document.getElementById("name").focus();
 			return false;
 		}
-		
-// 		if (document.getElementById("num").value.trim() == null || document.getElementById("num").value.trim() == "") {
-		    
-// 			document.getElementById("modal").style.display = "block";
-// 		    document.getElementById("num").focus();
-// 		    return false;
-// 		} 
-		
-		if(document.getElementById("defaultNum").value.trim() == null || document.getElementById("defaultNum").value.trim() == ""){
-			
-			alert("이름을 입력하세요2.");
-			document.getElementById("defaultNum").focus();
-			return false;
+	}
+	
+	document.getElementById("btnSubmit").onclick = function () {
+		if(seq.value == "0" || seq.value == "") {
+			if(validationInst() == false) return false;
+			form.action = "/xdm/codeGroup/codeGroupXdmInst";
+			form.submit();
+		} else {
+			if(validationUpdt() == false) return false;
+// 			alert(new Date());
+			form.action = "/xdm/codeGroup/codeGroupXdmUpdt";
+			form.submit();
 		}
-		
-		if(document.getElementById("name").value.trim() == null || document.getElementById("name").value.trim() == ""){
-			
-			alert("이름을 입력하세요3.");
+	}
+	
+	function alertModal() {
+		document.querySelector("#modalAlertTitle").textContent = "입력오류";
+		document.querySelector("#modalAlertBody").textContent = "형식에 맞는 값을 입력해주세요";
+		$("#modalAlert").modal("show");
+	}
+	
+	document.getElementById("btnUelete").onclick = function () {
+		document.querySelector("#modalAlertTitle").textContent = "확 인";
+		document.querySelector("#modalConfirmBody").textContent = "해당 데이터를 삭제하시겠습니까 ?";
+		document.querySelector("#btnModalUelete").style.display = '';
+		document.querySelector("#btnModalDelete").style.display = 'none';
+		document.getElementById("modalConfirm").style.display = 'block';
+		$("#modalConfirm").modal("show");
+	}
+	
+	document.getElementById("btnModalUelete").onclick = function () {
+		form.action = "/xdm/codeGroup/codeGroupXdmUele";
+		form.submit();
+	}
+	
+	document.getElementById("closeModal").onclick = function() {
+		if(document.getElementById("name").value.trim() == null || document.getElementById("cdgName").value.trim() == "") {
 			document.getElementById("name").focus();
 			return false;
 		}
-		
-		if(document.getElementById("nameEng").value.trim() == null || document.getElementById("nameEng").value.trim() == ""){
-			
-			alert("이름을 입력하세요4.");
-			document.getElementById("nameEng").focus();
-			return false;
-		}
-		
-		if(document.getElementById("count").value.trim() == null || document.getElementById("count").value.trim() == ""){
-			
-			alert("이름을 입력하세요5.");
-			document.getElementById("count").focus();
-			return false;
-		}
-		
-		if(document.getElementById("delNy").value.trim() == null || document.getElementById("delNy").value.trim() == ""){
-			
-			alert("이름을 입력하세요6.");
-			document.getElementById("delNy").focus();
-			return false;
-		}
-		
-		if(document.getElementById("count").value.trim() == null || document.getElementById("regDate").value.trim() == ""){
-			
-			alert("이름을 입력하세요7.");
-			document.getElementById("regDate").focus();
-			return false;
-		}
-		
-		if(document.getElementById("modDate").value.trim() == null || document.getElementById("modDate").value.trim() == ""){
-			
-			alert("이름을 입력하세요8.");
-			document.getElementById("modDate").focus();
-			return false;
-		}
-		
-		document.getElementById("form").submit();
 	}
 	
-	
-	document.getElementById("close").onclick = function() {
-		
-	document.getElementById("modal").style.display = "none";
+	document.getElementById("savechanges").onclick = function() {
+		alert("savechanges");
 	}
 	
-let seq = document.querySelector("input[name=ifcgSeq]");							/* ### */
-
-function validationInst() {
-    if(validationUpdt() == false) return false;
-}
-
-function validationUpdt() {
-		if(!checkOnlyEnglishNumber('ifcgSeqAnother', 2, 1, "코드그룹 코드 (Another)는 영대소문자, 숫자만 입력 가능합니다.")) return false;
-
-}
 	/* document.getElementById("btnSave").onclick = function() {
 		alert("asdfasdf");
 	} */

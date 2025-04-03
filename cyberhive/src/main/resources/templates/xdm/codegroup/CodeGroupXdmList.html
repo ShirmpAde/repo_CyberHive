@@ -19,6 +19,7 @@
 
 <!-- Theme CSS -->
 <link rel="stylesheet" href="/xdm/template/admin_ui/css/theme.min.css">
+<link rel="stylesheet" type="text/css" href="/xdm/jquery/datetimepicker-master/jquery.datetimepicker.css"/ >
    </head>
 
    <body>
@@ -718,6 +719,7 @@
                                  <!-- form -->
                                   <form class="d-flex" role="search" name="formList" method="post">
                                  <input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
+                                 <input type="hidden" name="seq" th:value="${item?.seq}">
 								 <input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
 									<!-- select -->
 									<div class="col-md-2">
@@ -734,19 +736,19 @@
 										<option value="0" th:selected="${vo.shUseNy == 0}">N</option>
 									</select>
                                  	</div>
-<!-- 									<div class="col-md-2"> -->
-<!-- 										<select id="shOptionDate" name="shOptionDate" class="form-select form-select-sm"> -->
-<!-- 											<option value="" th:selected="${vo.shOptionDate == null}">날짜</option> -->
-<!-- 											<option value="1" th:selected="${vo.shOptionDate == 1}">등록일</option> -->
-<!-- 											<option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option> -->
-<!-- 										</select> -->
-<!--                                  	</div> -->
-<!--                                 	<div class="col-md-2"> -->
-<!--                                     <input type="text" id="shDateStart" name="shDateStart" th:value="${#strings.substring(vo.shDateStart, 0, 10)}" placeholder="시작일" class="form-control form-control-sm" autocomplete="off"> -->
-<!--                                     </div> -->
-<!--                                     <div class="col-md-2"> -->
-<!--                                    <input type="text" id="shDateEnd" name="shDateEnd" th:value="${#strings.substring(vo.shDateEnd, 0, 10)}" placeholder="종료일" class="form-control form-control-sm" autocomplete="off"> -->
-<!--                                     </div> -->
+									<div class="col-md-2">
+										<select id="shOptionDate" name="shOptionDate" class="form-select form-select-sm">
+											<option value="" th:selected="${vo.shOptionDate == null}">날짜</option>
+											<option value="1" th:selected="${vo.shOptionDate == 1}">등록일</option>
+											<option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option>
+										</select>
+                                 	</div>
+                                	<div class="col-md-2">
+                                    <input type="text" id="shDateStart" name="shDateStart" placeholder="시작일" class="form-control form-control-sm" autocomplete="off">
+                                    </div>
+                                    <div class="col-md-2">
+                                   <input type="text" id="shDateEnd" name="shDateEnd" placeholder="종료일" class="form-control form-control-sm" autocomplete="off">
+                                    </div>
                               </div>
                            <div class="row justify-content-start">
                               <div class="col-md-10 col-12 mb-2 mb-md-0">
@@ -862,6 +864,7 @@
       </div>
 </form>
 <script src="/xdm/jquery/jquery-3.7.1.min.js"></script>
+<script src="/xdm/jquery/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
 <!-- Libs JS -->
 <!-- <script src="/xdm/template/admin_ui/libs/jquery/dist/jquery.min.js"></script> -->
 <script src="/xdm/template/admin_ui/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -870,8 +873,8 @@
 <!-- Theme JS -->
 <script src="/xdm/template/admin_ui/js/theme.min.js"></script>
 <script type="text/javascript">
-let form = document.querySelector("form[name=formList]");
 let seq = document.querySelector("input[name=seq]");
+let form = document.querySelector("form[name=formList]");
 
 let goUrlXdmForm = "/xdm/codeGroup/codeGroupXdmForm";
 
@@ -881,7 +884,7 @@ document.getElementById("btnForm").onclick = function () {
 
 goForm = function (keyValue) {
     seq.value = keyValue;
-    form.action = goUrlXdmForm;
+    form.action = "/xdm/codeGroup/codeGroupXdmForm";
     form.submit();
 }
 
@@ -895,10 +898,42 @@ goList = function (thisPage) {
     form.action = "/xdm/codeGroup/codeGroupXdmList";
     form.submit();
 }
-</script>
-<script>
 
-</script>
+jQuery("#shDateStart").datetimepicker({
+	i18n:{
+		  de:{
+		   months:[
+		    'Januar','Februar','März','April',
+		    'Mai','Juni','Juli','August',
+		    'September','Oktober','November','Dezember',
+		   ],
+		   dayOfWeek:[
+		    "So.", "Mo", "Di", "Mi",
+		    "Do", "Fr", "Sa.",
+		   ]
+		  }
+		 },
+		 timepicker:false,
+		 format:'d.m.Y'
+});
 
+jQuery("#shDateEnd").datetimepicker({
+	i18n:{
+		  de:{
+		   months:[
+		    'Januar','Februar','März','April',
+		    'Mai','Juni','Juli','August',
+		    'September','Oktober','November','Dezember',
+		   ],
+		   dayOfWeek:[
+		    "So.", "Mo", "Di", "Mi",
+		    "Do", "Fr", "Sa.",
+		   ]
+		  }
+		 },
+		 timepicker:false,
+		 format:'d.m.Y'
+});
+</script>
    </body>
 </html>

@@ -733,19 +733,19 @@
 										<option value="0" th:selected="${vo.shUseNy == 0}">N</option>
 									</select>
                                  	</div>
-<!--                                  	<div class="col-md-2"> -->
-<!-- 										<select id="shOptionDate" name="shOptionDate" class="form-select form-select-sm"> -->
-<!-- 											<option value="" th:selected="${vo.shOptionDate == null}">날짜</option> -->
-<!-- 											<option value="1" th:selected="${vo.shOptionDate == 1}">등록일</option> -->
-<!-- 											<option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option> -->
-<!-- 										</select> -->
-<!--                                  	</div> -->
-<!--                                 	<div class="col-md-2"> -->
-<!--                                     <input type="text" id="shDateStart" name="shDateStart" th:value="${#strings.substring(vo.shDateStart, 0, 10)}" placeholder="시작일" class="form-control form-control-sm" autocomplete="off"> -->
-<!--                                     </div> -->
-<!--                                     <div class="col-md-2"> -->
-<!--                                    <input type="text" id="shDateEnd" name="shDateEnd" th:value="${#strings.substring(vo.shDateEnd, 0, 10)}" placeholder="종료일" class="form-control form-control-sm" autocomplete="off"> -->
-<!--                                     </div> -->
+                                 	<div class="col-md-2">
+										<select id="shOptionDate" name="shOptionDate" class="form-select form-select-sm">
+											<option value="" th:selected="${vo.shOptionDate == null}">날짜</option>
+											<option value="1" th:selected="${vo.shOptionDate == 1}">등록일</option>
+											<option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option>
+										</select>
+                                 	</div>
+                                	<div class="col-md-2">
+                                    <input type="text" id="shDateStart" name="shDateStart"  placeholder="시작일" class="form-control form-control-sm" autocomplete="off">
+                                    </div>
+                                    <div class="col-md-2">
+                                   <input type="text" id="shDateEnd" name="shDateEnd" placeholder="종료일" class="form-control form-control-sm" autocomplete="off">
+                                    </div>
                               </div>
                            <div class="row justify-content-start">
                               <div class="col-md-10 col-12 mb-2 mb-md-0">
@@ -889,6 +889,7 @@ $("#btnSignout").on("click", function(){
 		}
 	});
 });
+}
   document.getElementById("btnSignout").onclick = function () {
 	logoutLogic();
 
@@ -921,7 +922,7 @@ goList = function (thisPage) {
 
 </script>
 <script type="text/javascript">
-jQuery("#datetimepicker").datetimepicker({
+jQuery("#shDateStart").datetimepicker({
 	i18n:{
 		  de:{
 		   months:[
@@ -938,11 +939,23 @@ jQuery("#datetimepicker").datetimepicker({
 		 timepicker:false,
 		 format:'d.m.Y'
 });
-}
 
-jQuery("#datetimepicker2").datetimepicker({
-	datepicker:false,
-	format:'H:i'
+jQuery("#shDateEnd").datetimepicker({
+	i18n:{
+		  de:{
+		   months:[
+		    'Januar','Februar','März','April',
+		    'Mai','Juni','Juli','August',
+		    'September','Oktober','November','Dezember',
+		   ],
+		   dayOfWeek:[
+		    "So.", "Mo", "Di", "Mi",
+		    "Do", "Fr", "Sa.",
+		   ]
+		  }
+		 },
+		 timepicker:false,
+		 format:'d.m.Y'
 });
 </script>
    </body>

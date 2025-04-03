@@ -7,17 +7,17 @@
 		<sql id="selectCommon">
         FROM codeGroup as a
         WHERE 1=1
-<!--         <if test="shUseNy != null and !shUseNy.equals('')">AND a.useNy = #{shUseNy}</if> -->
-<!--         <if test="shDelNy != null and !shDelNy.equals('')">AND a.delNy = #{shDelNy}</if> -->
-<!-- 				
+		<if test="shuseny != null and !shuseny.equals('')">AND a.useNy = #{shuseny}</if>
+		<if test="shuseny != null and !shuseny.equals('')">AND a.delNy = #{shuseny}</if>
+				
 				<choose>
-					<when test="shOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-					<when test="shOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+					<when test="shOptionDate == 1">AND a.regDateTime between #{shDateStart} AND #{shDateEnd}</when>
+					<when test="shOptionDate == 2">AND a.modDateTime between #{shDateStart} AND #{shDateEnd}</when>
 				</choose>
- -->				
-        <choose>
+
+        	<choose>
             <when test="shOption == 1">AND a.name LIKE CONCAT('%',#{shValue},'%')</when>
-<!--             <when test="shOption == 2">AND a.ifcgNameEng LIKE CONCAT('%',#{shValue},'%')</when> -->
+<when test="shOption == 2">AND a.ifcgNameEng LIKE CONCAT('%',#{shValue},'%')</when>
         </choose>
     </sql>
 	

@@ -17,10 +17,10 @@ public class CodeGroupVo {
 	private String seq;
 	private int shDelNy;
 	private int shUseNy;
-	private int shOptionDate;
+	private Integer shOption;
+	private Integer shOptionDate;
 	private String shDateStart;
 	private String shDateEnd;
-	private int shOption;
 	private String shValue;
 	
 	public void setParamsPaging(int totalRows) {
@@ -162,11 +162,19 @@ public class CodeGroupVo {
 		this.shUseNy = shUseNy;
 	}
 	
-	public int getShOptionDate() {
+	public Integer getShOption() {
+		return shOption;
+	}
+	
+	public void setShOption(Integer shOption) {
+		this.shOption = shOption;
+	}
+	
+	public Integer getShOptionDate() {
 		return shOptionDate;
 	}
 	
-	public void setShOptionDate(int shOptionDate) {
+	public void setShOptionDate(Integer shOptionDate) {
 		this.shOptionDate = shOptionDate;
 	}
 	
@@ -186,13 +194,6 @@ public class CodeGroupVo {
 		this.shDateEnd = shDateEnd;
 	}
 	
-	public int getShOption() {
-		return shOption;
-	}
-	
-	public void setShOption(int shOption) {
-		this.shOption = shOption;
-	}
 	
 	public String getShValue() {
 		return shValue;

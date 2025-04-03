@@ -18,12 +18,16 @@ public class MemberController {
 
 	@RequestMapping(value = "/xdm/member/memberXdmList")
 	public String memberXdmList(Model model, MemberVo vo) throws Exception{
-		
 		vo.setParamsPaging(memberService.seletOneCount());
 		
 		model.addAttribute("list", memberService.selectList(vo));
 		
 		model.addAttribute("vo", vo);
+		System.out.println("vo.getShDateStart(): " + vo.getShDateStart());
+		System.out.println("vo.getShDateEnd(): " + vo.getShDateEnd());
+		System.out.println("vo.getShOptionDate(): " + vo.getShOptionDate());
+		System.out.println("vo.getShOption(): " + vo.getShOption());
+		System.out.println("vo.getShValue(): " + vo.getShValue());
 		
 		return "xdm/member/MemberXdmList";
 	}
