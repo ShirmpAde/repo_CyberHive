@@ -6,22 +6,28 @@
 
 <table>
 	<tr>
-		<th>Seq</th>
-		<th>Name</th>
-		<th>DelNy</th>
+		<th>seq</th>
+		<th>name</th>
+		<th>delNy</th>
+		<th>useNy</th>
+		<th>regDate</th>
+		<th>modDate</th>
 	</tr>
 	<tr>
 		<td th:text="${item.seq}"></td>
 		<td th:text="${item.name}"></td>		
-		<td th:text="${item.DelNy}"></td>		
+		<td th:text="${item.delNy}"></td>		
+		<td th:text="${item.useNy}"></td>		
+		<td th:text="${item.regDate}"></td>		
+		<td th:text="${item.modDate}"></td>		
 	</tr>
 	
 </table>
 
-<a href="/codeGroup/codeGroupXdmList">목록</a>
-<a th:href="@{/codeGroup/codeGroupXdmDele(seq=${item.seq})}" id="delete">삭제</a>
-<a th:href="@{/codeGroup/codeGroupXdmMfom(seq=${item.seq})}">수정</a>
-<a th:href="@{/codeGroup/codeGroupXdmUele(seq=${item.seq})}" id="uelete">업제</a>
+<a href="/xdm/codeGroup/codeGroupXdmList">목록</a>
+<a th:href="@{/xdm/codeGroup/codeGroupXdmDele(seq=${item.seq})}" id="delete">삭제</a>
+<a th:href="@{/xdm/codeGroup/codeGroupXdmMfom(seq=${item.seq})}">수정</a>
+<a th:href="@{/xdm/codeGroup/codeGroupXdmUele(seq=${item.seq})}" id="uelete">업제</a>
 
 <script type="text/javascript">
 

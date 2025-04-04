@@ -20,26 +20,39 @@
 <body>
 <section class="section">
 	<div class="row">
+	
 	 <div class="col-lg-12">
      	<div class="card" >
         	<div class="card-body">
               <h1 class="card-title" style="height: 100px;" >기본정보</h1>
               
              <!-- Validation --> 
-			<form  class="row g-3" method="post" id="form">
+			<form  class="row g-3" method="post" id="form" name="form">
 			 <div class="col-md-3">
 			 	<input type="hidden" name="seq" th:value="${item?.seq}"/>
-			 	<input type="hidden" name="updtDate" />	               		
+			 	<input type="hidden" name="cdupdtDate" />	               		
                	<label for="cdgcode" class="form-label">코드그룹 코드 <sup>*</sup></label>
-			 	<input type="text" class="form-control" id ="seq" value="" placeholder="자동생성" disabled th:value="${item?.seq}"/>
+			 	<input type="text" class="form-control" id ="cdgcode" value="" placeholder="자동생성" disabled th:value="${item?.seq}"/>
 			 </div>
 			 <div class="col-md-3">
 			 	<label for="name" class="form -label">코드그룹 이름 <sup>*</sup></label>
 			 	<input type="text" class="form-control" name="name" id="name" placeholder="이름을 입력" th:value="${item?.name}"/>
 			 </div>
 			 <div class="col-md-3">
-			 	<label for="delNy" class="form -label">delNy <sup>*</sup></label>
-			 	<input type="text" class="form-control" name="delNy" id="delNy" placeholder="숫자를 입력"/>
+			 	<label for="delNy" class="form -label">삭제여부<sup>*</sup></label>
+			 	<select class="form-select" id="delNy" name="delNy" th:selected="${item?.delNy}">
+			 		<option value="">선택해주세요</option>
+			 		<option value="1" th:selected="${item?.delNy == 1}" th:text="사용"></option>
+			 		<option value="0" th:selected="${item?.delNy == 0}" th:text="미사용"></option>
+			 	</select>
+			 </div>
+			 <div class="col-md-3">
+			 	<label for="useNy" class="form -label">사용여부<sup>*</sup></label>
+			 	<select class="form-select" id="useNy" name="useNy" th:selected="${item?.useNy}">
+			 		<option value="">선택해주세요</option>
+			 		<option value="1" th:selected="${item?.useNy == 1}" th:text="사용"></option>
+			 		<option value="0" th:selected="${item?.useNy == 0}" th:text="미사용"></option>
+			 	</select>
 			 </div>
 			 <div class="col-md-3">
 			 	<label for="regDate" class="form -label">regDate <sup>*</sup></label>
@@ -59,30 +72,46 @@
 			<div class="col-md-6">
 				<div style="disaplay: flex;justify-content: end;"><button class="btn btn-primary" id="btnSubmit"><i class="bi bi-server"></i></button></div>
 				</div>
-		</form>
-			</div>
-	   	</div>
-<!-- <div th:replace="~{xdm/codegroup/codeGroupXdmVo :: vo}"></div> -->
-<!-- <div class="modal" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true"> -->
-<!--   <div class="modal-dialog"> -->
-<!--     <div class="modal-content"> -->
-<!--       <div class="modal-header"> -->
-<!--         <h5 class="modal-title">Modal title</h5> -->
-<!--         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
-<!--       </div> -->
-<!--       <div class="modal-body"> -->
-<!--         <p>Modal body text goes here.</p> -->
-<!--       </div> -->
-<!--       <div class="modal-footer"> -->
-<!--         <button type="button" class="btn btn-secondary" id="close" data-bs-dismiss="modal">Close</button> -->
-<!--         <button type="button" class="btn btn-primary">Save changes</button> -->
-<!--       </div> -->
-<!--     </div> -->
-<!--   </div> -->
-<!-- </div> -->
+			</form>
+		</div>
+	</div>
+		<div class="modal fade" id="modalAlert" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="modalAlertTitle">title</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body" id="modalAlertBody">
+		           body
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-outline-secondary btn-sm btn_custom" data-bs-dismiss="modal" id="close">닫힘</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+		<div class="modal fade" id="modalConfirm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="modalAlertTitle">title</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body" id="modalConfirmBody">
+		           body
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="modal">닫힘</button>
+		        <button type="button" class="btn btn-danger" id="btnModalDelete"></button>
+		        <button type="button" class="btn btn-danger" id="btnModalUelete">삭제</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 	  </div>
      </div>
- </div>
 </section>
 <script src="/xdm/jquery/jquery-3.7.1.min.js"></script>
 <script src="/xdm/jquery/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
@@ -103,7 +132,7 @@
 	}
 
 	function validationUpdt() {
-		if(document.getElementById("name").value.trim() == null || document.getElementById("cdgName").value.trim() == "") {
+		if(document.getElementById("name").value.trim() == null || document.getElementById("name").value.trim() == "") {
 			alertModal()
 			document.getElementById("name").focus();
 			return false;

@@ -223,14 +223,14 @@
 					<div id="navCategoriesOrders" class="collapse  show " data-bs-parent="#sideNavbar">
 						<ul class="nav flex-column">
 							<li class="nav-item">
-								<a class="nav-link  active " href="../dashboard/order-list.html">List</a>
+								<a class="nav-link " href="/xdm/code/codeXdmList">코드</a>
 							</li>
 							<!-- Nav item -->
 							<li class="nav-item">
-								<a class="nav-link " href="../dashboard/order-single.html">Single</a>
+								<a class="nav-link " href="/xdm/codeGroup/codeGroupXdmList">코드그룹</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link " href="/xdm/member/MemberXdmList.html">코드</a>
+								<a class="nav-link  active " href="/xdm/member/memberXdmList">회원관리</a>
 							</li>
 						</ul>
 					</div>
@@ -868,7 +868,7 @@
 
 <!-- Theme JS -->
 <script src="/xdm/template/admin_ui/js/theme.min.js"></script>
-<script>
+<script type="text/javascript">
   function logoutLogic (){
 $("#btnSignout").on("click", function(){
 	$.ajax({
@@ -937,7 +937,7 @@ jQuery("#shDateStart").datetimepicker({
 		  }
 		 },
 		 timepicker:false,
-		 format:'d.m.Y'
+		 format:'Y-m-d'
 });
 
 jQuery("#shDateEnd").datetimepicker({
@@ -955,7 +955,7 @@ jQuery("#shDateEnd").datetimepicker({
 		  }
 		 },
 		 timepicker:false,
-		 format:'d.m.Y'
+		 format:'Y-m-d'
 });
 </script>
    </body>

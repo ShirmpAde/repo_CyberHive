@@ -130,4 +130,9 @@ public class MemberController {
 		return returnMap;
 	}
 	
+	
+	@RequestMapping(value = "/xdm/member/signupXdmForm")
+	public String signupXdmForm(MemberVo vo, HttpSession httpSession) throws Exception {
+	    return "xdm/member/signupXdmForm";
+	}
 }

@@ -225,14 +225,14 @@
 					<div id="navCategoriesOrders" class="collapse  show " data-bs-parent="#sideNavbar">
 						<ul class="nav flex-column">
 							<li class="nav-item">
-								<a class="nav-link  active " href="../dashboard/order-list.html">List</a>
+								<a class="nav-link " href="/xdm/code/codeXdmList">코드</a>
 							</li>
 							<!-- Nav item -->
 							<li class="nav-item">
-								<a class="nav-link " href="../dashboard/order-single.html">Single</a>
+								<a class="nav-link  active " href="/xdm/codeGroup/codeGroupXdmList">코드그룹</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link " href="/xdm/codeGroup/CodeGroupXdmList.html">코드</a>
+								<a class="nav-link " href="/xdm/member/memberXdmList">회원관리</a>
 							</li>
 						</ul>
 					</div>
@@ -744,10 +744,10 @@
 										</select>
                                  	</div>
                                 	<div class="col-md-2">
-                                    <input type="text" id="shDateStart" name="shDateStart" placeholder="시작일" class="form-control form-control-sm" autocomplete="off">
+                                    <input type="text" id="shDateStart" name="shDateStart" placeholder="시작일" th:value="${vo.shDateStart}" class="form-control form-control-sm" autocomplete="off">
                                     </div>
                                     <div class="col-md-2">
-                                   <input type="text" id="shDateEnd" name="shDateEnd" placeholder="종료일" class="form-control form-control-sm" autocomplete="off">
+                                   <input type="text" id="shDateEnd" name="shDateEnd" placeholder="종료일" th:value="${vo.shDateEnd}" class="form-control form-control-sm" autocomplete="off">
                                     </div>
                               </div>
                            <div class="row justify-content-start">
@@ -788,15 +788,21 @@
                                              <label class="form-check-label" for="checkAll"></label>
                                           </div>
                                        </th>
-                                       <th>seq</th>
-                                       <th>name</th>
-                                       <th>delNy</th>
-                                       <th>regDate</th>
-                                       <th>modDate</th>
+                                       <th class="list-sort">코드</th>
+                                       <th class="list-sort">이름</th>
+                                       <th class="list-sort">삭제여부</th>
+                                       <th class="list-sort">사용여부</th>
+				                       <th data-type="date" data-format="YYYY/DD/MM" class="list-sort" style="text-align: center;">등록일</th>
+				                       <th data-type="date" data-format="YYYY/DD/MM" class="list-sort" style="text-align: center;">수정일</th>
                                        <th></th>
                                     </tr>
                                  </thead>
                                  <tbody>
+                                 <tr th:if="${#lists.isEmpty(list)}" class="hover-action-trigger btn-reveal-trigger position-static">
+				               		<td colspan="8">
+				               			<p class="fs-0" style="padding-top: 12px;">There are no data!</p>
+				               		</td>
+				               	</tr>
                                        	<tr th:each="codeGroup : ${list}">
                                        	<td>
                                				<div class="form-check">
@@ -807,6 +813,7 @@
 						                <td th:text="${codeGroup.seq}"></td>
 						                <td><a href="javascript:void(0);" th:text="${codeGroup.name}" th:attr="onclick=|goForm('${codeGroup.seq}')|"></a></td>
 						                <td th:text="${codeGroup.delNy}"></td>
+						                <td th:text="${codeGroup.useNy}"></td>
 						                <td th:text="${codeGroup.regDate}"></td>
 						                <td th:text="${codeGroup.modDate}"></td>
 						                <td>
@@ -893,6 +900,10 @@ document.getElementById("btnSearch").onclick = function () {
   	form.submit();
 	}
 	
+document.getElementById("btnReset").onclick = function () {
+	location = "/xdm/codeGroup/codeGroupXdmList";
+};
+
 goList = function (thisPage) {
     document.querySelector("input[name=thisPage]").value = thisPage;
     form.action = "/xdm/codeGroup/codeGroupXdmList";
@@ -914,7 +925,7 @@ jQuery("#shDateStart").datetimepicker({
 		  }
 		 },
 		 timepicker:false,
-		 format:'d.m.Y'
+		 format:'Y-m-d'
 });
 
 jQuery("#shDateEnd").datetimepicker({
@@ -932,7 +943,7 @@ jQuery("#shDateEnd").datetimepicker({
 		  }
 		 },
 		 timepicker:false,
-		 format:'d.m.Y'
+		 format:'Y-m-d'
 });
 </script>
    </body>

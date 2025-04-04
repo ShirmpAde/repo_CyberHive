@@ -7,17 +7,16 @@
 		<sql id="selectCommon">
         FROM codeGroup as a
         WHERE 1=1
-		<if test="shuseny != null and !shuseny.equals('')">AND a.useNy = #{shuseny}</if>
-		<if test="shuseny != null and !shuseny.equals('')">AND a.delNy = #{shuseny}</if>
+		<if test="shUseNy != null and !shUseNy.equals('')">AND a.useNy = #{shUseNy}</if>
+        <if test="shDelNy != null and !shDelNy.equals('')">AND a.delNy = #{shDelNy}</if>
 				
 				<choose>
-					<when test="shOptionDate == 1">AND a.regDateTime between #{shDateStart} AND #{shDateEnd}</when>
-					<when test="shOptionDate == 2">AND a.modDateTime between #{shDateStart} AND #{shDateEnd}</when>
+					<when test="shOptionDate == 1">AND a.regDate between #{shDateStart} AND #{shDateEnd}</when>
+					<when test="shOptionDate == 2">AND a.modDate between #{shDateStart} AND #{shDateEnd}</when>
 				</choose>
 
         	<choose>
             <when test="shOption == 1">AND a.name LIKE CONCAT('%',#{shValue},'%')</when>
-<when test="shOption == 2">AND a.ifcgNameEng LIKE CONCAT('%',#{shValue},'%')</when>
         </choose>
     </sql>
 	
@@ -32,6 +31,7 @@
 			a.seq,
 			a.name,
 			a.delNy,
+			a.useNy,
 			a.regDate,
 			a.modDate
 		<include refid="selectCommon"></include>
@@ -45,6 +45,7 @@
 		seq,
 		name,
 		delNy,
+		useNy,
 		regDate,
 		modDate
 	FROM
@@ -58,11 +59,13 @@
     INSERT INTO codeGroup (					
 		name,
 		delNy,
+		useNy,
 		regDate,
 		modDate
     ) values (			
         #{name},
         #{delNy},
+        #{useNy},
         #{regDate},
         #{modDate}
     )
@@ -74,7 +77,11 @@
 	
 	<update id="update">
 		UPDATE codeGroup SET
-			name ="김지"
+			name = #{name},
+			delNy = #{delNy},
+			useNy = #{useNy},
+			regDate = #{regDate},
+			modDate = #{modDate}
 		WHERE seq = #{seq}
 	</update>
 	

@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta content="Codescandy" name="author">
-  <title>Sign in eCommerce HTML Template - FreshCart</title>
+  <title>Sign up eCommerce HTML Template - FreshCart</title>
   <!-- Favicon icon-->
   <link rel="shortcut icon" type="image/x-icon" href="/xdm/template/admin_ui/images/favicon/favicon.ico">
 
@@ -15,7 +15,7 @@
   <link href="/xdm/template/admin_ui/libs/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
   <link href="/xdm/template/admin_ui/libs/feather-webfont/dist/feather-icons.css" rel="stylesheet">
   <link href="/xdm/template/admin_ui/libs/simplebar/dist/simplebar.min.css" rel="stylesheet">
-
+	
 
   <!-- Theme CSS -->
   <link rel="stylesheet" href="/xdm/template/admin_ui/css/theme.min.css">
@@ -30,7 +30,7 @@
           <img src="/xdm/template/admin_ui/images/logo/freshcart-logo.svg" alt="" class="d-inline-block align-text-top">
         </a>
         <span class="navbar-text">
-          계정이 이미 존재하나요? <a href="../pages/signin.html">로그인</a>
+          계정이 이미 존재하나요? <a href="/xdm/member/signinXdmForm">로그인</a>
         </span>
       </div>
     </nav>
@@ -39,62 +39,80 @@
 
   <main>
     <!-- section -->
+
     <section class="my-lg-14 my-8">
+      <!-- container -->
       <div class="container">
         <!-- row -->
         <div class="row justify-content-center align-items-center">
           <div class="col-12 col-md-6 col-lg-4 order-lg-1 order-2">
             <!-- img -->
-            <img src="/xdm/template/admin_ui/images/svg-graphics/signin-g.svg" alt="" class="img-fluid" />
+            <img src="/xdm/template/admin_ui/images/svg-graphics/signup-g.svg" alt="" class="img-fluid" />
           </div>
           <!-- col -->
           <div class="col-12 col-md-6 offset-lg-1 col-lg-4 order-lg-2 order-1">
             <div class="mb-lg-9 mb-5">
-              <h1 class="mb-1 h2 fw-bold">로그인</h1>
-              <p>FreshCart에 오신걸 환영합니다!</p>
+              <h1 class="mb-1 h2 fw-bold">회원가입</h1>
+              <p>FreshCart에 오신걸 환영합니다! ID를 입력하고 시작해주세요.</p>
             </div>
-
-            <form class="needs-validation" novalidate method="post">
+            <!-- form -->
+            <form class="needs-validation" novalidate>
               <div class="row g-3">
-                <!-- row -->
-
+                <!-- col -->
                 <div class="col-12">
                   <!-- input -->
-                  <label for="formSigninEmail" class="form-label visually-hidden">Email address</label>
-                  <input type="text" class="form-control" id="id" name="id" placeholder="Email" value="bt" required/>
-                  <div class="invalid-feedback">Please enter name.</div>
+                  <label for="formSignupEmail" class="form-label visually-hidden">ID</label>
+                  <input type="text" class="form-control" id="formSignupId" placeholder="ID" required />
+                  <div class="invalid-feedback">ID를 입력해주세요.</div>
                 </div>
                 <div class="col-12">
-                  <!-- input -->
                   <div class="password-field position-relative">
-                    <label for="formSigninPassword" class="form-label visually-hidden">Password</label>
+                    <label for="formSignupPassword" class="form-label visually-hidden">비밀번호</label>
                     <div class="password-field position-relative">
-                      <input type="password" class="form-control fakePassword" id="password" name="password"
-                        placeholder="*****" value="5288" required />
+                      <input type="password" class="form-control fakePassword" id="formSignupPassword"
+                        name="password" placeholder="*****" required />
                       <span><i class="bi bi-eye-slash passwordToggler"></i></span>
-                      <div class="invalid-feedback">Please enter password.</div>
+                      <div class="invalid-feedback">비밀번호를 입력해주세요.</div>
                     </div>
                   </div>
                 </div>
-                <div class="d-flex justify-content-between">
-                  <!-- form check -->
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                    <!-- label -->
-                    <label class="form-check-label" for="flexCheckDefault">아이디 저장</label>
-                  </div>
-                  <div>
-                    "비밀번호?"
-                    <a href="../pages/forgot-password.html">비밀번호 초기화</a>
-                  </div>
+                <div class="col">
+                  <!-- input -->
+                  <label for="formSignupfname" class="form-label visually-hidden">성</label>
+                  <input type="text" class="form-control" id="formSignupfname" placeholder="성" required />
+                  <div class="invalid-feedback">성씨를 입력해주세요.</div>
                 </div>
+                <div class="col">
+                  <!-- input -->
+                  <label for="formSignuplname" class="form-label visually-hidden">이름</label>
+                  <input type="text" class="form-control" id="formSignuplname" placeholder="이름" required />
+                  <div class="invalid-feedback">이름을 입력해주세요.</div>
+                </div>
+                <div class="col-12">
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>성별</option>
+                  <option value="1">남성</option>
+                  <option value="2">여성</option>                  
+                </select>
+                </div>
+                <div class="col-12">
+                  <!-- input -->
+                  <label for="birthdate" class="form-label visually-hidden">생년월일 8자리</label>
+                  <input type="text" class="form-control" id="birthdate" placeholder="생년월일 8자리" required pattern="\d{8}" maxlength="8" inputmode="numeric" />
+                  <div class="invalid-feedback">생년월일 8자리를 입력해주세요.</div>
+                </div>                                
                 <!-- btn -->
-                <div class="col-12 d-grid"><button class="btn btn-primary w-100 mb-3" id="buttonSignIn" type="button">로그인</button></div>
-                <!-- link -->
-                <div>
-                  아이디가 없으신가요?
-                  <a href="/xdm/member/signupXdmForm">회원가입</a>
-                </div>
+                <div class="col-12 d-grid"><button type="submit" class="btn btn-primary">회원가입</button></div>
+
+                <!-- text -->
+                <p>
+                  <small>
+                    계속하시면, 다음 조건에 동의하십니다:
+                    <a href="#!">서비스 약관 </a>
+                    &
+                    <a href="#!">개인정보 보호정책</a>
+                  </small>
+                </p>
               </div>
             </form>
           </div>
@@ -120,7 +138,7 @@
                 <li class="nav-item mb-2"><a href="#!" class="nav-link">Atta, rice & dal</a></li>
                 <li class="nav-item mb-2"><a href="#!" class="nav-link">소스 & 스프레드</a></li>
                 <li class="nav-item mb-2"><a href="#!" class="nav-link">유기농 & 도시락</a></li>
-                <li class="nav-item mb-2"><a href="#!" class="nav-link">아기 용품</a></li>
+                <li class="nav-item mb-2"><a href="#!" class="nav-link"> 아기 용품</a></li>
                 <li class="nav-item mb-2"><a href="#!" class="nav-link">청소 필수품</a></li>
                 <li class="nav-item mb-2"><a href="#!" class="nav-link">개인관리 용품</a></li>
               </ul>
@@ -259,25 +277,8 @@
             </ul>
           </div>
         </div>
+
       </div>
-      <div class="modal fade" id="modalConfirm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="modalConfirmTitle">title</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body" id="modalConfirmBody">
-					body
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-outline-secondary btn-sm btn_custom" data-bs-dismiss="modal"><i class="fa-solid fa-angle-left fa-lg"></i></button>
-					<button type="button" class="btn btn-danger btn-sm btn_custom" name="" id="btnModalDelete"><i class="fa-solid fa-x fa-lg"></i></button>
-					<button type="button" class="btn btn-danger btn-sm btn_custom" name="" id="btnModalUelete"><i class="far fa-trash-alt fa-lg"></i></button>
-				</div>
-			</div>
-		</div>
-	</div>
     </div>
   </footer>
   <!-- Javascript-->
@@ -286,52 +287,12 @@
   <!-- <script src="/xdm/template/admin_ui/libs/jquery/dist/jquery.min.js"></script> -->
   <script src="/xdm/template/admin_ui/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/xdm/template/admin_ui/libs/simplebar/dist/simplebar.min.js"></script>
-
   <!-- Theme JS -->
   <script src="/xdm/template/admin_ui/js/theme.min.js"></script>
 
   <script src="/xdm/template/admin_ui/js/vendors/password.js"></script>
+
   <script src="/xdm/template/admin_ui/js/vendors/validation.js"></script>
-  <script>
-  document.getElementById("buttonSignIn").onclick = function () {
-	loginLogic();
-	
-	}
-  </script>
-<script type="text/javascript">
-  function loginLogic (){
-		
-//	  alert(document.getElementById("modalAlertTitle").value);
-		
-	  
-		//if(validation() == false) return false;
-		$.ajax({
-			async: true 
-			,cache: false
-			,type: "post"
-			/* ,dataType:"json" */
-			,url: "/xdm/member/signinXdmProc"
-			/* ,data : $("#formLogin").serialize() */
-			,data : { "id" : $("#id").val(), "password" : $("#password").val()}
-			,success: function(response) {
-				if(response.rt == "success") {
-// 	 alert(document.getElementById("password").value);
-					
-						location.href = "/xdm/member/memberXdmList";
-				
-				} else {
-			 		document.getElementById("modalAlertTitle").innerText = "확 인";
-			 		document.getElementById("modalAlertBody").innerText = "일치하는 회원이 존재 하지 않습니다!";
-			 		$("#modalAlert").modal("show");
-				}
-			}
-			,error : function(jqXHR, textStatus, errorThrown){
-				alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
-			}
-		});
-	}
-  
-</script>
 </body>
 
 </html>

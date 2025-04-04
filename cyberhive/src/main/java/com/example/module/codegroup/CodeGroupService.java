@@ -15,7 +15,7 @@ public class CodeGroupService {
 		return codeGroupDao.selectList(vo);
 	}
 	
-	public int seletOneCount(){
+	public int selectOneCount(){
 		return codeGroupDao.selectOneCount();
 	}
 	

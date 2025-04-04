@@ -4,6 +4,7 @@ public class CodeGroupDto {
 	private Integer seq;
     private String name;
     private Integer delNy;
+    private Integer useNy;
     private String regDate;
     private String modDate;
 //	----
@@ -25,6 +26,12 @@ public class CodeGroupDto {
 	public void setDelNy(Integer delNy) {
 		this.delNy = delNy;
 	}
+	public Integer getUseNy() {
+		return useNy;
+	}
+	public void setUseNy(Integer useNy) {
+		this.useNy = useNy;
+	}
 	public String getRegDate() {
 		return regDate;
 	}
@@ -37,5 +44,5 @@ public class CodeGroupDto {
 	public void setModDate(String modDate) {
 		this.modDate = modDate;
 	}
-	
+    
 }
