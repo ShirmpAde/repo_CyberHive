@@ -786,10 +786,14 @@
                                           </div>
                                        </th>
                                        <th>seq</th>
+                                       <th>authLevel</th>
                                        <th>id</th>
+                                       <th>password</th>
+                                       <th>surName</th>
                                        <th>name</th>
                                        <th>gender_code</th>
                                        <th>telecom_code</th>
+                                       <th>birthDate</th>
                                        <th></th>
                                     </tr>
                                  </thead>
@@ -802,10 +806,14 @@
                                           	</div>
                                        	</td>
 						                <td th:text="${member.seq}"></td>
+						                <td th:text="${member.authLevel}"></td>
 						                <td th:text="${member.id}"></td>
+						                <td th:text="${member.password}"></td>
+						                <td th:text="${member.surName}"></td>
 						                <td th:text="${member.name}"></td>
 						                <td th:text="${member.gender_code}"></td>
 						                <td th:text="${member.telecom_code}"></td>
+						                <td th:text="${member.birthDate}"></td>
 						                <td>
 						                	<div class="dropdown">
                                              <a href="#" class="text-reset" data-bs-toggle="dropdown" aria-expanded="false">

@@ -49,7 +49,7 @@ public class MemberController {
 	public String memberXdmInst(MemberDto memberDto) {
 		System.out.println("memberDto.getSeq(): " + memberDto.getSeq());
 		System.out.println("memberDto.getName(): " + memberDto.getName());
-
+		
 		memberService.insert(memberDto);
 
 		System.out.println("memberDto.getSeq(): " + memberDto.getSeq());
@@ -134,5 +134,42 @@ public class MemberController {
 	@RequestMapping(value = "/xdm/member/signupXdmForm")
 	public String signupXdmForm(MemberVo vo, HttpSession httpSession) throws Exception {
 	    return "xdm/member/signupXdmForm";
+	}
+	
+	@RequestMapping(value = "/user/index/indexUserForm")
+	public String indexUserForm(Model model, MemberVo vo) throws Exception{
+		
+		model.addAttribute("list", memberService.selectList(vo));
+		
+		model.addAttribute("vo", vo);
+		
+		return "user/index/IndexUserForm";
+	}
+	
+	@RequestMapping(value = "/user/index/signinUserForm")
+	public String signinUserForm(MemberVo vo, HttpSession httpSession) throws Exception {
+		return "user/index/signinUserForm";
+	}
+	
+	@RequestMapping(value = "/user/index/signupUserForm")
+	public String signupUserForm(MemberVo vo, HttpSession httpSession) throws Exception {
+		return "user/index/signupUserForm";
+	}
+	
+	
+	@RequestMapping(value = "/user/index/signupUserInst")
+	public String signupUserInst(MemberDto memberDto) {
+		memberDto.setAuthLevel(1); // 일반 사용자
+		memberService.insert(memberDto);
+
+		return "redirect:user/index/indexUserForm";
+	}
+	
+	@RequestMapping(value = "/user/index/signupUserUpdt")
+	public String signupUserUpdt(MemberDto memberDto) {
+		
+		memberService.update(memberDto);
+		
+		return "redirect:user/index/indexUserForm";
 	}
 }

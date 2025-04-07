@@ -33,10 +33,13 @@
 	  	SELECT 
 			a.seq,
 			a.id,
+			a.authLevel,
+			a.password,
+			a.surName,
 			a.name,
 			a.gender_code,
 			a.telecom_code,
-			a.password
+			a.birthDate
 		<include refid="selectCommon"></include>
 		ORDER BY seq DESC
 		) aa
@@ -46,11 +49,14 @@
 	<select id="selectOne" resultMap="resultMapObj">
 	SELECT 
 		seq,
+		authLevel,
 		id,
+		password,
+		surName,
 		name,
 		gender_code,
 		telecom_code,
-		password
+		birthDate
 	FROM
 		member
 		WHERE 1=1
@@ -60,17 +66,23 @@
 	
 	<insert id="insert">
 	INSERT INTO member (					
+			authLevel,
 			id,
+			password,
+			surName,
 			name,
 			gender_code,
 			telecom_code,
-			password
+			birthDate
 		) values (			
+			#{authLevel},
 			#{id},
+			#{password},
+			#{surName},
 			#{name},	
 			#{gender_code},
 			#{telecom_code},
-			#{password}
+			#{birthDate}
 		)
 		<selectKey resultType="String" keyProperty="seq" order="AFTER">
 			SELECT last_insert_id()
