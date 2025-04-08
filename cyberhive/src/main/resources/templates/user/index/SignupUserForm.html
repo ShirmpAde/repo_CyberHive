@@ -61,9 +61,10 @@
                 <!-- col -->
                 <div class="col-12">
                   <!-- input -->
+                  <input type="text" class="form-control" id="formSignupId" name="id" placeholder="ID" required autofocus />
+                  	<span id="idCheckResult" class="text-small d-block mt-1"></span>
                   <input type="hidden" name="seq" th:value="${item?.seq}">
-                  <input type="text" class="form-control" id="formSignupId" name="id" placeholder="ID"  autofocus required />
-                  <label for="formSignupId" class="form-label visually-hidden" id="checkId">ID</label>
+                  <label for="formSignupId" class="form-label visually-hidden">ID</label>
                   <div class="invalid-feedback">ID를 입력해주세요.</div>
                 </div>
                 <div class="col-12">
@@ -312,36 +313,70 @@
 	}
 	
 	$(document).ready(function() {
-    	//ID 중복 확인
-    	//id를 입력할 수 있는 input text 영역을 벗어나면 동작한다.
-    	$("#id").on("focusout", function() {
-    		
-    		var id = $("#id").val();
-    		
-    		if(id == '' || id.length == 0) {
-    			$("#checkId").css("color", "red").text("공백은 ID로 사용할 수 없습니다.");
-    			return false;
-    		}
-			
-    		//Ajax로 전송
-        	$.ajax({
-        		url : '/xdm/member/ConfirmId',
-        		data : {
-        			id : id
-        		},
-        		type : 'POST',
-        		dataType : 'json',
-        		success : function(result) {
-        			if (result == true) {
-        				$("#checkId").css("color", "black").text("사용 가능한 ID 입니다.");
-        			} else{
-        				$("#checkId").css("color", "red").text("사용 불가능한 ID 입니다.");
-        				$("#id").val('');
-        			}
-        		}
-        	}); //End Ajax
-    	});
-    })
+	    let isIdAvailable = false;
+	    let lastCheckedId = '';
+
+	    // ID 입력 필드 선택자 수정 (#id → #formSignupId)
+	    $("#formSignupId").on("focusout", function() {
+	        const id = $(this).val().trim();
+	        const $feedback = $("#idCheckResult");
+
+	        if (!id) {
+	            $feedback.css("color", "red").text("ID를 입력해주세요.");
+	            isIdAvailable = false;
+	            return;
+	        }
+
+	        // 영문+숫자 4~20자리 검증
+	        if (!/^[a-zA-Z0-9]{4,20}$/.test(id)) {
+	            $feedback.css("color", "red").text("영문/숫자 4~20자로 입력해주세요.");
+	            isIdAvailable = false;
+	            return;
+	        }
+
+	        // 중복 체크 AJAX
+	        $.ajax({
+	            async: true
+	            ,cache: false
+	            ,type: 'post'
+	            ,url: '/xdm/member/ConfirmId'
+	            ,data: { id: id }
+	            ,dataType: 'json'
+	            ,success: function(result) {
+	                if (result === true) {
+	                    $feedback.css("color", "green").text("사용 가능한 ID입니다.");
+	                    isIdAvailable = true;
+	                    lastCheckedId = id;
+	                } else {
+	                    $feedback.css("color", "red").text("이미 사용 중인 ID입니다.");
+	                    $("#formSignupId").val('').focus();
+	                    isIdAvailable = false;
+	                }
+	            },
+	            error: function() {
+	                $feedback.css("color", "red").text("서버 오류 발생");
+	                isIdAvailable = false;
+	            }
+	        });
+	    });
+
+	    // 폼 제출 시 중복 체크 검증
+	    $("#form").on("submit", function(e) {
+	        if (!isIdAvailable) {
+	            e.preventDefault();
+	            $("#idCheckResult").css("color", "red").text("ID 중복 확인을 완료해주세요.");
+	            $("#formSignupId").trigger("focusout");
+	        }
+	    });
+
+	    // ID 변경 시 상태 초기화
+	    $("#formSignupId").on("input", function() {
+	        if ($(this).val() !== lastCheckedId) {
+	            isIdAvailable = false;
+	            $("#idCheckResult").text("");
+	        }
+	    });
+	});
     
 	document.getElementById("btnSubmit").onclick = function(e) {
 	    e.preventDefault(); // 기본 제출 동작 방지
