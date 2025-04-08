@@ -162,14 +162,7 @@ public class MemberController {
 		memberDto.setAuthLevel(1); // 일반 사용자
 		memberService.insert(memberDto);
 
-		return "redirect:user/index/indexUserForm";
+		return "redirect:/user/index/indexUserForm";
 	}
 	
-	@RequestMapping(value = "/user/index/signupUserUpdt")
-	public String signupUserUpdt(MemberDto memberDto) {
-		
-		memberService.update(memberDto);
-		
-		return "redirect:user/index/indexUserForm";
-	}
 }

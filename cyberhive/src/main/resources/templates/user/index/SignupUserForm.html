@@ -62,8 +62,8 @@
                 <div class="col-12">
                   <!-- input -->
                   <input type="hidden" name="seq" th:value="${item?.seq}">
-                  <label for="formSignupEmail" class="form-label visually-hidden">ID</label>
-                  <input type="text" class="form-control" id="formSignupId" name="id" placeholder="ID" required />
+                  <input type="text" class="form-control" id="formSignupId" name="id" placeholder="ID"  autofocus required />
+                  <label for="formSignupId" class="form-label visually-hidden" id="checkId">ID</label>
                   <div class="invalid-feedback">ID를 입력해주세요.</div>
                 </div>
                 <div class="col-12">
@@ -296,7 +296,6 @@
   <script src="/xdm/template/admin_ui/js/vendors/validation.js"></script>
   
   <script type="text/javascript">
-  
 	let seq = document.querySelector("input[name=seq]");
 	let form = document.querySelector("form[name=form]");
 
@@ -312,18 +311,94 @@
 		}
 	}
 	
-	document.getElementById("btnSubmit").onclick = function () {
-		if(seq.value == "0" || seq.value == "") {
-			if(validationInst() == false) return false;
-			form.action = "/user/index/signupUserInst";
-			form.submit();
-		} else {
-			if(validationUpdt() == false) return false;
-// 			alert(new Date());
-			form.action = "/user/index/signupUserUpdt";
-			form.submit();
-		}
-	}
+	$(document).ready(function() {
+    	//ID 중복 확인
+    	//id를 입력할 수 있는 input text 영역을 벗어나면 동작한다.
+    	$("#id").on("focusout", function() {
+    		
+    		var id = $("#id").val();
+    		
+    		if(id == '' || id.length == 0) {
+    			$("#checkId").css("color", "red").text("공백은 ID로 사용할 수 없습니다.");
+    			return false;
+    		}
+			
+    		//Ajax로 전송
+        	$.ajax({
+        		url : '/xdm/member/ConfirmId',
+        		data : {
+        			id : id
+        		},
+        		type : 'POST',
+        		dataType : 'json',
+        		success : function(result) {
+        			if (result == true) {
+        				$("#checkId").css("color", "black").text("사용 가능한 ID 입니다.");
+        			} else{
+        				$("#checkId").css("color", "red").text("사용 불가능한 ID 입니다.");
+        				$("#id").val('');
+        			}
+        		}
+        	}); //End Ajax
+    	});
+    })
+    
+	document.getElementById("btnSubmit").onclick = function(e) {
+	    e.preventDefault(); // 기본 제출 동작 방지
+	    
+	    // 필수 필드 검증
+	    const id = document.getElementById("formSignupId").value.trim();
+	    const password = document.getElementById("formSignupPassword").value.trim();
+	    const surName = document.getElementById("formSignupfname").value.trim();
+	    const name = document.getElementById("formSignuplname").value.trim();
+	    const birthDate = document.getElementById("birthdate").value.trim();
+	    
+	    if (!id) {
+	        alert("ID를 입력해주세요.");
+	        document.getElementById("formSignupId").focus();
+	        return false;
+	    }
+	    
+	    if (!password) {
+	        alert("비밀번호를 입력해주세요.");
+	        document.getElementById("formSignupPassword").focus();
+	        return false;
+	    }
+	    
+	    if (!surName) {
+	        alert("성을 입력해주세요.");
+	        document.getElementById("formSignupfname").focus();
+	        return false;
+	    }
+	    
+	    if (!name) {
+	        alert("이름을 입력해주세요.");
+	        document.getElementById("formSignuplname").focus();
+	        return false;
+	    }
+	    
+	    // 생년월일 형식 검증 (8자리 숫자)
+	    if (!/^\d{8}$/.test(birthDate)) {
+	        alert("생년월일을 8자리 숫자로 입력해주세요.");
+	        document.getElementById("birthdate").focus();
+	        return false;
+	    }
+	    
+	    // 성별 선택 검증
+	    const gender = document.querySelector("select[name=gender_code]").value;
+	    if (gender === "성별") {
+	        alert("성별을 선택해주세요.");
+	        return false;
+	    }
+	    
+	    // 모든 검증 통과 시 폼 제출
+	    if(seq.value == "0" || seq.value == "") {
+	        form.action = "/user/index/signupUserInst";
+	    } else {
+	        form.action = "/user/index/indexUserForm";
+	    }
+	    form.submit();
+	};
 	
   </script>
 </body>
