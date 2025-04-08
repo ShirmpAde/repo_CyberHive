@@ -14,4 +14,5 @@ public interface MemberDao {
 	public int delete(MemberDto memberDto);
 	public int uelete(MemberDto memberDto);
 	public MemberDto signinChk(MemberDto memberDto);
+	public MemberDto selectId(MemberDto memberDto);
 }

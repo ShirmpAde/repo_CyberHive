@@ -4,10 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpSession;
 @Controller
@@ -165,4 +169,23 @@ public class MemberController {
 		return "redirect:/user/index/indexUserForm";
 	}
 	
+	@RestController
+	@RequestMapping("/xdm/member")
+	public class MemberApiController {
+
+	    @Autowired
+	    private MemberService memberService;
+
+	    @PostMapping("/ConfirmId")
+	    public ResponseEntity<?> confirmId(@RequestParam String id) {
+	        try {
+	            boolean isAvailable = !memberService.isIdDuplicate(id);
+	            return ResponseEntity.ok(isAvailable);
+	        } catch (Exception e) {
+	            Map<String, String> error = new HashMap<>();
+	            error.put("message", "ID 확인 중 오류 발생");
+	            return ResponseEntity.status(500).body(error);
+	        }
+	    }
+	}
 }

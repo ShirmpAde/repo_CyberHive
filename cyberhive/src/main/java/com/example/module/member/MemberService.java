@@ -43,4 +43,10 @@ public class MemberService {
 		return memberDao.signinChk(memberDto);
 	}
 	
+	public boolean isIdDuplicate(String id) {
+	    MemberDto memberDto = new MemberDto();
+	    memberDto.setId(id);
+	    return memberDao.selectId(memberDto) != null;  // 존재하면 true
+	}
+
 }
