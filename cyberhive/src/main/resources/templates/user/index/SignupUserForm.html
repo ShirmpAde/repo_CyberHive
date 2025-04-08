@@ -56,13 +56,14 @@
               <p>FreshCart에 오신걸 환영합니다! ID를 입력하고 시작해주세요.</p>
             </div>
             <!-- form -->
-            <form class="needs-validation" novalidate>
+            <form class="needs-validation" method="post" id="form" name="form" novalidate>
               <div class="row g-3">
                 <!-- col -->
                 <div class="col-12">
                   <!-- input -->
+                  <input type="hidden" name="seq" th:value="${item?.seq}">
                   <label for="formSignupEmail" class="form-label visually-hidden">ID</label>
-                  <input type="text" class="form-control" id="formSignupId" placeholder="ID" required />
+                  <input type="text" class="form-control" id="formSignupId" name="id" placeholder="ID" required />
                   <div class="invalid-feedback">ID를 입력해주세요.</div>
                 </div>
                 <div class="col-12">
@@ -79,17 +80,17 @@
                 <div class="col">
                   <!-- input -->
                   <label for="formSignupfname" class="form-label visually-hidden">성</label>
-                  <input type="text" class="form-control" id="formSignupfname" placeholder="성" required />
+                  <input type="text" class="form-control" id="formSignupfname" name="surName" placeholder="성" required />
                   <div class="invalid-feedback">성씨를 입력해주세요.</div>
                 </div>
                 <div class="col">
                   <!-- input -->
                   <label for="formSignuplname" class="form-label visually-hidden">이름</label>
-                  <input type="text" class="form-control" id="formSignuplname" placeholder="이름" required />
+                  <input type="text" class="form-control" id="formSignuplname" name="name" placeholder="이름" required />
                   <div class="invalid-feedback">이름을 입력해주세요.</div>
                 </div>
                 <div class="col-12">
-                <select class="form-select" aria-label="Default select example">
+                <select class="form-select" name="gender_code" aria-label="Default select example">
                   <option selected>성별</option>
                   <option value="1">남성</option>
                   <option value="2">여성</option>                  
@@ -98,7 +99,7 @@
                 <div class="col-12">
                   <!-- input -->
                   <label for="birthdate" class="form-label visually-hidden">생년월일 8자리</label>
-                  <input type="text" class="form-control" id="birthdate" placeholder="생년월일 8자리" required pattern="\d{8}" maxlength="8" inputmode="numeric" />
+                  <input type="text" class="form-control" id="birthdate" name="birthDate" placeholder="생년월일 8자리" required pattern="\d{8}" maxlength="8" inputmode="numeric" />
                   <div class="invalid-feedback">생년월일 8자리를 입력해주세요.</div>
                 </div>                                
                 <!-- btn -->

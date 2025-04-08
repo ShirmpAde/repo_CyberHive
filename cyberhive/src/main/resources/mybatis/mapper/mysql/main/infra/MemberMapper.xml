@@ -91,7 +91,14 @@
 	
 	<update id="update">
 		UPDATE member SET
-			name = #{name}
+			id = #{id},
+    		password = #{password},
+    		surName = #{surName},
+    		name = #{name},
+    		gender_code = #{gender_code},
+    		telecom_code = #{telecom_code},
+    		birthDate = #{birthDate},
+    		authLevel = #{authLevel}
 		WHERE seq = #{seq}
 	</update>
 	
