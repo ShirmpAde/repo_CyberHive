@@ -8,8 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -172,20 +172,27 @@ public class MemberController {
 	@RestController
 	@RequestMapping("/xdm/member")
 	public class MemberApiController {
-
+		
 	    @Autowired
 	    private MemberService memberService;
-
+	    
 	    @PostMapping("/ConfirmId")
-	    public ResponseEntity<?> confirmId(@RequestParam String id) {
+	    public ResponseEntity<?> confirmId(@RequestBody MemberDto memberDto) {
 	        try {
+	            System.out.println("🔔 요청 전체 내용: " + memberDto); // 추가 로깅
+	            String id = memberDto.getId(); // 올바른 getter 메서드 사용
+	            System.out.println("🔔 추출된 ID: " + id);
+	            
+	            if (id == null) throw new IllegalArgumentException("ID 파라미터 누락");
+	            
 	            boolean isAvailable = !memberService.isIdDuplicate(id);
 	            return ResponseEntity.ok(isAvailable);
 	        } catch (Exception e) {
-	            Map<String, String> error = new HashMap<>();
-	            error.put("message", "ID 확인 중 오류 발생");
-	            return ResponseEntity.status(500).body(error);
+	            e.printStackTrace(); // ★ 스택 트레이스 전체 출력
+	            return ResponseEntity.internalServerError().body(e.getMessage());
 	        }
 	    }
-	}
+    }
+		
+		
 }

@@ -340,9 +340,11 @@
 	            ,cache: false
 	            ,type: 'post'
 	            ,url: '/xdm/member/ConfirmId'
-	            ,data: { id: id }
+	            ,data: JSON.stringify({ id: id })
+	            ,contentType: 'application/json'
 	            ,dataType: 'json'
 	            ,success: function(result) {
+	            	console.log("결과:", result);	
 	                if (result === true) {
 	                    $feedback.css("color", "green").text("사용 가능한 ID입니다.");
 	                    isIdAvailable = true;

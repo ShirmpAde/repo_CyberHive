@@ -127,7 +127,7 @@
       	ORDER BY seq DESC
 	</select>
 	
-	<select id="selectId" resultType="com.example.module.member.MemberDto">
-    SELECT * FROM member WHERE id = #{id}
+	<select id="selectId" parameterType="com.example.module.member.MemberDto" resultType="com.example.module.member.MemberDto">
+    SELECT * FROM member WHERE id = #{id} LIMIT 1
 	</select>
 </mapper>
