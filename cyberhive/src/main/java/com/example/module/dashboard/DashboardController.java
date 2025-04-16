@@ -11,7 +11,7 @@ public class DashboardController {
 	DashboardService dashboardService;
 	
 	@RequestMapping(value = "/xdm/index/dashboardXdmForm")
-	public String memberXdmForm() {
+	public String dashboardXdmForm() {
 		
 		return "xdm/index/DashboardXdmForm";
 	}

@@ -169,6 +169,12 @@ public class MemberController {
 		return "redirect:/user/index/indexUserForm";
 	}
 	
+	@RequestMapping(value = "/user/index/LoginUserForm")
+	public String shopcartUserForm() {
+		
+		return "user/index/LoginUserForm";
+	}
+	
 	@RestController
 	@RequestMapping("/xdm/member")
 	public class MemberApiController {
