@@ -10,6 +10,12 @@ public class MemberDto {
 	private Integer gender_code;
 	private Integer telecom_code;
 	private String birthDate;
+	private String userZipcode;
+	private String userAdressNew;
+	private String userAdressOld;
+	private String userAdressDetail;
+	private Integer userGpsX;
+	private Integer userGpsY;
 //-----
 	public String getSeq() {
 		return seq;
@@ -65,5 +71,41 @@ public class MemberDto {
 	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
-	
+	public String getUserZipcode() {
+		return userZipcode;
+	}
+	public void setUserZipcode(String userZipcode) {
+		this.userZipcode = userZipcode;
+	}
+	public String getUserAdressNew() {
+		return userAdressNew;
+	}
+	public void setUserAdressNew(String userAdressNew) {
+		this.userAdressNew = userAdressNew;
+	}
+	public String getUserAdressOld() {
+		return userAdressOld;
+	}
+	public void setUserAdressOld(String userAdressOld) {
+		this.userAdressOld = userAdressOld;
+	}
+	public String getUserAdressDetail() {
+		return userAdressDetail;
+	}
+	public void setUserAdressDetail(String userAdressDetail) {
+		this.userAdressDetail = userAdressDetail;
+	}
+	public Integer getUserGpsX() {
+		return userGpsX;
+	}
+	public void setUserGpsX(Integer userGpsX) {
+		this.userGpsX = userGpsX;
+	}
+	public Integer getUserGpsY() {
+		return userGpsY;
+	}
+	public void setUserGpsY(Integer userGpsY) {
+		this.userGpsY = userGpsY;
+	}
+
 }
