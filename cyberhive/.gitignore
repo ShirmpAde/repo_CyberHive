@@ -39,3 +39,6 @@ out/
 ### Custom ###
 logs/
 application-external.properties
+
+# macOS
+.DS_Store
