@@ -13,13 +13,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.common.base.BaseController;
+
 import jakarta.servlet.http.HttpSession;
 @Controller
-public class MemberController {
+public class MemberController extends BaseController {
 	
 	@Autowired
 	MemberService memberService;
-
+	
+	@Autowired
+	MailService mailService;
+	
 	@RequestMapping(value = "/xdm/member/memberXdmList")
 	public String memberXdmList(Model model, MemberVo vo) throws Exception{
 		vo.setParamsPaging(memberService.seletOneCount());
@@ -137,6 +142,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "/xdm/member/signupXdmForm")
 	public String signupXdmForm(MemberVo vo, HttpSession httpSession) throws Exception {
+		
 	    return "xdm/member/signupXdmForm";
 	}
 	
@@ -161,12 +167,36 @@ public class MemberController {
 	}
 	
 	
-	@RequestMapping(value = "/user/index/signupUserInst")
-	public String signupUserInst(MemberDto memberDto) {
+	@PostMapping(value = "/user/index/signupUserInst")
+	public String memberInsert(MemberDto memberDto, Model model) {
 		memberDto.setAuthLevel(1); // 일반 사용자
-		memberService.insert(memberDto);
+		
+	    // 평문 비밀번호를 가져옴
+	    String rawPassword = memberDto.getPassword();
 
-		return "redirect:/user/index/indexUserForm";
+	    // 암호화 (strength는 보통 10 정도)
+	    String encryptedPassword = encodeBcrypt(rawPassword, 10);
+	    memberDto.setPassword(encryptedPassword);
+
+	    // 서비스 또는 DAO 호출
+	    memberService.insert(memberDto);
+	    
+	    Thread thread = new Thread(new Runnable() {
+	    
+	    	@Override
+	    	public void run() {
+		 // 회원가입 축하 메일 전송
+		    try {
+		        mailService.sendMailWelcome(memberDto);
+		    } catch (Exception e) {
+		        e.printStackTrace();  // 예외 로그 출력
+	    	};
+    	}
+    });
+	    
+	    thread.start();
+	    
+	    return "redirect:/user/index/indexUserForm";
 	}
 	
 	@RequestMapping(value = "/user/index/LoginUserForm")
@@ -199,6 +229,5 @@ public class MemberController {
 	        }
 	    }
     }
-		
-		
+	
 }

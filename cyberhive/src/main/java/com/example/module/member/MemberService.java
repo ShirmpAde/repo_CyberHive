@@ -22,6 +22,10 @@ public class MemberService {
 	public Object selectOne(MemberDto memberDto) {
 		return memberDao.selectOne(memberDto);
 	}
+	
+	public Object selectOne(MemberVo memberVo) {
+		return memberDao.selectOne(memberVo);
+	}
 		
 	public int insert(MemberDto memberDto) {
 		return memberDao.insert(memberDto);
