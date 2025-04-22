@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.module.product.BannerDto">
+	<resultMap id="resultMapObj" type="com.example.module.product.BannerDto"></resultMap> 
+	
+	<!-- uploaded s -->
+	<sql id="insertUploaded">
+		INSERT INTO ${applGoodsUploaded} (
+			type
+			,defaultNy
+			,sort
+			,path
+			,originalName
+			,uuidName
+			,ext
+			,size
+			,delNy
+			<include refid="Base.insertRegColumn" />
+			,pseq
+		) values (
+			#{type}
+			,#{defaultNy}
+			,#{sort}
+			,#{path}
+			,#{originalName}
+			,#{uuidName}
+			,#{ext}
+			,#{size}
+			,0
+			<include refid="Base.insertRegValue" />
+			,#{pseq}
+		)
+	</sql>
+	
+</mapper>
