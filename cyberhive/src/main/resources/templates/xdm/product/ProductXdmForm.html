@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta content="Codescandy" name="author">
+      <title>Order List Dashboard eCommerce HTML Template - FreshCart</title>
+      <!-- Favicon icon-->
+<link rel="shortcut icon" type="image/x-icon" href="/xdm/template/admin_ui/images/favicon/favicon.ico">
+
+<!-- Libs CSS -->
+<link href="/xdm/template/admin_ui/libs/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="/xdm/template/admin_ui/libs/feather-webfont/dist/feather-icons.css" rel="stylesheet">
+<link href="/xdm/template/admin_ui/libs/simplebar/dist/simplebar.min.css" rel="stylesheet">
+<!-- Theme CSS -->
+<link rel="stylesheet" href="/xdm/template/admin_ui/css/theme.min.css">
+</head>
+
+<body>
+<section class="section">
+	<div class="row">
+	
+	 <div class="col-lg-12">
+     	<div class="card" >
+        	<div class="card-body">
+              <h1 class="card-title" style="height: 100px;" >기본정보</h1>
+              
+             <!-- Validation --> 
+			<form class="row g-3" method="post" id="form" name="form" enctype="multipart/form-data">
+
+			    <!-- seq (PK) -->
+			    <input type="hidden" name="seq" th:value="${item?.seq}" />
+			
+			    <!-- type -->
+			    <div class="col-md-3">
+			        <label for="type" class="form-label">타입</label>
+			        <input type="number" class="form-control" name="type" id="type" placeholder="ex: 1=이미지, 2=문서" th:value="${item?.type}" />
+			    </div>
+			
+			    <!-- defaultNy -->
+			    <div class="col-md-3">
+			        <label for="defaultNy" class="form-label">기본여부</label>
+			        <select class="form-select" id="defaultNy" name="defaultNy">
+			            <option value="">선택</option>
+			            <option value="1" th:selected="${item?.defaultNy == 1}">기본</option>
+			            <option value="0" th:selected="${item?.defaultNy == 0}">일반</option>
+			        </select>
+			    </div>
+			
+			    <!-- sort -->
+			    <div class="col-md-3">
+			        <label for="sort" class="form-label">정렬 순서</label>
+			        <input type="number" class="form-control" name="sort" id="sort" th:value="${item?.sort}" />
+			    </div>
+			
+			    <!-- path -->
+			    <div class="col-md-6">
+			        <label for="path" class="form-label">파일 경로</label>
+			        <input type="text" class="form-control" name="path" id="path" th:value="${item?.path}" />
+			    </div>
+			
+			    <!-- originalName -->
+			    <div class="col-md-6">
+			        <label for="originalName" class="form-label">원본 파일명</label>
+			        <input type="text" class="form-control" name="originalName" id="originalName" th:value="${item?.originalName}" />
+			    </div>
+			
+			    <!-- uuidName -->
+			    <div class="col-md-6">
+			        <label for="uuidName" class="form-label">UUID 파일명</label>
+			        <input type="text" class="form-control" name="uuidName" id="uuidName" th:value="${item?.uuidName}" />
+			    </div>
+			
+			    <!-- ext -->
+			    <div class="col-md-3">
+			        <label for="ext" class="form-label">확장자</label>
+			        <input type="text" class="form-control" name="ext" id="ext" th:value="${item?.ext}" />
+			    </div>
+			
+			    <!-- size -->
+			    <div class="col-md-3">
+			        <label for="size" class="form-label">파일 업로드 (파일 자체 저장 시)</label>
+			        <input type="file" class="form-control" name="uploadFile" id="uploadFile" />
+			    </div>
+			
+			    <!-- delNy -->
+			    <div class="col-md-3">
+			        <label for="delNy" class="form-label">삭제 여부</label>
+			        <select class="form-select" id="delNy" name="delNy">
+			            <option value="0" th:selected="${item?.delNy == 0}">정상</option>
+			            <option value="1" th:selected="${item?.delNy == 1}">삭제</option>
+			        </select>
+			    </div>
+			
+			    <!-- pseq -->
+			    <div class="col-md-3">
+			        <label for="pseq" class="form-label">부모 제품번호</label>
+			        <input type="number" class="form-control" name="pseq" id="pseq" th:value="${item?.pseq}" />
+			    </div>
+			
+			    <!-- 버튼 -->
+			    <div class="col-12 text-end">
+			        <button type="submit" class="btn btn-primary">저장</button>
+			    </div>
+			
+			</form>
+
+		</div>
+	</div>
+		<div class="modal fade" id="modalAlert" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="modalAlertTitle">title</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body" id="modalAlertBody">
+		           body
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-outline-secondary btn-sm btn_custom" data-bs-dismiss="modal" id="close">닫힘</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+		<div class="modal fade" id="modalConfirm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="modalAlertTitle">title</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body" id="modalConfirmBody">
+		           body
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="modal">닫힘</button>
+		        <button type="button" class="btn btn-danger" id="btnModalDelete"></button>
+		        <button type="button" class="btn btn-danger" id="btnModalUelete">삭제</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	  </div>
+     </div>
+</section>
+<script src="/xdm/jquery/jquery-3.7.1.min.js"></script>
+<script src="/xdm/jquery/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
+<!-- Libs JS -->
+<!-- <script src="/xdm/template/admin_ui/libs/jquery/dist/jquery.min.js"></script> -->
+<script src="/xdm/template/admin_ui/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/xdm/template/admin_ui/libs/simplebar/dist/simplebar.min.js"></script>
+
+<!-- Theme JS -->
+<script src="/xdm/template/admin_ui/js/theme.min.js"></script>
+
+<script type="text/javascript">
+	let seq = document.querySelector("input[name=seq]");
+	let form = document.querySelector("form[name=form]");
+
+	function validationInst() {
+	    if(validationUpdt() == false) return false;
+	}
+
+	function validationUpdt() {
+		if(document.getElementById("name").value.trim() == null || document.getElementById("name").value.trim() == "") {
+			alertModal()
+			document.getElementById("name").focus();
+			return false;
+		}
+	}
+	
+	document.getElementById("btnSubmit").onclick = function () {
+		if(seq.value == "0" || seq.value == "") {
+			if(validationInst() == false) return false;
+			form.action = "/xdm/codeGroup/codeGroupXdmInst";
+			form.submit();
+		} else {
+			if(validationUpdt() == false) return false;
+// 			alert(new Date());
+			form.action = "/xdm/codeGroup/codeGroupXdmUpdt";
+			form.submit();
+		}
+	}
+	
+	function alertModal() {
+		document.querySelector("#modalAlertTitle").textContent = "입력오류";
+		document.querySelector("#modalAlertBody").textContent = "형식에 맞는 값을 입력해주세요";
+		$("#modalAlert").modal("show");
+	}
+	
+	document.getElementById("btnUelete").onclick = function () {
+		document.querySelector("#modalAlertTitle").textContent = "확 인";
+		document.querySelector("#modalConfirmBody").textContent = "해당 데이터를 삭제하시겠습니까 ?";
+		document.querySelector("#btnModalUelete").style.display = '';
+		document.querySelector("#btnModalDelete").style.display = 'none';
+		document.getElementById("modalConfirm").style.display = 'block';
+		$("#modalConfirm").modal("show");
+	}
+	
+	document.getElementById("btnModalUelete").onclick = function () {
+		form.action = "/xdm/codeGroup/codeGroupXdmUele";
+		form.submit();
+	}
+	
+	document.getElementById("closeModal").onclick = function() {
+		if(document.getElementById("name").value.trim() == null || document.getElementById("cdgName").value.trim() == "") {
+			document.getElementById("name").focus();
+			return false;
+		}
+	}
+	
+	document.getElementById("savechanges").onclick = function() {
+		alert("savechanges");
+	}
+	
+	/* document.getElementById("btnSave").onclick = function() {
+		alert("asdfasdf");
+	} */
+	
+// 	document.getElementById("name").onchange = function() {
+// 		alert("name");
+// 	}
+</script>
+</body>
+</html>

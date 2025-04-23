@@ -2,7 +2,7 @@ package com.example.module.product;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class BannerDto {
+public class ProductDto {
 	
 //	uploaded
 	private String tableName;
