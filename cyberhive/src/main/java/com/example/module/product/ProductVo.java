@@ -1,7 +1,9 @@
 package com.example.module.product;
 
 public class ProductVo {
-
+	
+	private String seq = "0";									// 현재 페이지
+	
 //	paging
 	private int thisPage = 1;									// 현재 페이지
 	private int rowNumToShow = 5;								// 화면에 보여줄 데이터 줄 갯수
@@ -65,6 +67,14 @@ public class ProductVo {
 		
 	}
 //	-----
+
+	public String getSeq() {
+		return seq;
+	}
+
+	public void setSeq(String seq) {
+		this.seq = seq;
+	}
 
 	public int getThisPage() {
 		return thisPage;
