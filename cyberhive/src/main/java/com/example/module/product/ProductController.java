@@ -54,5 +54,13 @@ public class ProductController {
 		
 		return "redirect:/xdm/product/ProductXdmList";
 	}
+	
+	@RequestMapping(value = "/xdm/product/ProductXdmInst")
+	public String productXdmInst(ProductDto productDto) throws Exception {
+		
+	    productService.insert(productDto);
+	    
+	    return "redirect:/xdm/product/ProductXdmList";
+	}
 }
 

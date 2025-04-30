@@ -2,120 +2,40 @@ package com.example.module.product;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class ProductDto {
-	
-//	uploaded
-	private String tableName;
-	
-	private String seq;
-	private Integer type;
-	private Integer defaultNy;
-	private Integer sort;
-	private String path;
-	private String originalName;
-	private String uuidName;
-	private String ext;
-	private long size;
-	private Integer delNy;
-	private String pseq;
-	
+import com.example.common.base.BaseDto;
+
+public class ProductDto extends BaseDto {
+
+//	 기본 필드
+	private String ifbnSeq;
+    private Integer uploadImg1Type;
+    private Integer uploadImg1MaxNumber;
+    
 	private MultipartFile[] uploadImg1;
 //-----
 
-	public String getTableName() {
-		return tableName;
+	public String getIfbnSeq() {
+		return ifbnSeq;
 	}
 
-	public void setTableName(String tableName) {
-		this.tableName = tableName;
+	public void setIfbnSeq(String ifbnSeq) {
+		this.ifbnSeq = ifbnSeq;
 	}
 
-	public String getSeq() {
-		return seq;
+	public Integer getUploadImg1Type() {
+		return uploadImg1Type;
 	}
 
-	public void setSeq(String seq) {
-		this.seq = seq;
+	public void setUploadImg1Type(Integer uploadImg1Type) {
+		this.uploadImg1Type = uploadImg1Type;
 	}
 
-	public Integer getType() {
-		return type;
+	public Integer getUploadImg1MaxNumber() {
+		return uploadImg1MaxNumber;
 	}
 
-	public void setType(Integer type) {
-		this.type = type;
-	}
-
-	public Integer getDefaultNy() {
-		return defaultNy;
-	}
-
-	public void setDefaultNy(Integer defaultNy) {
-		this.defaultNy = defaultNy;
-	}
-
-	public Integer getSort() {
-		return sort;
-	}
-
-	public void setSort(Integer sort) {
-		this.sort = sort;
-	}
-
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-
-	public String getOriginalName() {
-		return originalName;
-	}
-
-	public void setOriginalName(String originalName) {
-		this.originalName = originalName;
-	}
-
-	public String getUuidName() {
-		return uuidName;
-	}
-
-	public void setUuidName(String uuidName) {
-		this.uuidName = uuidName;
-	}
-
-	public String getExt() {
-		return ext;
-	}
-
-	public void setExt(String ext) {
-		this.ext = ext;
-	}
-
-	public long getSize() {
-		return size;
-	}
-
-	public void setSize(long size) {
-		this.size = size;
-	}
-
-	public Integer getDelNy() {
-		return delNy;
-	}
-
-	public void setDelNy(Integer delNy) {
-		this.delNy = delNy;
-	}
-
-	public String getPseq() {
-		return pseq;
-	}
-
-	public void setPseq(String pseq) {
-		this.pseq = pseq;
+	public void setUploadImg1MaxNumber(Integer uploadImg1MaxNumber) {
+		this.uploadImg1MaxNumber = uploadImg1MaxNumber;
 	}
 
 	public MultipartFile[] getUploadImg1() {

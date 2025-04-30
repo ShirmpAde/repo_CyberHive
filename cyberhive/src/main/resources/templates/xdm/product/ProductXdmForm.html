@@ -27,7 +27,7 @@
               <h1 class="card-title" style="height: 100px;" >기본정보</h1>
               
              <!-- Validation --> 
-			<form class="row g-3" method="post" id="form" name="form" enctype="multipart/form-data">
+			<form id="form" name="form" method="post" autocomplete="off" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate="">
 
 			    <!-- seq (PK) -->
 			    <input type="hidden" name="seq" th:value="${item?.seq}" />
@@ -35,7 +35,11 @@
 			    <!-- type -->
 			    <div class="col-md-3">
 			        <label for="type" class="form-label">타입</label>
-			        <input type="number" class="form-control" name="type" id="type" placeholder="ex: 1=이미지, 2=문서" th:value="${item?.type}" />
+			        <select class="form-select" id="type" name="type">
+			            <option value="">선택</option>
+			            <option value="1" th:selected="${item?.type == 1}">이미지</option>
+			            <option value="0" th:selected="${item?.type == 0}">문서</option>
+			        </select>
 			    </div>
 			
 			    <!-- defaultNy -->
@@ -51,7 +55,11 @@
 			    <!-- sort -->
 			    <div class="col-md-3">
 			        <label for="sort" class="form-label">정렬 순서</label>
-			        <input type="number" class="form-control" name="sort" id="sort" th:value="${item?.sort}" />
+			        <select class="form-select" id="sort" name="sort">
+			            <option value="">선택</option>
+			            <option value="1" th:selected="${item?.sort == 1}">상단 고정</option>
+			            <option value="0" th:selected="${item?.sort == 0}">자동 정렬</option>
+			        </select>
 			    </div>
 			
 			    <!-- path -->
@@ -81,27 +89,28 @@
 			    <!-- size -->
 			    <div class="col-md-3">
 			        <label for="size" class="form-label">파일 업로드 (파일 자체 저장 시)</label>
-			        <input type="file" class="form-control" name="uploadFile" id="uploadFile" />
+			        <input type="file" class="form-control" name="uploadImg1" id="uploadImg1" multiple/>
 			    </div>
 			
 			    <!-- delNy -->
 			    <div class="col-md-3">
 			        <label for="delNy" class="form-label">삭제 여부</label>
 			        <select class="form-select" id="delNy" name="delNy">
-			            <option value="0" th:selected="${item?.delNy == 0}">정상</option>
-			            <option value="1" th:selected="${item?.delNy == 1}">삭제</option>
+			        	<option value="" th:selected="${vo.delNy == null}">선택</option>
+			            <option value="1" th:selected="${item?.delNy == 1}">Y</option>
+			            <option value="0" th:selected="${item?.delNy == 0}">N</option>
 			        </select>
 			    </div>
 			
 			    <!-- pseq -->
 			    <div class="col-md-3">
-			        <label for="pseq" class="form-label">부모 제품번호</label>
+			        <label for="pseq" class="form-label">pseq</label>
 			        <input type="number" class="form-control" name="pseq" id="pseq" th:value="${item?.pseq}" />
 			    </div>
 			
 			    <!-- 버튼 -->
 			    <div class="col-12 text-end">
-			        <button type="submit" class="btn btn-primary">저장</button>
+			        <button type="submit" class="btn btn-primary" id="btnSubmit">저장</button>
 			    </div>
 			
 			</form>
@@ -175,12 +184,12 @@
 	document.getElementById("btnSubmit").onclick = function () {
 		if(seq.value == "0" || seq.value == "") {
 			if(validationInst() == false) return false;
-			form.action = "/xdm/codeGroup/codeGroupXdmInst";
+			form.action = "/xdm/product/ProductXdmInst";
 			form.submit();
 		} else {
 			if(validationUpdt() == false) return false;
 // 			alert(new Date());
-			form.action = "/xdm/codeGroup/codeGroupXdmUpdt";
+			form.action = "/xdm/product/ProductXdmUpdt";
 			form.submit();
 		}
 	}

@@ -96,18 +96,18 @@ public class CodeGroupController {
 		return "redirect:/xdm/codeGroup/codeGroupXdmList";
 	}
 	
-	@RequestMapping(value = "/xdm/codeGroupXdmForm/codeGroupXdmForm")
-	public String codeXdmForm(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception {
-		
-		model.addAttribute("listCodeGroup", codeGroupService.selectListWithoutPaging(null));
-		
-		if (vo.getDelNy().equals("0") || vo.getDelNy().equals("")) {
-			//	insert
-		} else {
-			model.addAttribute("item", codeGroupService.selectOne(vo));
-		}
-		return "xdm/codeGroupXdm/codeGroupXdmForm";
-	}
+//	@RequestMapping(value = "/xdm/codeGroupXdmForm/codeGroupXdmForm")
+//	public String codeXdmForm(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception {
+//		
+//		model.addAttribute("listCodeGroup", codeGroupService.selectListWithoutPaging(null));
+//		
+//		if (vo.getDelNy().equals("0") || vo.getDelNy().equals("")) {
+//			//	insert
+//		} else {
+//			model.addAttribute("item", codeGroupService.selectOne(vo));
+//		}
+//		return "xdm/codeGroupXdm/codeGroupXdmForm";
+//	}
 	
 	@RequestMapping(value = "/xdm/codeGroup/codeGroupXdmForm")
 	public String codeGroupXdmForm(@ModelAttribute("vo") CodeGroupVo vo, Model model) throws Exception{
