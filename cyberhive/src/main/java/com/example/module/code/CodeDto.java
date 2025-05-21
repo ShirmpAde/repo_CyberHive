@@ -4,43 +4,98 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CodeDto {
+	private String codeSeq;
+	private String codeName;
+	private Integer codeUseNy;
+	private String codeRegDate;
+	private String codeModDate;
+	private Integer codeDelNy;
+	private String codegroup_cdgrSeq;
+	private String cdgrSeq;
+	private String cdgrName;
+	
 //	for cache
 	public static List<CodeDto> cachedCodeArrayList = new ArrayList<CodeDto>();
-	private String seq;
-	private String name;
-	private Integer delNy;
-	private String useNy;
-	private Integer codeGroup_seq;
 //	-----
-	public String getSeq() {
-		return seq;
+
+	public String getCodeSeq() {
+		return codeSeq;
 	}
-	public void setSeq(String seq) {
-		this.seq = seq;
+
+	public void setCodeSeq(String codeSeq) {
+		this.codeSeq = codeSeq;
 	}
-	public String getName() {
-		return name;
+
+	public String getCodeName() {
+		return codeName;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public void setCodeName(String codeName) {
+		this.codeName = codeName;
 	}
-	public Integer getDelNy() {
-		return delNy;
+
+	public Integer getCodeUseNy() {
+		return codeUseNy;
 	}
-	public void setDelNy(Integer delNy) {
-		this.delNy = delNy;
+
+	public void setCodeUseNy(Integer codeUseNy) {
+		this.codeUseNy = codeUseNy;
 	}
-	public String getUseNy() {
-		return useNy;
+
+	public String getCodeRegDate() {
+		return codeRegDate;
 	}
-	public void setUseNy(String useNy) {
-		this.useNy = useNy;
+
+	public void setCodeRegDate(String codeRegDate) {
+		this.codeRegDate = codeRegDate;
 	}
-	public Integer getCodeGroup_seq() {
-		return codeGroup_seq;
+
+	public String getCodeModDate() {
+		return codeModDate;
 	}
-	public void setCodeGroup_seq(Integer codeGroup_seq) {
-		this.codeGroup_seq = codeGroup_seq;
+
+	public void setCodeModDate(String codeModDate) {
+		this.codeModDate = codeModDate;
 	}
-	
+
+	public Integer getCodeDelNy() {
+		return codeDelNy;
+	}
+
+	public void setCodeDelNy(Integer codeDelNy) {
+		this.codeDelNy = codeDelNy;
+	}
+
+	public String getCodegroup_cdgrSeq() {
+		return codegroup_cdgrSeq;
+	}
+
+	public void setCodegroup_cdgrSeq(String codegroup_cdgrSeq) {
+		this.codegroup_cdgrSeq = codegroup_cdgrSeq;
+	}
+
+	public String getCdgrSeq() {
+		return cdgrSeq;
+	}
+
+	public void setCdgrSeq(String cdgrSeq) {
+		this.cdgrSeq = cdgrSeq;
+	}
+
+	public String getCdgrName() {
+		return cdgrName;
+	}
+
+	public void setCdgrName(String cdgrName) {
+		this.cdgrName = cdgrName;
+	}
+
+	public static List<CodeDto> getCachedCodeArrayList() {
+		return cachedCodeArrayList;
+	}
+
+	public static void setCachedCodeArrayList(List<CodeDto> cachedCodeArrayList) {
+		CodeDto.cachedCodeArrayList = cachedCodeArrayList;
+	}
+
 }

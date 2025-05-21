@@ -1,187 +1,313 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta content="Codescandy" name="author">
-      <title>Order List Dashboard eCommerce HTML Template - FreshCart</title>
-      <!-- Favicon icon-->
-<link rel="shortcut icon" type="image/x-icon" href="/xdm/template/admin_ui/images/favicon/favicon.ico">
-
-<!-- Libs CSS -->
-<link href="/xdm/template/admin_ui/libs/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
-<link href="/xdm/template/admin_ui/libs/feather-webfont/dist/feather-icons.css" rel="stylesheet">
-<link href="/xdm/template/admin_ui/libs/simplebar/dist/simplebar.min.css" rel="stylesheet">
-<!-- Theme CSS -->
-<link rel="stylesheet" href="/xdm/template/admin_ui/css/theme.min.css">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta content="Codescandy" name="author">
+  <title>크래프트 맥주 상품등록</title>
+  <!-- Favicon icon-->
+  <link rel="shortcut icon" type="image/x-icon" href="/xdm/template/admin_ui/images/favicon/favicon.ico">
+  <!-- Libs CSS -->
+  <link href="/xdm/template/admin_ui/libs/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="/xdm/template/admin_ui/libs/feather-webfont/dist/feather-icons.css" rel="stylesheet">
+  <link href="/xdm/template/admin_ui/libs/simplebar/dist/simplebar.min.css" rel="stylesheet">
+  <!-- Theme CSS -->
+  <link rel="stylesheet" href="/xdm/template/admin_ui/css/theme.min.css">
 </head>
 
 <body>
 <section class="section">
-	<div class="row">
-	
-	 <div class="col-lg-12">
-     	<div class="card" >
-        	<div class="card-body">
-              <h1 class="card-title" style="height: 100px;" >기본정보</h1>
-              
-             <!-- Validation --> 
-			<form id="form" name="form" method="post" autocomplete="off" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate="">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <h1 class="card-title mb-4">크래프트 맥주 상품등록</h1>
+          
+          <form id="form" name="form" method="post" autocomplete="off" enctype="multipart/form-data"
+                class="row g-3 needs-validation" novalidate="">
+            
+            <input type="file" name="uploadImg1" multiple>
+            
+            <!-- seq (PK) -->
+            <input type="hidden" name="prdtSeq" th:value="${item?.prdtSeq}" />
+			<input type="hidden" name="cdUpdtDate" >
+            <!-- 상품 이름 -->
+            <div class="col-md-4">
+              <label for="prdtName" class="form-label">상품 이름 <sup>*</sup></label>
+              <input type="text" class="form-control" name="prdtName" id="prdtName"
+                     placeholder="예: Brooklyn IPA" th:value="${item?.prdtName}" required />
+            </div>
 
-			    <!-- seq (PK) -->
-			    <input type="hidden" name="seq" th:value="${item?.seq}" />
-			
-			    <!-- type -->
-			    <div class="col-md-3">
-			        <label for="type" class="form-label">타입</label>
-			        <select class="form-select" id="type" name="type">
-			            <option value="">선택</option>
-			            <option value="1" th:selected="${item?.type == 1}">이미지</option>
-			            <option value="0" th:selected="${item?.type == 0}">문서</option>
-			        </select>
-			    </div>
-			
-			    <!-- defaultNy -->
-			    <div class="col-md-3">
-			        <label for="defaultNy" class="form-label">기본여부</label>
-			        <select class="form-select" id="defaultNy" name="defaultNy">
-			            <option value="">선택</option>
-			            <option value="1" th:selected="${item?.defaultNy == 1}">기본</option>
-			            <option value="0" th:selected="${item?.defaultNy == 0}">일반</option>
-			        </select>
-			    </div>
-			
-			    <!-- sort -->
-			    <div class="col-md-3">
-			        <label for="sort" class="form-label">정렬 순서</label>
-			        <select class="form-select" id="sort" name="sort">
-			            <option value="">선택</option>
-			            <option value="1" th:selected="${item?.sort == 1}">상단 고정</option>
-			            <option value="0" th:selected="${item?.sort == 0}">자동 정렬</option>
-			        </select>
-			    </div>
-			
-			    <!-- path -->
-			    <div class="col-md-6">
-			        <label for="path" class="form-label">파일 경로</label>
-			        <input type="text" class="form-control" name="path" id="path" th:value="${item?.path}" />
-			    </div>
-			
-			    <!-- originalName -->
-			    <div class="col-md-6">
-			        <label for="originalName" class="form-label">원본 파일명</label>
-			        <input type="text" class="form-control" name="originalName" id="originalName" th:value="${item?.originalName}" />
-			    </div>
-			
-			    <!-- uuidName -->
-			    <div class="col-md-6">
-			        <label for="uuidName" class="form-label">UUID 파일명</label>
-			        <input type="text" class="form-control" name="uuidName" id="uuidName" th:value="${item?.uuidName}" />
-			    </div>
-			
-			    <!-- ext -->
-			    <div class="col-md-3">
-			        <label for="ext" class="form-label">확장자</label>
-			        <input type="text" class="form-control" name="ext" id="ext" th:value="${item?.ext}" />
-			    </div>
-			
-			    <!-- size -->
-			    <div class="col-md-3">
-			        <label for="size" class="form-label">파일 업로드 (파일 자체 저장 시)</label>
-			        <input type="file" class="form-control" name="uploadImg1" id="uploadImg1" multiple/>
-			    </div>
-			
-			    <!-- delNy -->
-			    <div class="col-md-3">
-			        <label for="delNy" class="form-label">삭제 여부</label>
-			        <select class="form-select" id="delNy" name="delNy">
-			        	<option value="" th:selected="${vo.delNy == null}">선택</option>
-			            <option value="1" th:selected="${item?.delNy == 1}">Y</option>
-			            <option value="0" th:selected="${item?.delNy == 0}">N</option>
-			        </select>
-			    </div>
-			
-			    <!-- pseq -->
-			    <div class="col-md-3">
-			        <label for="pseq" class="form-label">pseq</label>
-			        <input type="number" class="form-control" name="pseq" id="pseq" th:value="${item?.pseq}" />
-			    </div>
-			
-			    <!-- 버튼 -->
-			    <div class="col-12 text-end">
-			        <button type="submit" class="btn btn-primary" id="btnSubmit">저장</button>
-			    </div>
-			
-			</form>
+            <!-- 카테고리 (스타일) -->
+            <div class="col-md-4">
+              <label for="prdtCateCd" class="form-label">상품분류</label>
+              <select class="form-select" id="prdtCateCd" name="prdtCateCd" th:value="${item?.prdtCateCd}" aria-label="Default select example">
+                  <option th:each="list : ${@codeService.selectListCachedCode(3)}" th:value="${list.codeSeq}" th:text="${list.codeName}" th:selected="${list.codeSeq} == ${item?.prdtCateCd}"></option>
+              </select>
+            </div>
 
-		</div>
-	</div>
-		<div class="modal fade" id="modalAlert" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		  <div class="modal-dialog modal-dialog-centered">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h5 class="modal-title" id="modalAlertTitle">title</h5>
-		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		      </div>
-		      <div class="modal-body" id="modalAlertBody">
-		           body
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-outline-secondary btn-sm btn_custom" data-bs-dismiss="modal" id="close">닫힘</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-		
-		<div class="modal fade" id="modalConfirm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		  <div class="modal-dialog modal-dialog-centered">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h5 class="modal-title" id="modalAlertTitle">title</h5>
-		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		      </div>
-		      <div class="modal-body" id="modalConfirmBody">
-		           body
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="modal">닫힘</button>
-		        <button type="button" class="btn btn-danger" id="btnModalDelete"></button>
-		        <button type="button" class="btn btn-danger" id="btnModalUelete">삭제</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-	  </div>
-     </div>
+            <!-- 상태 -->
+            <div class="col-md-4">
+              <label for="prdtStatus" class="form-label">상품분류</label>
+              <select class="form-select" id="prdtStatus" name="prdtStatus" th:value="${item?.prdtStatus}" aria-label="Default select example">
+                  <option th:each="list : ${@codeService.selectListCachedCode(4)}" th:value="${list.codeSeq}" th:text="${list.codeName}" th:selected="${list.codeSeq} == ${item?.prdtStatus}"></option>
+              </select>
+            </div>
+
+            <!-- 가격 -->
+            <div class="col-md-3">
+              <label for="prdtPrice" class="form-label">가격 (₩) <sup>*</sup></label>
+              <input type="number" class="form-control" name="prdtPrice" id="prdtPrice"
+                     placeholder="예: 12000" th:value="${item?.prdtPrice}" required />
+            </div>
+
+            <!-- ABV -->
+            <div class="col-md-3">
+              <label for="abv" class="form-label">ABV (%) <sup>*</sup></label>
+              <input type="number" step="0.1" class="form-control" name="abv" id="abv"
+                     placeholder="예: 5.5" th:value="${item?.abv}" required />
+            </div>
+
+            <!-- IBU -->
+            <div class="col-md-3">
+              <label for="ibu" class="form-label">IBU</label>
+              <input type="number" class="form-control" name="ibu" id="ibu"
+                     placeholder="예: 60" th:value="${item?.ibu}" />
+            </div>
+
+            <!-- 용량 / 포장 -->
+            <div class="col-md-3">
+              <label for="volume" class="form-label">용량/포장</label>
+              <input type="text" class="form-control" name="volume" id="volume"
+                     placeholder="예: 330ml 캔 / 4병 세트" th:value="${item?.volume}" />
+            </div>
+
+            <!-- 국가 코드 (ISO 숫자 코드) -->
+			<div class="col-md-3">
+			  <label for="countryCode" class="form-label">국가 <sup>*</sup></label>
+			  <select class="form-control" name="countryCode" id="countryCode" required>
+			    <option value="">-- 국가 선택 --</option>
+			    <option value="840" th:selected="${item?.countryCode == '840'}">미국 (United States)</option>
+			    <option value="826" th:selected="${item?.countryCode == '826'}">영국 (United Kingdom)</option>
+			    <option value="276" th:selected="${item?.countryCode == '276'}">독일 (Germany)</option>
+			    <option value="056" th:selected="${item?.countryCode == '056'}">벨기에 (Belgium)</option>
+			    <option value="528" th:selected="${item?.countryCode == '528'}">네덜란드 (Netherlands)</option>
+			    <option value="410" th:selected="${item?.countryCode == '410'}">한국 (South Korea)</option>
+			    <option value="392" th:selected="${item?.countryCode == '392'}">일본 (Japan)</option>
+			    <option value="036" th:selected="${item?.countryCode == '036'}">호주 (Australia)</option>
+			    <option value="124" th:selected="${item?.countryCode == '124'}">캐나다 (Canada)</option>
+			    <option value="208" th:selected="${item?.countryCode == '208'}">덴마크 (Denmark)</option>
+			    <option value="372" th:selected="${item?.countryCode == '372'}">아일랜드 (Ireland)</option>
+			    <option value="203" th:selected="${item?.countryCode == '203'}">체코 (Czech Republic)</option>
+			  </select>
+			</div>
+            
+            <!-- 양조장 (국가 선택 후 활성화) -->
+            <div class="col-md-3">
+              <label for="brewery" class="form-label">양조장 <sup>*</sup></label>
+              <select class="form-control" name="brewery" id="brewery" required disabled>
+                <option value="">-- 국가를 먼저 선택하세요 --</option>
+              </select>
+            </div>
+
+            <!-- 테이스팅 노트 -->
+            <div class="col-md-6">
+              <label for="prdtDesc" class="form-label">테이스팅 노트</label>
+              <textarea class="form-control" name="prdtDesc" id="prdtDesc" rows="2"
+                        placeholder="향 / 맛 / 바디감 등을 간단히 입력"
+                        th:text="${item?.prdtDesc}"></textarea>
+            </div>
+          </form>
+          
+          	<!-- End Custom Styled Validation -->
+          	<div class="row">
+                <div class="col-md-6">
+                  <a href="/product/ProductXdmList" class="btn btn-outline-dark"><i class="bi bi-blockquote-right"></i></a>
+                  <button class="btn btn-danger">X</button>
+                  <button type="button" class="btn btn-danger" id="btnUelete" ><i class="bi bi-trash"></i></button>
+                </div>
+                <div class="col-md-6">
+                  <div style="display: flex;justify-content: end;"><button class="btn btn-primary" id="btnSubmit"><i class="bi bi-server"></i></button></div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="modal" id="modalConfirm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modalConfirmTitle">title</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body" id="modalConfirmBody">
+						body
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">닫힘</button>
+						<button type="button" class="btn btn-danger" name="btnModalDelete" id="btnModalDelete"></button>
+						<button type="button" class="btn btn-danger" name="btnModalUelete" id="btnModalUelete">삭제</button>
+					</div>
+				</div>
+			</div>
+		 </div>
+      
+    </div>
+  </div>
 </section>
+
+<!-- JS 라이브러리 -->
 <script src="/xdm/jquery/jquery-3.7.1.min.js"></script>
-<script src="/xdm/jquery/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
-<!-- Libs JS -->
-<!-- <script src="/xdm/template/admin_ui/libs/jquery/dist/jquery.min.js"></script> -->
 <script src="/xdm/template/admin_ui/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/xdm/template/admin_ui/libs/simplebar/dist/simplebar.min.js"></script>
-
-<!-- Theme JS -->
 <script src="/xdm/template/admin_ui/js/theme.min.js"></script>
 
 <script type="text/javascript">
-	let seq = document.querySelector("input[name=seq]");
-	let form = document.querySelector("form[name=form]");
+  // 양조장 데이터 (국가 코드별)
+  const breweriesByCountry = {
+    "840": [
+      {code: "brooklyn", name: "Brooklyn Brewery"},
+      {code: "sierra", name: "Sierra Nevada"},
+      {code: "dogfish", name: "Dogfish Head"},
+      {code: "stone", name: "Stone Brewing"},
+      {code: "lagunitas", name: "Lagunitas Brewing Company"}
+    ],
+    "826": [
+      {code: "brewdog", name: "BrewDog"},
+      {code: "fullers", name: "Fuller's Brewery"},
+      {code: "newcastle", name: "Newcastle Brewery"}
+    ],
+    "276": [
+      {code: "paulaner", name: "Paulaner"},
+      {code: "weihenstephan", name: "Weihenstephan"},
+      {code: "bitburger", name: "Bitburger"}
+    ],
+    "056": [
+      {code: "chimay", name: "Chimay"},
+      {code: "westmalle", name: "Westmalle"},
+      {code: "rodenbach", name: "Rodenbach"}
+    ],
+    "528": [
+      {code: "heineken", name: "Heineken Brewery"},
+      {code: "brouwerij", name: "Brouwerij De Molen"}
+    ],
+    "410": [
+      {code: "korea_craft", name: "Korea Craft Brewery"},
+      {code: "the_booth", name: "The Booth Brewing Co."},
+      {code: "magpie", name: "Magpie Brewing Co."}
+    ],
+    "392": [
+      {code: "hitachino", name: "Hitachino Nest Beer"},
+      {code: "sapporo", name: "Sapporo Breweries"}
+    ],
+    "036": [
+      {code: "little", name: "Little Creatures Brewery"},
+      {code: "sapporo", name: "Sapporo Breweries"}
+    ],
+    "124": [
+      {code: "steam", name: "Steam Whistle Brewing"},
+      {code: "moosehead", name: "Moosehead Breweries"}
+    ],
+    "208": [
+      {code: "carlsberg", name: "Carlsberg Brewery"},
+      {code: "toØl ", name: "To Øl "}
+    ],
+    "372": [
+      {code: "guinness", name: "Guinness Brewery"},
+      {code: "porterhouse", name: "Porterhouse Brewing Company"}
+    ],
+    "203": [
+      {code: "pilsner", name: "Pilsner Urquell Brewery"},
+      {code: "staropramen", name: "Staropramen Brewery"}
+    ],
+    "default": []
+  };
 
-	function validationInst() {
+  // 국가 선택 시 양조장 목록 업데이트
+  document.getElementById('countryCode').addEventListener('change', function() {
+    const countryCode = this.value;
+    const brewerySelect = document.getElementById('brewery');
+    
+    // 기존 옵션 초기화
+    brewerySelect.innerHTML = '<option value="">-- 양조장 선택 --</option>';
+    
+    if (countryCode) {
+      // 양조장 활성화
+      brewerySelect.disabled = false;
+      
+      // 해당 국가의 양조장 목록 가져오기
+      const breweries = breweriesByCountry[countryCode] || breweriesByCountry['default'];
+      
+      // 양조장 옵션 추가
+      breweries.forEach(brewery => {
+        const option = document.createElement('option');
+        option.value = brewery.code;
+        option.textContent = brewery.name;
+        brewerySelect.appendChild(option);
+      });
+      
+      // 기존에 선택된 값이 있으면 설정
+      if (document.querySelector("input[name=seq]").value) {
+        const selectedBrewery = "${item?.brewery}";
+        if (selectedBrewery) {
+          brewerySelect.value = selectedBrewery;
+        }
+      }
+    } else {
+      // 국가가 선택되지 않았을 때 양조장 비활성화
+      brewerySelect.disabled = true;
+    }
+  });
+
+  // 페이지 로드 시 국가가 이미 선택되어 있다면 양조장 목록 로드
+  document.addEventListener('DOMContentLoaded', function() {
+    const countrySelect = document.getElementById('countryCode');
+    if (countrySelect.value) {
+      countrySelect.dispatchEvent(new Event('change'));
+    }
+  });
+
+  let seq = document.querySelector("input[name=prdtSeq]");
+  let form = document.querySelector("form[name=form]");
+	 
+  function validationInst() {
 	    if(validationUpdt() == false) return false;
 	}
-
+	
 	function validationUpdt() {
-		if(document.getElementById("name").value.trim() == null || document.getElementById("name").value.trim() == "") {
+		if(document.getElementById("prdtName").value.trim() == null || document.getElementById("prdtName").value.trim() == "") {
 			alertModal()
-			document.getElementById("name").focus();
+			document.getElementById("prdtName").focus();
 			return false;
 		}
 	}
-	
-	document.getElementById("btnSubmit").onclick = function () {
+  
+//   function validateForm() {
+//     if(!document.getElementById("prdtName").value.trim()) {
+//       return showAlert("입력오류", "상품 이름을 입력해주세요", "prdtName");
+//     }
+//     if(!document.getElementById("prdtCateCd").value) {
+//       return showAlert("입력오류", "스타일을 선택해주세요", "prdtCateCd");
+//     }
+//     if(!document.getElementById("prdtStatus").value) {
+//       return showAlert("입력오류", "상태를 선택해주세요", "prdtStatus");
+//     }
+//     if(!document.getElementById("prdtPrice").value) {
+//       return showAlert("입력오류", "가격을 입력해주세요", "prdtPrice");
+//     }
+//     if(!document.getElementById("abv").value) {
+//       return showAlert("입력오류", "ABV를 입력해주세요", "abv");
+//     }
+//     if(!document.getElementById("countryCode").value) {
+//       return showAlert("입력오류", "국가를 선택해주세요", "countryCode");
+//     }
+//     if(!document.getElementById("brewery").value) {
+//       return showAlert("입력오류", "양조장을 선택해주세요", "brewery");
+//     }
+//     return true;
+//   }
+
+  document.getElementById("btnSubmit").onclick = function () {
 		if(seq.value == "0" || seq.value == "") {
 			if(validationInst() == false) return false;
 			form.action = "/xdm/product/ProductXdmInst";
@@ -193,30 +319,39 @@
 			form.submit();
 		}
 	}
-	
-	function alertModal() {
+
+  function showAlert(title, msg, focusId) {
+    $("#modalAlertTitle").text(title);
+    $("#modalAlertBody").text(msg);
+    $("#modalAlert").modal("show");
+    document.getElementById(focusId).focus();
+    return false;
+  }
+  
+  function alertModal() {
 		document.querySelector("#modalAlertTitle").textContent = "입력오류";
 		document.querySelector("#modalAlertBody").textContent = "형식에 맞는 값을 입력해주세요";
 		$("#modalAlert").modal("show");
 	}
-	
+		
+		
 	document.getElementById("btnUelete").onclick = function () {
-		document.querySelector("#modalAlertTitle").textContent = "확 인";
+		document.querySelector("#modalConfirmTitle").textContent = "확 인";
 		document.querySelector("#modalConfirmBody").textContent = "해당 데이터를 삭제하시겠습니까 ?";
 		document.querySelector("#btnModalUelete").style.display = '';
 		document.querySelector("#btnModalDelete").style.display = 'none';
 		document.getElementById("modalConfirm").style.display = 'block';
 		$("#modalConfirm").modal("show");
 	}
-	
+
 	document.getElementById("btnModalUelete").onclick = function () {
-		form.action = "/xdm/codeGroup/codeGroupXdmUele";
+		form.action = "/xdm/product/productXdmUele";
 		form.submit();
 	}
 	
 	document.getElementById("closeModal").onclick = function() {
-		if(document.getElementById("name").value.trim() == null || document.getElementById("cdgName").value.trim() == "") {
-			document.getElementById("name").focus();
+		if(document.getElementById("prdtName").value.trim() == null || document.getElementById("prdtName").value.trim() == "") {
+			document.getElementById("prdtName").focus();
 			return false;
 		}
 	}
@@ -224,14 +359,6 @@
 	document.getElementById("savechanges").onclick = function() {
 		alert("savechanges");
 	}
-	
-	/* document.getElementById("btnSave").onclick = function() {
-		alert("asdfasdf");
-	} */
-	
-// 	document.getElementById("name").onchange = function() {
-// 		alert("name");
-// 	}
 </script>
 </body>
 </html>

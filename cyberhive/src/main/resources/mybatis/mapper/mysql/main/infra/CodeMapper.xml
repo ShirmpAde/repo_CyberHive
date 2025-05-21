@@ -5,76 +5,94 @@
 	<resultMap id="resultMapObj" type="com.example.module.code.CodeDto"></resultMap> 
 	
 	<sql id="selectCommon">
-		FROM code as a
+		FROM 
+			code a
+			left join codegroup b on a.codegroup_cdgrSeq = b.cdgrSeq
 		WHERE 1=1
-<!-- 		<if test="shUseNy != null and !shUseNy.equals('')">AND a.useNy = #{shUseNy}</if> -->
-<!--         <if test="shDelNy != null and !shDelNy.equals('')">AND a.delNy = #{shDelNy}</if> -->
-<!-- 				
+        <if test="shUseNy != null and !shUseNy.equals('')">AND a.codeUseNy = #{shUseNy}</if>
+        <if test="shDelNy != null and !shDelNy.equals('')">AND a.codeDelNy = #{shDelNy}</if>
 				<choose>
-					<when test="shOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-					<when test="shOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+					<when test="shOptionDate == 1">AND a.codeRegDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+					<when test="shOptionDate == 2">AND a.codeModDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
 				</choose>
- -->				
         <choose>
-            <when test="shOption == 1">AND a.name LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 1">AND b.cdgrSeq = #{shValue}</when>
+            <when test="shOption == 2">AND b.cdgrName LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 3">AND a.codeSeq LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 4">AND a.codeName LIKE CONCAT('%',#{shValue},'%')</when>
         </choose>
-	</sql>
-	
+    </sql>
 	
 	<select id="selectOneCount" resultType="Integer">
-	SELECT COUNT(*)
-	<include refid="selectCommon"></include>
-	</select>
+    	select count(*)
+    	 <include refid = "selectCommon"></include>
+    </select>
 	
 	<select id="selectList" resultMap="resultMapObj">
-  	select aa.* from (
-	  	SELECT 
-			a.seq,
-            a.name,
-            a.delNy,
-            a.useNy,
-            a.codeGroup_seq
-		<include refid="selectCommon"></include>
-		ORDER BY seq DESC
-		) aa
+	select aa.* from (
+		select
+			a.codeSeq
+			,a.codeName
+			,a.codeUseNy
+			,a.codeRegDate
+			,a.codeModDate
+			,a.codeDelNy
+			,b.cdgrSeq
+			,b.cdgrName
+		<include refid = "selectCommon"></include>
+		order by codeSeq desc
+	) aa
 	limit #{rowNumToShow} offset #{startRnumForMysql}
 	</select>
 	
+	<select id="selectGroupList" resultMap="resultMapObj">
+		select
+			cdgrSeq
+			,cdgrName
+		from
+			codegroup
+		where 1=1			
+		order by cdgrSeq desc
+	</select>
+	
 	<select id="selectOne" resultMap="resultMapObj">
-	SELECT 
-		seq,
-        name,
-        delNy,
-        useNy,
-        codeGroup_seq
-	FROM
-		code
-		WHERE 1=1
-			AND seq = #{seq}
-		ORDER BY seq DESC
+		select
+			codeSeq
+			,codeName
+			,codeUseNy
+			,codeDelNy
+			,codegroup_cdgrSeq
+		from
+			code
+		where 1=1
+			and codeSeq = #{codeSeq}
 	</select>
 	
 	<insert id="insert">
-	INSERT INTO code (					
-            name,
-            delNy,
-            useNy,
-            codeGroup_seq
-		) values (			
-			#{name},
-			#{delNy},
-			#{useNy},
-			#{codeGroup_seq}
+		insert into code (
+			codeName
+			,codeUseNy
+			,codeRegDate
+			,codegroup_cdgrSeq
+		) values (
+			#{codeName}
+			,#{codeUseNy}
+			,CURRENT_TIMESTAMP
+			,#{codegroup_cdgrSeq}
 		)
-		<selectKey resultType="String" keyProperty="seq" order="AFTER">
+		<selectKey resultType="String" keyProperty="codeSeq" order="AFTER">
 			SELECT last_insert_id()
-		</selectKey>		
+		</selectKey>
 	</insert>
 	
 	<update id="update">
-		UPDATE code SET
-			name = #{name}
-		WHERE seq = #{seq}
+		update code set
+			codeName = #{codeName}
+			,codeUseNy = #{codeUseNy}
+			,codeModDate = CURRENT_TIMESTAMP
+			,codegroup_cdgrSeq = #{codegroup_cdgrSeq}
+		where
+			codeSeq = #{codeSeq}
 	</update>
 	
 	<delete id="delete">
@@ -82,15 +100,21 @@
 	</delete> 	
 	
 	<update id="uelete">
-		UPDATE code SET
-			delNy = 1
-		WHERE seq = #{seq}
+		update code set
+			codeDelNy = 1
+		where
+			codeSeq = #{codeSeq}
 	</update>
 	
-	<select id="getUserList" resultType="com.example.module.code.CodeDto">
-    SELECT * 
-    FROM code 
-    ORDER BY seq DESC
-    LIMIT #{offset}, #{pageSize}
-	</select>
+	<select id="selectListCachedCodeArrayList" resultMap="resultMapObj">
+		SELECT 
+			codeSeq
+			, codeName
+			, codegroup_cdgrSeq
+		FROM
+			code
+		WHERE 1=1
+			AND codeDelNy = 0
+		    AND codeUseNy = 1
+   	</select>
 </mapper>

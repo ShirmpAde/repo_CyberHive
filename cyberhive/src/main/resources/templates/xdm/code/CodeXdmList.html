@@ -224,14 +224,14 @@
 					<div id="navCategoriesOrders" class="collapse  show " data-bs-parent="#sideNavbar">
 						<ul class="nav flex-column">
 							<li class="nav-item">
-								<a class="nav-link  active " href="/xdm/code/codeXdmList">코드</a>
+								<a class="nav-link  active " href="/code/codeXdmList">코드</a>
 							</li>
 							<!-- Nav item -->
 							<li class="nav-item">
-								<a class="nav-link " href="/xdm/codeGroup/codeGroupXdmList">코드그룹</a>
+								<a class="nav-link " href="/codeGroup/codeGroupXdmList">코드그룹</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link " href="/xdm/member/memberXdmList">회원관리</a>
+								<a class="nav-link " href="/member/memberXdmList">회원관리</a>
 							</li>
 						</ul>
 					</div>
@@ -716,7 +716,7 @@
                            <div class="row justify-content-between">
                               <div class="col-md-10 col-12 mb-2 mb-md-0">
                                  <!-- form -->
-                                 <form class="d-flex" role="search" name="formList" method="post">
+                                 <form class="d-flex" role="search" id="formList" name="formList" method="post">
                                  <input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
 								 <input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
 									<!-- select -->
@@ -734,19 +734,19 @@
 										<option value="0" th:selected="${vo.shUseNy == 0}">N</option>
 									</select>
                                  	</div>
-<!--                                  	<div class="col-md-2"> -->
-<!-- 										<select id="shOptionDate" name="shOptionDate" class="form-select form-select-sm"> -->
-<!-- 											<option value="" th:selected="${vo.shOptionDate == null}">날짜</option> -->
-<!-- 											<option value="1" th:selected="${vo.shOptionDate == 1}">등록일</option> -->
-<!-- 											<option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option> -->
-<!-- 										</select> -->
-<!--                                  	</div> -->
-<!--                                 	<div class="col-md-2"> -->
-<!--                                     <input type="text" id="shDateStart" name="shDateStart" th:value="${#strings.substring(vo.shDateStart, 0, 10)}" placeholder="시작일" class="form-control form-control-sm" autocomplete="off"> -->
-<!--                                     </div> -->
-<!--                                     <div class="col-md-2"> -->
-<!--                                    <input type="text" id="shDateEnd" name="shDateEnd" th:value="${#strings.substring(vo.shDateEnd, 0, 10)}" placeholder="종료일" class="form-control form-control-sm" autocomplete="off"> -->
-<!--                                     </div> -->
+                                 	<div class="col-md-2">
+										<select id="shOptionDate" name="shOptionDate" class="form-select form-select-sm">
+											<option value="" th:selected="${vo.shOptionDate == null}">날짜</option>
+											<option value="1" th:selected="${vo.shOptionDate == 1}">등록일</option>
+											<option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option>
+										</select>
+                                 	</div>
+                                	<div class="col-md-2">
+                                    <input type="text" id="shDateStart" name="shDateStart" th:value="${#strings.substring(vo.shDateStart, 0, 10)}" placeholder="시작일" class="form-control form-control-sm" autocomplete="off">
+                                    </div>
+                                    <div class="col-md-2">
+                                   <input type="text" id="shDateEnd" name="shDateEnd" th:value="${#strings.substring(vo.shDateEnd, 0, 10)}" placeholder="종료일" class="form-control form-control-sm" autocomplete="off">
+                                    </div>
                               </div>
                            <div class="row justify-content-start">
                               <div class="col-md-10 col-12 mb-2 mb-md-0">
@@ -785,11 +785,13 @@
                                              <label class="form-check-label" for="checkAll"></label>
                                           </div>
                                        </th>
-                                       <th>seq</th>
-                                       <th>name</th>
-                                       <th>delNy</th>
-                                       <th>useNy</th>
-                                       <th>codeGroup_seq</th>
+                                       <th>codeSeq</th>
+                                       <th>codeName</th>
+                                       <th>codeDelNy</th>
+                                       <th>codeUseNy</th>
+                                       <th>codeRegDate</th>
+                                       <th>codeModDate</th>
+                                       <th>codegroup_cdgrSeq</th>
                                        <th></th>
                                    	   </tr>
                                  </thead>
@@ -797,15 +799,17 @@
                                        	<tr th:each="code : ${list}">
                                        	<td>
                                				<div class="form-check">
-                                             <input class="form-check-input" type="checkbox" name="selectedItems" th:value="${code.seq}"/>
+                                             <input class="form-check-input" type="checkbox" name="selectedItems" th:value="${code.codeSeq}"/>
                                              <label class="form-check-label"></label>
                                           	</div>
                                        	</td>
-						                <td th:text="${code.seq}"></td>
-						                <td th:text="${code.name}"></td>
-						                <td th:text="${code.delNy}"></td>
-						                <td th:text="${code.useNy}"></td>
-						                <td th:text="${code.codeGroup_seq}"></td>
+						                <td th:text="${code.codeSeq}"></td>
+						                <td th:text="${code.codeName}"></td>
+						                <td th:text="${code.codeDelNy}"></td>
+						                <td th:text="${code.codeUseNy}"></td>
+						                <td th:text="${code.codeRegDate}"></td>
+						                <td th:text="${code.codeModDate}"></td>
+						                <td th:text="${code.codegroup_cdgrSeq}"></td>
 						                <td>
 						                	<div class="dropdown">
                                              <a href="#" class="text-reset" data-bs-toggle="dropdown" aria-expanded="false">
@@ -847,6 +851,12 @@
 								</a>
 							</li>
 						</ul>
+						<div class="d-flex justify-content-end mt-3">
+                        	<button class="btn btn-primary" type="button" id="btnForm">
+                        		<i class="fas fa-plus fa-lg"></i>
+                             	<img src="/xdm/template/admin_ui/images/plus.svg" alt="이미지 설명">            
+                        	</button>
+                        </div>
                      </div>
                   </div>
                </div>
@@ -864,7 +874,9 @@
 <script src="/xdm/template/admin_ui/js/theme.min.js"></script>
 <script type="text/javascript">
 let form = document.querySelector("form[name=formList]");
-let seq = document.querySelector("input[name=seq]");
+let seq = document.querySelector("input[name=codeSeq]");
+
+form.action = goUrlXdmForm;
 
 document.getElementById("btnForm").onclick = function () {
     goForm(0);
@@ -874,18 +886,22 @@ goForm = function (keyValue) {
     seq.value = keyValue;
     form.action = goUrlXdmForm;
     form.submit();
-
+	}
 document.getElementById("btnSearch").onclick = function () {
-  	form.action = "/xdm/code/codeXdmList";
+  	form.action = "/code/codeXdmList";
   	form.submit();
 	}
-
+	
+document.getElementById("btnReset").onclick = function () {
+	location = "/codeGroup/codeGroupXdmList";
+};
+	
 goList = function (thisPage) {
     document.querySelector("input[name=thisPage]").value = thisPage;
-    form.action = "/xdm/code/codeXdmList";
+    form.action = "/code/codeXdmList";
     form.submit();
-}
+	}
 </script>
 
-   </body>
+</body>
 </html>

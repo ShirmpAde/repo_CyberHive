@@ -3,81 +3,79 @@ package com.example.module.code;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.common.base.BaseController;
+import com.example.module.codegroup.CodeGroupService;
+
 @Controller
-public class CodeController {
+public class CodeController extends BaseController {
 	
 	@Autowired
 	CodeService codeService;
-
-	@RequestMapping(value = "/xdm/code/codeXdmList")
-	public String codeXdmList(Model model, CodeVo vo) throws Exception{
+	
+	@Autowired
+	CodeGroupService codeGroupService;
+	
+	@RequestMapping(value = "/code/codeXdmList")
+	public String codeXdmList(CodeVo vo, Model model) throws Exception{
 		
-		vo.setParamsPaging(codeService.seletOneCount());
+		utildatetime(vo);
+		
+		vo.setParamsPaging(codeService.selectOneCount(vo));
 		
 		model.addAttribute("list", codeService.selectList(vo));
-		
 		model.addAttribute("vo", vo);
 		
 		return "xdm/code/CodeXdmList";
 	}
 	
-	@RequestMapping(value = "/xdm/code/codeXdmView")
-	public String codeXdmList(Model model, CodeDto codeDto) {
-		System.out.println("codeDto.getSeq(): " + codeDto.getSeq());
-		model.addAttribute("item", codeService.selectOne(codeDto));
-		return "xdm/code/codeXdmView";
+	@RequestMapping(value = "/code/codeXdmForm")
+	public String codeXdmForm(@ModelAttribute("vo") CodeVo vo, Model model) {
+//		model.addAttribute("list", codeService.selectGroupList());
+		model.addAttribute("list", codeGroupService.selectListWithoutPaging());
+		
+		if (vo.getCodeSeq().equals("0") || vo.getCodeSeq().equals("")) {
+//			insert mode
+		} else {
+//			update mode
+			model.addAttribute("item", codeService.selectOne(vo));
+		}
+		
+		return "xdm/code/CodeXdmForm";
 	}
 	
-//	@RequestMapping(value = "/xdm/code/codeXdmForm")
-//	public String codeXdmForm() {
-//		
-//		return "xdm/code/codeXdmForm";
-//	}
-	
-	@RequestMapping(value = "/xdm/code/codeXdmInst")
+	@RequestMapping(value = "/code/codeXdmInst")
 	public String codeXdmInst(CodeDto codeDto) {
-		System.out.println("codeDto.getSeq(): " + codeDto.getSeq());
-		System.out.println("codeDto.getName(): " + codeDto.getName());
-
 		codeService.insert(codeDto);
-
-		System.out.println("codeDto.getSeq(): " + codeDto.getSeq());
-
-		return "redirect:xdm/code/codeXdmList";
+		return "redirect:/code/codeXdmList";
 	}
 	
-	@RequestMapping(value = "/xdm/code/codeXdmMfom")
-	public String codeXdmMfom(CodeDto codeDto, Model model) {
-		
+	@RequestMapping(value = "/code/codeXdmMfom")
+	public String codeXdmMfom(Model model, CodeDto codeDto) {
+//		model.addAttribute("list", codeService.selectGroupList());
+		model.addAttribute("list", codeGroupService.selectListWithoutPaging());
 		model.addAttribute("item", codeService.selectOne(codeDto));
-		
-		return "xdm/code/codeXdmMfom";
+		return "xdm/code/CodeXdmMfom";
 	}
 	
-	@RequestMapping(value = "/xdm/code/codeXdmUpdt")
+	@RequestMapping(value = "/code/codeXdmUpdt")
 	public String codeXdmUpdt(CodeDto codeDto) {
-		
 		codeService.update(codeDto);
-		
-		return "redirect:xdm/code/codeXdmList";
+		return "redirect:/code/codeXdmList";
 	}
 	
-	@RequestMapping(value = "/xdm/code/codeXdmDele")
+	@RequestMapping(value = "/code/codeXdmDele")
 	public String codeXdmDele(CodeDto codeDto) {
-		
 		codeService.delete(codeDto);
-		
 		return "redirect:xdm/code/codeXdmList";
 	}
 	
-	@RequestMapping(value = "/xdm/code/codeXdmUele")
+	@RequestMapping(value = "/code/codeXdmUele")
 	public String codeXdmUele(CodeDto codeDto) {
-		
 		codeService.uelete(codeDto);
-		
-		return "redirect:xdm/code/codeXdmList";
+		return "redirect:/code/codeXdmList";
 	}
 }
 

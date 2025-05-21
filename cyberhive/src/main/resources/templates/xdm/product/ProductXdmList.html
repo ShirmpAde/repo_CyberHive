@@ -230,14 +230,14 @@
 					<div id="navCategoriesOrders" class="collapse " data-bs-parent="#sideNavbar">
 						<ul class="nav flex-column">
 							<li class="nav-item">
-								<a class="nav-link " href="/xdm/code/codeXdmList">코드</a>
+								<a class="nav-link " href="/code/codeXdmList">코드</a>
 							</li>
 							<!-- Nav item -->
 							<li class="nav-item">
-								<a class="nav-link " href="/xdm/codeGroup/codeGroupXdmList">코드그룹</a>
+								<a class="nav-link " href="/codeGroup/codeGroupXdmList">코드그룹</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="/xdm/member/memberXdmList">회원관리</a>
+								<a class="nav-link" href="/member/memberXdmList">회원관리</a>
 							</li>
 						</ul>
 					</div>
@@ -742,433 +742,54 @@
                               </div>
                            </div>
                         </div>
-                        <!-- card body -->
-                        <div class="card-body p-0">
-                           <!-- table -->
-                           <div class="table-responsive">
-                              <table class="table table-centered table-hover text-nowrap table-borderless mb-0 table-with-checkbox">
-                                 <thead class="bg-light">
-                                    <tr>
-                                       <th>
-                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" value="" id="checkAll" />
-                                             <label class="form-check-label" for="checkAll"></label>
-                                          </div>
-                                       </th>
-                                       <th>Image</th>
-                                       <th>Proudct Name</th>
-                                       <th>Category</th>
-                                       <th>Status</th>
-                                       <th>Price</th>
-                                       <th>Create at</th>
-                                       <th></th>
-                                    </tr>
-                                 </thead>
-                                 <tbody>
-                                    <tr>
-                                       <td>
-                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" value="" id="productOne" />
-                                             <label class="form-check-label" for="productOne"></label>
-                                          </div>
-                                       </td>
-                                       <td>
-                                          <a href="#!"><img src="/xdm/template/admin_ui/images/products/product-img-1.jpg" alt="" class="icon-shape icon-md" /></a>
-                                       </td>
-                                       <td><a href="#" class="text-reset">Haldiram's Sev Bhujia</a></td>
-                                       <td>Snack & Munchies</td>
-
-                                       <td>
-                                          <span class="badge bg-light-primary text-dark-primary">Active</span>
-                                       </td>
-                                       <td>$18.00</td>
-                                       <td>24 Nov 2022</td>
-                                       <td>
-                                          <div class="dropdown">
-                                             <a href="#" class="text-reset" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="feather-icon icon-more-vertical fs-5"></i>
-                                             </a>
-                                             <ul class="dropdown-menu">
-                                                <li>
-                                                   <a class="dropdown-item" href="#">
-                                                      <i class="bi bi-trash me-3"></i>
-                                                      Delete
-                                                   </a>
-                                                </li>
-                                                <li>
-                                                   <a class="dropdown-item" href="#">
-                                                      <i class="bi bi-pencil-square me-3"></i>
-                                                      Edit
-                                                   </a>
-                                                </li>
-                                             </ul>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td>
-                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" value="" id="productTwo" />
-                                             <label class="form-check-label" for="productTwo"></label>
-                                          </div>
-                                       </td>
-                                       <td>
-                                          <a href="#!"><img src="/xdm/template/admin_ui/images/products/product-img-2.jpg" alt="" class="icon-shape icon-md" /></a>
-                                       </td>
-                                       <td><a href="#" class="text-reset">NutriChoice Digestive</a></td>
-                                       <td>Bakery & Biscuits</td>
-
-                                       <td>
-                                          <span class="badge bg-light-primary text-dark-primary">Active</span>
-                                       </td>
-                                       <td>$24.00</td>
-                                       <td>20 Nov 2022</td>
-                                       <td>
-                                          <div class="dropdown">
-                                             <a href="#" class="text-reset" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="feather-icon icon-more-vertical fs-5"></i>
-                                             </a>
-                                             <ul class="dropdown-menu">
-                                                <li>
-                                                   <a class="dropdown-item" href="#">
-                                                      <i class="bi bi-trash me-3"></i>
-                                                      Delete
-                                                   </a>
-                                                </li>
-                                                <li>
-                                                   <a class="dropdown-item" href="#">
-                                                      <i class="bi bi-pencil-square me-3"></i>
-                                                      Edit
-                                                   </a>
-                                                </li>
-                                             </ul>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td>
-                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" value="" id="productThree" />
-                                             <label class="form-check-label" for="productThree"></label>
-                                          </div>
-                                       </td>
-                                       <td>
-                                          <a href="#!"><img src="/xdm/template/admin_ui/images/products/product-img-3.jpg" alt="" class="icon-shape icon-md" /></a>
-                                       </td>
-                                       <td><a href="#" class="text-reset">Cadbury 5 Star Chocolate</a></td>
-                                       <td>Snack & Munchies</td>
-
-                                       <td>
-                                          <span class="badge bg-light-primary text-dark-primary">Active</span>
-                                       </td>
-                                       <td>$3.00</td>
-                                       <td>14 Nov 2022</td>
-                                       <td>
-                                          <div class="dropdown">
-                                             <a href="#" class="text-reset" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="feather-icon icon-more-vertical fs-5"></i>
-                                             </a>
-                                             <ul class="dropdown-menu">
-                                                <li>
-                                                   <a class="dropdown-item" href="#">
-                                                      <i class="bi bi-trash me-3"></i>
-                                                      Delete
-                                                   </a>
-                                                </li>
-                                                <li>
-                                                   <a class="dropdown-item" href="#">
-                                                      <i class="bi bi-pencil-square me-3"></i>
-                                                      Edit
-                                                   </a>
-                                                </li>
-                                             </ul>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td>
-                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" value="" id="productFour" />
-                                             <label class="form-check-label" for="productFour"></label>
-                                          </div>
-                                       </td>
-                                       <td>
-                                          <a href="#!"><img src="/xdm/template/admin_ui/images/products/product-img-4.jpg" alt="" class="icon-shape icon-md" /></a>
-                                       </td>
-                                       <td><a href="#" class="text-reset">Onion Flavour Potato</a></td>
-                                       <td>Snack & Munchies</td>
-
-                                       <td>
-                                          <span class="badge bg-light-warning text-dark-warning">Draft</span>
-                                       </td>
-                                       <td>$13.00</td>
-                                       <td>08 Nov 2022</td>
-                                       <td>
-                                          <div class="dropdown">
-                                             <a href="#" class="text-reset" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="feather-icon icon-more-vertical fs-5"></i>
-                                             </a>
-                                             <ul class="dropdown-menu">
-                                                <li>
-                                                   <a class="dropdown-item" href="#">
-                                                      <i class="bi bi-trash me-3"></i>
-                                                      Delete
-                                                   </a>
-                                                </li>
-                                                <li>
-                                                   <a class="dropdown-item" href="#">
-                                                      <i class="bi bi-pencil-square me-3"></i>
-                                                      Edit
-                                                   </a>
-                                                </li>
-                                             </ul>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td>
-                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" value="" id="productFive" />
-                                             <label class="form-check-label" for="productFive"></label>
-                                          </div>
-                                       </td>
-                                       <td>
-                                          <a href="#!"><img src="/xdm/template/admin_ui/images/products/product-img-5.jpg" alt="" class="icon-shape icon-md" /></a>
-                                       </td>
-                                       <td><a href="#" class="text-reset">Salted Instant Popcorn</a></td>
-                                       <td>Instant Food</td>
-
-                                       <td>
-                                          <span class="badge bg-light-warning text-dark-warning">Draft</span>
-                                       </td>
-                                       <td>$9.00</td>
-                                       <td>09 Nov 2022</td>
-                                       <td>
-                                          <div class="dropdown">
-                                             <a href="#" class="text-reset" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="feather-icon icon-more-vertical fs-5"></i>
-                                             </a>
-                                             <ul class="dropdown-menu">
-                                                <li>
-                                                   <a class="dropdown-item" href="#">
-                                                      <i class="bi bi-trash me-3"></i>
-                                                      Delete
-                                                   </a>
-                                                </li>
-                                                <li>
-                                                   <a class="dropdown-item" href="#">
-                                                      <i class="bi bi-pencil-square me-3"></i>
-                                                      Edit
-                                                   </a>
-                                                </li>
-                                             </ul>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td>
-                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" value="" id="productSix" />
-                                             <label class="form-check-label" for="productSix"></label>
-                                          </div>
-                                       </td>
-                                       <td>
-                                          <a href="#!"><img src="/xdm/template/admin_ui/images/products/product-img-6.jpg" alt="" class="icon-shape icon-md" /></a>
-                                       </td>
-                                       <td><a href="#" class="text-reset">Blueberry Greek Yogurt</a></td>
-                                       <td>Dairy, Bread & Eggs</td>
-
-                                       <td>
-                                          <span class="badge bg-light-danger text-dark-danger">Deactive</span>
-                                       </td>
-                                       <td>$11.00</td>
-                                       <td>02 Nov 2022</td>
-                                       <td>
-                                          <div class="dropdown">
-                                             <a href="#" class="text-reset" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="feather-icon icon-more-vertical fs-5"></i>
-                                             </a>
-                                             <ul class="dropdown-menu">
-                                                <li>
-                                                   <a class="dropdown-item" href="#">
-                                                      <i class="bi bi-trash me-3"></i>
-                                                      Delete
-                                                   </a>
-                                                </li>
-                                                <li>
-                                                   <a class="dropdown-item" href="#">
-                                                      <i class="bi bi-pencil-square me-3"></i>
-                                                      Edit
-                                                   </a>
-                                                </li>
-                                             </ul>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td>
-                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" value="" id="productSeven" />
-                                             <label class="form-check-label" for="productSeven"></label>
-                                          </div>
-                                       </td>
-                                       <td>
-                                          <a href="#!"><img src="/xdm/template/admin_ui/images/products/product-img-7.jpg" alt="" class="icon-shape icon-md" /></a>
-                                       </td>
-                                       <td><a href="#" class="text-reset">Britannia Cheese Slices</a></td>
-                                       <td>Dairy, Bread & Eggs</td>
-
-                                       <td>
-                                          <span class="badge bg-light-success text-dark-success">Active</span>
-                                       </td>
-                                       <td>$24.00</td>
-                                       <td>15 Oct 2022</td>
-                                       <td>
-                                          <div class="dropdown">
-                                             <a href="#" class="text-reset" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="feather-icon icon-more-vertical fs-5"></i>
-                                             </a>
-                                             <ul class="dropdown-menu">
-                                                <li>
-                                                   <a class="dropdown-item" href="#">
-                                                      <i class="bi bi-trash me-3"></i>
-                                                      Delete
-                                                   </a>
-                                                </li>
-                                                <li>
-                                                   <a class="dropdown-item" href="#">
-                                                      <i class="bi bi-pencil-square me-3"></i>
-                                                      Edit
-                                                   </a>
-                                                </li>
-                                             </ul>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td>
-                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" value="" id="productEight" />
-                                             <label class="form-check-label" for="productEight"></label>
-                                          </div>
-                                       </td>
-                                       <td>
-                                          <a href="#!"><img src="/xdm/template/admin_ui/images/products/product-img-8.jpg" alt="" class="icon-shape icon-md" /></a>
-                                       </td>
-                                       <td><a href="#" class="text-reset">Blueberry Greek Yogurt</a></td>
-                                       <td>Instant Food</td>
-
-                                       <td>
-                                          <span class="badge bg-light-danger text-dark-danger">Deactive</span>
-                                       </td>
-                                       <td>$12.00</td>
-                                       <td>24 Oct 2022</td>
-                                       <td>
-                                          <div class="dropdown">
-                                             <a href="#" class="text-reset" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="feather-icon icon-more-vertical fs-5"></i>
-                                             </a>
-                                             <ul class="dropdown-menu">
-                                                <li>
-                                                   <a class="dropdown-item" href="#">
-                                                      <i class="bi bi-trash me-3"></i>
-                                                      Delete
-                                                   </a>
-                                                </li>
-                                                <li>
-                                                   <a class="dropdown-item" href="#">
-                                                      <i class="bi bi-pencil-square me-3"></i>
-                                                      Edit
-                                                   </a>
-                                                </li>
-                                             </ul>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td>
-                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" value="" id="productNine" />
-                                             <label class="form-check-label" for="productNine"></label>
-                                          </div>
-                                       </td>
-                                       <td>
-                                          <a href="#!"><img src="/xdm/template/admin_ui/images/products/product-img-9.jpg" alt="" class="icon-shape icon-md" /></a>
-                                       </td>
-                                       <td><a href="#" class="text-reset">Slurrp Millet Chocolate</a></td>
-                                       <td>Instant Food</td>
-
-                                       <td>
-                                          <span class="badge bg-light-primary text-dark-primary">Active</span>
-                                       </td>
-                                       <td>$8.00</td>
-                                       <td>08 Oct 2022</td>
-                                       <td>
-                                          <div class="dropdown">
-                                             <a href="#" class="text-reset" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="feather-icon icon-more-vertical fs-5"></i>
-                                             </a>
-                                             <ul class="dropdown-menu">
-                                                <li>
-                                                   <a class="dropdown-item" href="#">
-                                                      <i class="bi bi-trash me-3"></i>
-                                                      Delete
-                                                   </a>
-                                                </li>
-                                                <li>
-                                                   <a class="dropdown-item" href="#">
-                                                      <i class="bi bi-pencil-square me-3"></i>
-                                                      Edit
-                                                   </a>
-                                                </li>
-                                             </ul>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td>
-                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" value="" id="productTen" />
-                                             <label class="form-check-label" for="productTen"></label>
-                                          </div>
-                                       </td>
-                                       <td>
-                                          <a href="#!"><img src="/xdm/template/admin_ui/images/products/product-img-10.jpg" alt="" class="icon-shape icon-md" /></a>
-                                       </td>
-                                       <td><a href="#" class="text-reset">Amul Butter - 500 g</a></td>
-                                       <td>Instant Food</td>
-
-                                       <td>
-                                          <span class="badge bg-light-primary text-dark-primary">Active</span>
-                                       </td>
-                                       <td>$8.00</td>
-                                       <td>09 Oct 2022</td>
-                                       <td>
-                                          <div class="dropdown">
-                                             <a href="#" class="text-reset" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="feather-icon icon-more-vertical fs-5"></i>
-                                             </a>
-                                             <ul class="dropdown-menu">
-                                                <li>
-                                                   <a class="dropdown-item" href="#">
-                                                      <i class="bi bi-trash me-3"></i>
-                                                      Delete
-                                                   </a>
-                                                </li>
-                                                <li>
-                                                   <a class="dropdown-item" href="#">
-                                                      <i class="bi bi-pencil-square me-3"></i>
-                                                      Edit
-                                                   </a>
-                                                </li>
-                                             </ul>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                 </tbody>
-                              </table>
-                           </div>
-                        </div>
+                     <!-- card body -->
+                     <div class="card-body p-0">
+					  <!-- table responsive -->
+					  <div class="table-responsive">
+                        <table class="table datatable" style="text-align: center;">
+		                <thead>
+		                  <tr>
+		                    <th data-sortable="false"  style="text-align: center; width: 100px;"><div class="checked"><input type="checkbox" class="form-check" name="allChk" onclick='selectAll(this)'></div></th>
+		                    <th data-sortable="false" style="width: 10px; text-align: center;" >#</th>
+		                    <th class="list-sort" style="text-align: center;">상품 이름</th>
+		                    <th class="list-sort" style="text-align: center;">상품 분류</th>
+		                    <th class="list-sort" style="text-align: center;">상품 상태</th>
+		                    <th class="list-sort" style="text-align: center;">가격</th>
+		                    <th class="list-sort" style="text-align: center;">도수</th>
+		                    <th class="list-sort" style="text-align: center;">쓴맛 정도</th>
+		                    <th class="list-sort" style="text-align: center;">제조국 코드</th>
+		                    <th class="list-sort" style="text-align: center;">제조공장</th>
+		                    <th data-type="date" data-format="YYYY/DD/MM" class="list-sort" style="text-align: center;">등록일</th>
+		                    <th data-type="data" data-format="YYYY/DD/MM" class="list-sort" style="text-align: center;">수정일</th>
+		                  </tr>
+		                </thead>
+		                <tbody>
+		                    <tr th:if="${#lists.isEmpty(list)}" class="hover-action-trigger btn-reveal-trigger position-static">
+			               		<td colspan="10">
+			               			<p class="fs-0" style="padding-top: 12px;">There are no data!</p>
+			               		</td>
+			               	</tr>
+			                   <tr th:if="${!#lists.isEmpty(list)}" th:each ="list : ${list}">
+			                   <th><div class="checked"><input type="checkbox" class="form-check" name="eachChk" onclick='checkSelectAll()' th:value="${list.prdtSeq}" value=""></div></th>
+			                   <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
+			                   <td><a th:href="@{/product/productXdmMfom(prdtSeq=${list.prdtSeq})}" th:text = "${list.prdtName}"></a></td>
+		                       <td th:text = "${@codeService.selectOneCachedCode(list.prdtCateCd)}"></td>
+		                       <td th:text = "${@codeService.selectOneCachedCode(list.prdtStatus)}"></td>
+			                   <td th:text = "${list.prdtPrice}"></td>
+		                       <td th:text = "${list.abv}"></td>
+		                       <td th:text = "${list.ibu}"></td>
+		                       <td th:text = "${list.volume}"></td>
+		                       <td th:text = "${list.countryCode}"></td>
+		                       <td th:text = "${list.brewery}"></td>
+		                       <td th:text = "${list.prdtRegDate}"></td>
+		                       <td th:text = "${list.prdtModDate}"></td>
+			                   </tr>
+		                  </tbody>
+		                  <tfoot>
+	                  </tfoot>
+                   </table>
+		          </div>
+				</div>       
                         <div class="border-top d-md-flex justify-content-between align-items-center px-6 py-6">
                            <span>Showing 1 to 8 of 12 entries</span>
                            <nav class="mt-2 mt-md-0">

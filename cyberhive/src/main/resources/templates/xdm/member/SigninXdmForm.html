@@ -310,14 +310,14 @@
 			,cache: false
 			,type: "post"
 			/* ,dataType:"json" */
-			,url: "/xdm/member/signinXdmProc"
+			,url: "/member/signinXdmProc"
 			/* ,data : $("#formLogin").serialize() */
 			,data : { "id" : $("#id").val(), "password" : $("#password").val()}
 			,success: function(response) {
 				if(response.rt == "success") {
 // 	 alert(document.getElementById("password").value);
 					
-						location.href = "/xdm/member/memberXdmList";
+						location.href = "/member/memberXdmList";
 				
 				} else {
 			 		document.getElementById("modalAlertTitle").innerText = "확 인";

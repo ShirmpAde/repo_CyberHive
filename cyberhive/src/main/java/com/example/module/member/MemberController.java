@@ -25,27 +25,20 @@ public class MemberController extends BaseController {
 	@Autowired
 	MailService mailService;
 	
-	@RequestMapping(value = "/xdm/member/memberXdmList")
-	public String memberXdmList(Model model, MemberVo vo) throws Exception{
-		vo.setParamsPaging(memberService.seletOneCount());
+	@RequestMapping(value = "/member/memberXdmList")
+	public String memberXdmList(MemberVo vo, MemberDto dto, Model model) {
+		utildatetime(vo);
+		
+		vo.setParamsPaging(memberService.selectOneCount(vo));
 		
 		model.addAttribute("list", memberService.selectList(vo));
-		
 		model.addAttribute("vo", vo);
-		System.out.println("vo.getShDateStart(): " + vo.getShDateStart());
-		System.out.println("vo.getShDateEnd(): " + vo.getShDateEnd());
-		System.out.println("vo.getShOptionDate(): " + vo.getShOptionDate());
-		System.out.println("vo.getShOption(): " + vo.getShOption());
-		System.out.println("vo.getShValue(): " + vo.getShValue());
-		
 		return "xdm/member/MemberXdmList";
 	}
 	
-	@RequestMapping(value = "/xdm/member/memberXdmView")
-	public String memberXdmList(Model model, MemberDto memberDto) {
-		System.out.println("memberDto.getSeq(): " + memberDto.getSeq());
-		model.addAttribute("item", memberService.selectOne(memberDto));
-		return "xdm/member/memberXdmView";
+	@RequestMapping(value = "/member/signinXdmForm")
+	public String signinXdmForm(MemberVo vo, HttpSession httpSession) {		
+		return "xdm/member/SigninXdmForm";
 	}
 	
 	@RequestMapping(value = "/xdm/member/memberXdmForm")
@@ -56,12 +49,12 @@ public class MemberController extends BaseController {
 	
 	@RequestMapping(value = "/xdm/member/memberXdmInst")
 	public String memberXdmInst(MemberDto memberDto) {
-		System.out.println("memberDto.getSeq(): " + memberDto.getSeq());
+		System.out.println("memberDto.getSeq(): " + memberDto.getMembSeq());
 		System.out.println("memberDto.getName(): " + memberDto.getName());
 		
 		memberService.insert(memberDto);
 
-		System.out.println("memberDto.getSeq(): " + memberDto.getSeq());
+		System.out.println("memberDto.getSeq(): " + memberDto.getMembSeq());
 
 		return "redirect:xdm/member/memberXdmList";
 	}
@@ -98,40 +91,29 @@ public class MemberController extends BaseController {
 		return "redirect:xdm/member/memberXdmList";
 	}
 	
-	@RequestMapping(value = "/xdm/member/signinXdmForm")
-	public String signinXdmForm(MemberVo vo, HttpSession httpSession) throws Exception {
-		return "xdm/member/SigninXdmForm";
-	}
-	
 	@ResponseBody
-	@RequestMapping(value = "/xdm/member/signinXdmProc")
-	public Map<String, Object> signinXdmProc(MemberDto memberDto, HttpSession httpSession) throws Exception {
+	@RequestMapping(value = "/member/signinXdmProc")
+	public Map<String, Object> signinXdmProc(MemberDto dto, HttpSession httpSession) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
-		MemberDto rt = memberService.signinChk(memberDto);
-		if (rt != null) {
-			returnMap.put("rt", "success");
-			httpSession.setMaxInactiveInterval(60 * 30); // 60second * 30 = 30minute
-			httpSession.setAttribute("sessSeqXdm", rt.getSeq());
-			httpSession.setAttribute("sessIdXdm", rt.getId());
-			httpSession.setAttribute("sessNameXdm", rt.getName());
-		} else {
-			returnMap.put("rt", "fail");										
-		}
 		
+		MemberDto rtMember = memberService.selectOneLogin(dto);		
+		
+		if(rtMember != null) {
+			returnMap.put("rt", "success");
+			httpSession.setMaxInactiveInterval(60 * 30); 						// 60second * 30 = 30minute
+			httpSession.setAttribute("sessSeqXdm", rtMember.getMembSeq());
+			httpSession.setAttribute("sessIdXdm", rtMember.getId());
+			httpSession.setAttribute("sessNameXdm", rtMember.getName());
+		} else {
+			returnMap.put("rt", "fail");
+		}
 		return returnMap;
 	}
 	
-//	@RequestMapping(value = "/xdm/member/signoutXdmForm")
-//	public String signoutXdmForm() {
-//		
-//		return "xdm/member/SignoutXdmForm";
-//	}
-	
 	@ResponseBody
-	@RequestMapping(value = "/xdm/member/signoutXdmProc")
+	@RequestMapping(value = "/member/signoutXdmProc")
 	public Map<String, Object> signoutXdmProc(HttpSession httpSession) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
-		
 		httpSession.setAttribute("sessSeqXdm", null);
 		httpSession.setAttribute("sessIdXdm", null);
 		httpSession.setAttribute("sessNameXdm", null);

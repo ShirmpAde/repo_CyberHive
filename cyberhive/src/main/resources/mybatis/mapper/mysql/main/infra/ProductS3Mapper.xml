@@ -1,13 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.module.product.ProductDto">
+<mapper namespace="com.example.module.product.ProductDao">
 	<resultMap id="resultMapObj" type="com.example.module.product.ProductDto"></resultMap> 
 	
-	<!-- uploaded s -->
-	<sql id="insertUploaded">
-		INSERT INTO ${product} (
-			type
+	<sql id="selectCommon">	    
+	    from
+			product a
+			<!-- left join codegroup b on a.codegroup_cdgrSeq = b.cdgrSeq -->
+		where 1=1
+		<if test="shUseNy != null and !shUseNy.equals('')">AND a.prdtUseNy = #{prdtUseNy}</if>
+        <if test="shDelNy != null and !shDelNy.equals('')">AND a.prdtDelNy = #{prdtDelNy}</if>
+				<choose>
+					<when test="shOptionDate == 1">AND a.prdtRegDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+					<when test="shOptionDate == 2">AND a.prdtModDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+				</choose>
+        <choose>
+            <when test="shOption == 1">AND a.prdtName LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 2">AND a.prdtCateCd LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 3">AND a.prdtStatus LIKE CONCAT('%',#{shValue},'%')</when>
+        </choose>
+    </sql>
+	
+	<select id="selectOneCount" resultType="Integer">
+    	select count(*)
+    	 <include refid = "selectCommon"></include>
+    </select>
+	
+	<select id="selectList" resultMap="resultMapObj">
+	select aa.* from (
+		select
+			a.prdtSeq
+			,a.prdtName
+			,a.prdtCateCd
+			,a.prdtStatus
+			,a.prdtPrice
+			,a.abv
+			,a.ibu
+			,a.volume
+			,a.countryCode
+			,a.brewery
+			,a.prdtRegDate
+			,a.prdtModDate
+		<include refid = "selectCommon"></include>
+		order by prdtSeq desc
+	) aa
+	limit #{rowNumToShow} offset #{startRnumForMysql}
+	</select>
+	
+	<insert id="insert">
+	    INSERT INTO product (					
+			prdtName
+			,prdtCateCd
+			,prdtStatus
+			,prdtPrice
+			,prdtUseNy
+			,prdtDelNy
+			,prdtRegDate
+			,prdtModDate
+			,prdtDesc
+			,abv
+			,ibu
+			,volume
+			,countryCode
+			,brewery
+			,type
 			,defaultNy
 			,sort
 			,path
@@ -16,21 +73,66 @@
 			,ext
 			,size
 			,delNy
-			<include refid="Base.insertRegColumn" />
 			,pseq
-		) values (
-			#{type}
-			,#{defaultNy}
-			,#{sort}
-			,#{path}
-			,#{originalName}
-			,#{uuidName}
-			,#{ext}
-			,#{size}
-			,0
-			<include refid="Base.insertRegValue" />
-			,#{pseq}
-		)
-	</sql>
+	    ) values (			
+	        #{prdtName}
+	        ,#{prdtCateCd}
+	        ,#{prdtStatus}
+	        ,#{prdtPrice}
+	        ,#{prdtUseNy}
+	        ,#{prdtDelNy}
+	        ,CURRENT_TIMESTAMP
+	        ,CURRENT_TIMESTAMP
+	        ,#{prdtDesc}
+	        ,#{abv}
+	        ,#{ibu}
+	        ,#{volume}
+	        ,#{countryCode}
+	        ,#{brewery}
+	        ,#{type}
+	        ,#{defaultNy}
+	        ,#{sort}
+	        ,#{path}
+	        ,#{originalName}
+	        ,#{uuidName}
+	        ,#{ext}
+	        ,#{size}
+	        ,#{delNy}
+	        ,#{pseq}
+	    )
+		<selectKey resultType="String" keyProperty="prdtSeq" order="AFTER">
+	        SELECT last_insert_id()
+    	</selectKey>		
+	</insert>
 	
+	<update id="update">
+		update product set
+			prdtName = #{prdtName}
+			,prdtStatus = #{prdtStatus}
+			,prdtPrice = #{prdtPrice}
+			,prdtCateCd = #{prdtCateCd}
+			,prdtUseNy = #{prdtUseNy}
+			,prdtDelNy = #{prdtDelNy}
+			,prdtModDate = CURRENT_TIMESTAMP
+		where
+			prdtSeq = #{prdtSeq}
+	</update>
+	
+	<update id="uelete">
+		update product set
+			prdtDelNy = 1
+		where
+			prdtSeq = #{prdtSeq}
+	</update>
+	
+	<select id="selectListCachedCodeArrayList" resultMap="resultMapObj">
+		SELECT 
+			prdtSeq
+			, prdtName
+		FROM
+			product
+		WHERE 1=1
+			AND prdtDelNy = 0
+		    AND prdtUseNy = 1
+   	</select>
 </mapper>

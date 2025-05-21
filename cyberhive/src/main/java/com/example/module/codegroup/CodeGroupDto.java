@@ -1,48 +1,55 @@
 package com.example.module.codegroup;
 
 public class CodeGroupDto {
-	private Integer seq;
-    private String name;
-    private Integer delNy;
-    private Integer useNy;
-    private String regDate;
-    private String modDate;
+	private String cdgrSeq;
+    private String cdgrName;
+    private Integer xcdSeqCount;
+    private Integer cdgrDelNy;
+    private Integer cdgrUseNy;
+    private String cdgrRegDate;
+    private String cdgrModDate;
 //	----
-	public Integer getSeq() {
-		return seq;
+	public String getCdgrSeq() {
+		return cdgrSeq;
 	}
-	public void setSeq(Integer seq) {
-		this.seq = seq;
+	public void setCdgrSeq(String cdgrSeq) {
+		this.cdgrSeq = cdgrSeq;
 	}
-	public String getName() {
-		return name;
+	public String getCdgrName() {
+		return cdgrName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setCdgrName(String cdgrName) {
+		this.cdgrName = cdgrName;
 	}
-	public Integer getDelNy() {
-		return delNy;
+	public Integer getXcdSeqCount() {
+		return xcdSeqCount;
 	}
-	public void setDelNy(Integer delNy) {
-		this.delNy = delNy;
+	public void setXcdSeqCount(Integer xcdSeqCount) {
+		this.xcdSeqCount = xcdSeqCount;
 	}
-	public Integer getUseNy() {
-		return useNy;
+	public Integer getCdgrDelNy() {
+		return cdgrDelNy;
 	}
-	public void setUseNy(Integer useNy) {
-		this.useNy = useNy;
+	public void setCdgrDelNy(Integer cdgrDelNy) {
+		this.cdgrDelNy = cdgrDelNy;
 	}
-	public String getRegDate() {
-		return regDate;
+	public Integer getCdgrUseNy() {
+		return cdgrUseNy;
 	}
-	public void setRegDate(String regDate) {
-		this.regDate = regDate;
+	public void setCdgrUseNy(Integer cdgrUseNy) {
+		this.cdgrUseNy = cdgrUseNy;
 	}
-	public String getModDate() {
-		return modDate;
+	public String getCdgrRegDate() {
+		return cdgrRegDate;
 	}
-	public void setModDate(String modDate) {
-		this.modDate = modDate;
+	public void setCdgrRegDate(String cdgrRegDate) {
+		this.cdgrRegDate = cdgrRegDate;
 	}
-    
+	public String getCdgrModDate() {
+		return cdgrModDate;
+	}
+	public void setCdgrModDate(String cdgrModDate) {
+		this.cdgrModDate = cdgrModDate;
+	}
+
 }

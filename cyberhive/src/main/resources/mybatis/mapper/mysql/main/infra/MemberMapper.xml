@@ -4,24 +4,51 @@
 <mapper namespace="com.example.module.member.MemberDao">
 	<resultMap id="resultMapObj" type="com.example.module.member.MemberDto"></resultMap> 
 	
-	<sql id="selectCommon">
-		
-		FROM member as a
-		WHERE 1=1
-<!-- 		<if test="shUseNy != null and !shUseNy.equals('')">AND a.useNy = #{shUseNy}</if> -->
-<!--         <if test="shDelNy != null and !shDelNy.equals('')">AND a.delNy = #{shDelNy}</if> -->
-<!-- 				
+	<sql id="selectCommon">	    
+	    from
+			member
+		where 1=1
+		<if test="shUseNy != null and !shUseNy.equals('')">AND membUseNy = #{shUseNy}</if>
+        <if test="shDelNy != null and !shDelNy.equals('')">AND membDelNy = #{shDelNy}</if>
 				<choose>
-					<when test="shOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-					<when test="shOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+					<when test="shOptionDate == 1">AND membRegDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+					<when test="shOptionDate == 2">AND membModDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
 				</choose>
- -->				
         <choose>
-            <when test="shOption == 1">AND a.id LIKE CONCAT('%',#{shValue},'%')</when>
-            <when test="shOption == 2">AND a.name LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 1">AND id LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 2">AND name LIKE CONCAT('%',#{shValue},'%')</when>
         </choose>
-	</sql>
+    </sql>
 	
+	<select id="selectOneLogin" resultMap="resultMapObj">
+		SELECT
+			membSeq,
+		    id,
+		    password,
+		    surName,
+		    name,
+		    membRegDate,
+		    membModDate,
+		    membUseNy,
+		    membDelNy
+		FROM
+			member
+		WHERE 1=1
+			AND id = #{id}
+	<if test="password != null and !password.equals('')">AND password = #{password}</if>
+		
+	</select>
+	
+	<select id="getIdPass" resultMap="resultMapObj">
+		SELECT
+		    id,
+		    password
+		FROM
+			member
+		WHERE 1=1
+			AND membSeq = #{membSeq}
+			
+	</select>
 	
 	<select id="selectOneCount" resultType="Integer">
 	SELECT COUNT(*)
@@ -29,51 +56,37 @@
 	</select>
 	
 	<select id="selectList" resultMap="resultMapObj">
-  	select aa.* from (
-	  	SELECT 
-			a.seq,
-			a.id,
-			a.authLevel,
-			a.password,
-			a.surName,
-			a.name,
-			a.gender_code,
-			a.telecom_code,
-			a.birthDate,
-			a.userZipcode,
-			a.userAdressNew,
-			a.userAdressOld,
-			a.userAdressDetail,
-			a.userGpsX,
-			a.userGpsY
-		<include refid="selectCommon"></include>
-		ORDER BY seq DESC
-		) aa
+	select aa.* from (
+		SELECT
+			membSeq
+			,authLevel
+			,id
+		    ,password
+		    ,name
+		    ,membRegDate
+		    ,membModDate
+		    ,membUseNy
+		    ,membDelNy
+		<include refid = "selectCommon"></include>
+		order by membSeq desc
+	) aa
 	limit #{rowNumToShow} offset #{startRnumForMysql}
 	</select>
-	
 	<select id="selectOne" resultMap="resultMapObj">
-	SELECT 
-		seq,
-		authLevel,
-		id,
-		password,
-		surName,
-		name,
-		gender_code,
-		telecom_code,
-		birthDate,
-		userZipcode,
-		userAdressNew,
-		userAdressOld,
-		userAdressDetail,
-		userGpsX,
-		userGpsY
-	FROM
-		member
+		SELECT
+			membSeq,
+			authLevel,
+		    id,
+		    password,
+		    name,
+		    membRegDate,
+		    membModDate,
+		    membUseNy,
+		    membDelNy
+		FROM
+			member
 		WHERE 1=1
-			AND seq = #{seq}
-		ORDER BY seq DESC
+			AND membSeq = #{membSeq}
 	</select>
 	
 	<insert id="insert">
@@ -129,17 +142,17 @@
     		userGpsX = #{userGpsX},
     		userGpsY = #{userGpsY},
     		authLevel = #{authLevel}
-		WHERE seq = #{seq}
+		WHERE membSeq = #{membSeq}
 	</update>
 	
 	<delete id="delete">
-		DELETE FROM member WHERE seq = #{seq}
+		DELETE FROM member WHERE membSeq = #{membSeq}
 	</delete> 	
 	
 	<update id="uelete">
 		UPDATE member SET
 			delNy = 1
-		WHERE seq = #{seq}
+		WHERE membSeq = #{membSeq}
 	</update>
 	
 	<select id="getUserList" resultType="com.example.module.member.MemberDto">
@@ -154,7 +167,7 @@
     FROM member
 		WHERE id = #{id} 
       	AND password = #{password}
-      	ORDER BY seq DESC
+      	ORDER BY membSeq DESC
 	</select>
 	
 	<select id="selectId" parameterType="com.example.module.member.MemberDto" resultType="com.example.module.member.MemberDto">

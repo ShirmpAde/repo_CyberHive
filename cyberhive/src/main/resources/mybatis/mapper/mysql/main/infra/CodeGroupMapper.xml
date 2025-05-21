@@ -7,16 +7,17 @@
 		<sql id="selectCommon">
         FROM codeGroup as a
         WHERE 1=1
-		<if test="shUseNy != null and !shUseNy.equals('')">AND a.useNy = #{shUseNy}</if>
-        <if test="shDelNy != null and !shDelNy.equals('')">AND a.delNy = #{shDelNy}</if>
+		<if test="shUseNy != null and !shUseNy.equals('')">AND a.cdgrUseNy = #{shUseNy}</if>
+        <if test="shDelNy != null and !shDelNy.equals('')">AND a.cdgrDelNy = #{shDelNy}</if>
 				
 				<choose>
-					<when test="shOptionDate == 1">AND a.regDate between #{shDateStart} AND #{shDateEnd}</when>
-					<when test="shOptionDate == 2">AND a.modDate between #{shDateStart} AND #{shDateEnd}</when>
+					<when test="shOptionDate == 1">AND a.cdgrRegDate between #{shDateStart} AND #{shDateEnd}</when>
+					<when test="shOptionDate == 2">AND a.cdgrModDate between #{shDateStart} AND #{shDateEnd}</when>
 				</choose>
 
         	<choose>
-            <when test="shOption == 1">AND a.name LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 1">AND a.cdgrSeq = #{shValue}</when>
+            <when test="shOption == 2">AND a.cdgrName LIKE CONCAT('%',#{shValue},'%')</when>
         </choose>
     </sql>
 	
@@ -28,46 +29,42 @@
 	<select id="selectList" resultMap="resultMapObj">
 	select aa.* from (
 	  	SELECT 
-			a.seq,
-			a.name,
-			a.delNy,
-			a.useNy,
-			a.regDate,
-			a.modDate
+			a.cdgrSeq
+			,a.cdgrName
+			,(select count(aa.codegroup_cdgrSeq) from code aa where 1 = 1 and aa.codeDelNy = 0 and aa.codegroup_cdgrSeq = a.cdgrSeq) as xcdSeqCount
+			,a.cdgrDelNy
+			,a.cdgrUseNy
+			,a.cdgrRegDate
+			,a.cdgrModDate
 		<include refid="selectCommon"></include>
-		ORDER BY seq DESC
+		ORDER BY a.cdgrSeq DESC
 		) aa
 	limit #{rowNumToShow} offset #{startRnumForMysql}
 	</select>
 	
 	<select id="selectOne" resultMap="resultMapObj">
 	SELECT 
-		seq,
-		name,
-		delNy,
-		useNy,
-		regDate,
-		modDate
+		cdgrSeq
+		,cdgrName
+		,cdgrDelNy
+		,cdgrUseNy
+		,cdgrRegDate
+		,cdgrModDate
 	FROM
 		codeGroup
 		WHERE 1=1
-			AND seq = #{seq}
-		ORDER BY seq DESC
+			AND cdgrSeq = #{cdgrSeq}
 	</select>
 	
 	<insert id="insert">
     INSERT INTO codeGroup (					
-		name,
-		delNy,
-		useNy,
-		regDate,
-		modDate
+		cdgrName
+		,cdgrUseNy
+		,cdgrRegDate
     ) values (			
-        #{name},
-        #{delNy},
-        #{useNy},
-        #{regDate},
-        #{modDate}
+        #{cdgrName}
+        ,#{cdgrUseNy}
+        ,CURRENT_TIMESTAMP
     )
     <selectKey resultType="Integer" keyProperty="seq" order="AFTER">
         SELECT last_insert_id()
@@ -77,12 +74,11 @@
 	
 	<update id="update">
 		UPDATE codeGroup SET
-			name = #{name},
-			delNy = #{delNy},
-			useNy = #{useNy},
-			regDate = #{regDate},
-			modDate = #{modDate}
-		WHERE seq = #{seq}
+			cdgrName = #{cdgrName}
+			,cdgrUseNy = #{cdgrUseNy}
+			,cdgrModDate = CURRENT_TIMESTAMP
+		WHERE
+			cdgrSeq = #{cdgrSeq}
 	</update>
 	
 	<delete id="delete">
@@ -91,14 +87,14 @@
 	
 	<update id="uelete">
 		UPDATE codeGroup SET
-			delNy = 1
-		WHERE seq = #{seq}
+			cdgrDelNy = 1
+		WHERE cdgrSeq = #{cdgrSeq}
 	</update>
 	
 	<select id="getUserList" resultType="com.example.module.codegroup.CodeGroupDto">
     SELECT * 
     FROM codeGroup 
-    ORDER BY seq DESC
+    ORDER BY cdgrSeq DESC
     LIMIT #{offset}, #{pageSize}
 	</select>
 </mapper>

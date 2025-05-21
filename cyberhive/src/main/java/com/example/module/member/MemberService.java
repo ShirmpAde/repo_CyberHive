@@ -11,12 +11,20 @@ public class MemberService {
 	@Autowired
 	MemberDao memberDao;
 	
+	public MemberDto selectOneLogin(MemberDto memberDto) {
+		return memberDao.selectOneLogin(memberDto);
+	}
+	
+	public MemberDto getIdPass(MemberDto memberDto) {
+		return memberDao.getIdPass(memberDto);
+	}
+	
 	public List<MemberDto> selectList(MemberVo vo){
 		return memberDao.selectList(vo);
 	}
 	
-	public int seletOneCount(){
-		return memberDao.selectOneCount();
+	public int selectOneCount(MemberVo vo) {
+		return memberDao.selectOneCount(vo);
 	}
 	
 	public Object selectOne(MemberDto memberDto) {

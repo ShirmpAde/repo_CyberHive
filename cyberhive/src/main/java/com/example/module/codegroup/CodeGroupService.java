@@ -5,18 +5,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.common.base.BaseVo;
+
 @Service
 public class CodeGroupService {
 
 	@Autowired
 	CodeGroupDao codeGroupDao;
 	
-	public List<CodeGroupDto> selectList(CodeGroupVo vo){
+	public List<CodeGroupDto> selectList(BaseVo vo){
 		return codeGroupDao.selectList(vo);
 	}
 	
-	public int selectOneCount(){
-		return codeGroupDao.selectOneCount();
+	public int selectOneCount(CodeGroupVo vo){
+		return codeGroupDao.selectOneCount(vo);
 	}
 	
 	public Object selectOne(CodeGroupDto codeGroupDto) {
@@ -43,7 +45,11 @@ public class CodeGroupService {
 		return codeGroupDao.uelete(codeGroupDto);
 	}
 	
-	public int selectListWithoutPaging(CodeGroupVo codeGroupVo) {
-		return codeGroupDao.selectListWithoutPaging(codeGroupVo);
+	public List<CodeGroupDto> selectListWithoutPaging() {
+		return codeGroupDao.selectListWithoutPaging();
+	}
+	
+	public int selectOneCount(BaseVo vo) {
+		return codeGroupDao.selectOneCount(vo);
 	}
 }

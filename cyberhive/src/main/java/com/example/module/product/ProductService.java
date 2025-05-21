@@ -23,16 +23,16 @@ public class ProductService {
 		return productDao.selectList(vo);
 	}
 	
-	public int selectOneCount(){
-		return productDao.selectOneCount();
+	public int selectOneCount(ProductVo Vo) {
+		return productDao.selectOneCount(Vo);
 	}
 	
-	public Object selectOne(ProductDto productDto) {
+	public ProductDto selectOne(ProductDto productDto) {
 		return productDao.selectOne(productDto);
 	}
 	
-	public Object selectOne(ProductVo productVo) {
-		return productDao.selectOne(productVo);
+	public ProductDto selectOne(ProductVo Vo) {
+		return productDao.selectOne(Vo);
 	}
 	
 	public int update(ProductDto productDto) {
@@ -47,6 +47,10 @@ public class ProductService {
 		return productDao.uelete(productDto);
 	}
 	
+	public List<ProductDto> selectListProduct() {
+		return productDao.selectListProduct();
+	}
+	
 	public int selectListWithoutPaging(ProductVo productVo) {
 		return productDao.selectListWithoutPaging(productVo);
 	}
@@ -59,15 +63,15 @@ public class ProductService {
 	
 	public int insert(ProductDto productDto) throws Exception { 
 		productDao.insert(productDto);
-		uploadFilesToS3(
-				productDto.getUploadImg1()
-				, productDto
-				, "infrBannerUploaded"
-				, productDto.getUploadImg1Type()
-				, productDto.getUploadImg1MaxNumber()
-				, productDto.getIfbnSeq()
-				, productDao
-				, amazonS3Client);
+//		uploadFilesToS3(
+//				productDto.getUploadImg1()
+//				, productDto
+//				, "infrBannerUploaded"
+//				, productDto.getUploadImg1Type()
+//				, productDto.getUploadImg1MaxNumber()
+//				, productDto.getIfbnSeq()
+//				, productDao
+//				, amazonS3Client);
 		return 1; 
 	}
 	

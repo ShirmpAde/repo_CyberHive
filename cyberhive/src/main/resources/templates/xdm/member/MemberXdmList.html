@@ -223,14 +223,14 @@
 					<div id="navCategoriesOrders" class="collapse  show " data-bs-parent="#sideNavbar">
 						<ul class="nav flex-column">
 							<li class="nav-item">
-								<a class="nav-link " href="/xdm/code/codeXdmList">코드</a>
+								<a class="nav-link " href="/code/codeXdmList">코드</a>
 							</li>
 							<!-- Nav item -->
 							<li class="nav-item">
-								<a class="nav-link " href="/xdm/codeGroup/codeGroupXdmList">코드그룹</a>
+								<a class="nav-link " href="/codeGroup/codeGroupXdmList">코드그룹</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link  active " href="/xdm/member/memberXdmList">회원관리</a>
+								<a class="nav-link  active " href="/member/memberXdmList">회원관리</a>
 							</li>
 						</ul>
 					</div>
@@ -785,7 +785,7 @@
                                              <label class="form-check-label" for="checkAll"></label>
                                           </div>
                                        </th>
-                                       <th>seq</th>
+                                       <th>membSeq</th>
                                        <th>authLevel</th>
                                        <th>id</th>
                                        <th>password</th>
@@ -800,6 +800,10 @@
                                        <th>userAdressDetail</th>
                                        <th>userGpsX</th>
                                        <th>userGpsY</th>
+                                       <th>membUseNy</th>
+                                       <th>membDelNy</th>
+                                       <th>membRegDate</th>
+                                       <th>membModDate</th>
                                        <th></th>
                                     </tr>
                                  </thead>
@@ -807,11 +811,11 @@
                                        	<tr th:each="member : ${list}">
                                        	<td>
                                				<div class="form-check">
-                                             <input class="form-check-input" type="checkbox" name="selectedItems" th:value="${member.seq}"/>
+                                             <input class="form-check-input" type="checkbox" name="selectedItems" th:value="${member.membSeq}"/>
                                              <label class="form-check-label"></label>
                                           	</div>
                                        	</td>
-						                <td th:text="${member.seq}"></td>
+						                <td th:text="${member.membSeq}"></td>
 						                <td th:text="${member.authLevel}"></td>
 						                <td th:text="${member.id}"></td>
 						                <td th:text="${member.password}"></td>
@@ -826,6 +830,10 @@
 						                <td th:text="${member.userAdressDetail}"></td>
 						                <td th:text="${member.userGpsX}"></td>
 						                <td th:text="${member.userGpsY}"></td>
+						                <td th:text="${member.membUseNy}"></td>
+						                <td th:text="${member.membDelNy}"></td>
+						                <td th:text="${member.membRegDate}"></td>
+						                <td th:text="${member.membModDate}"></td>
 						                <td>
 						                	<div class="dropdown">
                                              <a href="#" class="text-reset" data-bs-toggle="dropdown" aria-expanded="false">
@@ -895,11 +903,11 @@ $("#btnSignout").on("click", function(){
 		async: true 
 		,cache: false
 		,type: "post"
-		,url: "/xdm/member/signoutXdmProc"
+		,url: "/member/signoutXdmProc"
 		,data: {}
 		,success: function(response) {
 			if(response.rt == "success") {
-				location.href = "/xdm/member/signinXdmForm";
+				location.href = "/member/signinXdmForm";
 			} else {
 				// by pass
 			}
@@ -918,7 +926,9 @@ $("#btnSignout").on("click", function(){
 </script>
 <script type="text/javascript">
 let form = document.querySelector("form[name=formList]");
-let seq = document.querySelector("input[name=seq]");
+let seq = document.querySelector("input[name=membSeq]");
+
+let goUrlXdmForm = "/member/memberXdmForm";
 
 document.getElementById("btnForm").onclick = function () {
     goForm(0);
@@ -930,12 +940,15 @@ goForm = function (keyValue) {
     form.submit();
 }
 document.getElementById("btnSearch").onclick = function () {
-  	form.action = "/xdm/member/memberXdmList";
+  	form.action = "/member/memberXdmList";
   	form.submit();
 	}
+document.getElementById("btnReset").onclick = function () {
+	location = "/member/memberXdmList";
+};
 goList = function (thisPage) {
     document.querySelector("input[name=thisPage]").value = thisPage;
-    form.action = "/xdm/member/memberXdmList";
+    form.action = "/member/memberXdmList";
     form.submit();
 }
 

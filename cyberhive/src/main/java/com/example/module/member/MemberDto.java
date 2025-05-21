@@ -1,12 +1,16 @@
 package com.example.module.member;
 
 public class MemberDto {
-	private String seq;
+	private String membSeq;
 	private Integer authLevel;
 	private String id;
 	private String password;
 	private String surName;
 	private String name;
+	private String membRegDate;
+	private String membModDate;
+	private Integer membUseNy;
+	private Integer membDelNy;
 	private Integer gender_code;
 	private Integer telecom_code;
 	private String birthDate;
@@ -17,11 +21,11 @@ public class MemberDto {
 	private Integer userGpsX;
 	private Integer userGpsY;
 //-----
-	public String getSeq() {
-		return seq;
+	public String getMembSeq() {
+		return membSeq;
 	}
-	public void setSeq(String seq) {
-		this.seq = seq;
+	public void setMembSeq(String membSeq) {
+		this.membSeq = membSeq;
 	}
 	public Integer getAuthLevel() {
 		return authLevel;
@@ -52,6 +56,30 @@ public class MemberDto {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getMembRegDate() {
+		return membRegDate;
+	}
+	public void setMembRegDate(String membRegDate) {
+		this.membRegDate = membRegDate;
+	}
+	public String getMembModDate() {
+		return membModDate;
+	}
+	public void setMembModDate(String membModDate) {
+		this.membModDate = membModDate;
+	}
+	public Integer getMembUseNy() {
+		return membUseNy;
+	}
+	public void setMembUseNy(Integer membUseNy) {
+		this.membUseNy = membUseNy;
+	}
+	public Integer getMembDelNy() {
+		return membDelNy;
+	}
+	public void setMembDelNy(Integer membDelNy) {
+		this.membDelNy = membDelNy;
 	}
 	public Integer getGender_code() {
 		return gender_code;

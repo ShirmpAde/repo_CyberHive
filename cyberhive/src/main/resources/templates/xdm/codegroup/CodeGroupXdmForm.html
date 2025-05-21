@@ -29,43 +29,43 @@
              <!-- Validation --> 
 			<form  class="row g-3" method="post" id="form" name="form">
 			 <div class="col-md-3">
-			 	<input type="hidden" name="seq" th:value="${item?.seq}"/>
+			 	<input type="hidden" name="cdgrSeq" th:value="${item?.cdgrSeq}"/>
 			 	<input type="hidden" name="cdupdtDate" />	               		
                	<label for="cdgcode" class="form-label">코드그룹 코드 <sup>*</sup></label>
-			 	<input type="text" class="form-control" id ="cdgcode" value="" placeholder="자동생성" disabled th:value="${item?.seq}"/>
+			 	<input type="text" class="form-control" id ="cdgcode" value="" placeholder="자동생성" disabled th:value="${item?.cdgrSeq}"/>
 			 </div>
 			 <div class="col-md-3">
-			 	<label for="name" class="form -label">코드그룹 이름 <sup>*</sup></label>
-			 	<input type="text" class="form-control" name="name" id="name" placeholder="이름을 입력" th:value="${item?.name}"/>
+			 	<label for="cdgrName" class="form -label">코드그룹 이름 <sup>*</sup></label>
+			 	<input type="text" class="form-control" name="cdgrName" id="cdgrName" placeholder="이름을 입력" th:value="${item?.cdgrName}"/>
 			 </div>
 			 <div class="col-md-3">
-			 	<label for="delNy" class="form -label">삭제여부<sup>*</sup></label>
-			 	<select class="form-select" id="delNy" name="delNy" th:selected="${item?.delNy}">
+			 	<label for="cdgrDelNy" class="form -label">삭제여부<sup>*</sup></label>
+			 	<select class="form-select" id="cdgrDelNy" name="cdgrDelNy" th:selected="${item?.cdgrDelNy}">
 			 		<option value="">선택해주세요</option>
-			 		<option value="1" th:selected="${item?.delNy == 1}" th:text="사용"></option>
-			 		<option value="0" th:selected="${item?.delNy == 0}" th:text="미사용"></option>
+			 		<option value="1" th:selected="${item?.cdgrDelNy == 1}" th:text="사용"></option>
+			 		<option value="0" th:selected="${item?.cdgrDelNy == 0}" th:text="미사용"></option>
 			 	</select>
 			 </div>
 			 <div class="col-md-3">
-			 	<label for="useNy" class="form -label">사용여부<sup>*</sup></label>
-			 	<select class="form-select" id="useNy" name="useNy" th:selected="${item?.useNy}">
+			 	<label for="cdgrUseNy" class="form -label">사용여부<sup>*</sup></label>
+			 	<select class="form-select" id="cdgrUseNy" name="cdgrUseNy" th:selected="${item?.cdgrUseNy}">
 			 		<option value="">선택해주세요</option>
-			 		<option value="1" th:selected="${item?.useNy == 1}" th:text="사용"></option>
-			 		<option value="0" th:selected="${item?.useNy == 0}" th:text="미사용"></option>
+			 		<option value="1" th:selected="${item?.cdgrUseNy == 1}" th:text="사용"></option>
+			 		<option value="0" th:selected="${item?.cdgrUseNy == 0}" th:text="미사용"></option>
 			 	</select>
 			 </div>
 			 <div class="col-md-3">
-			 	<label for="regDate" class="form -label">regDate <sup>*</sup></label>
-			 	<input type="text"  class="form-control" name="regDate" id="regDate" placeholder="날짜를 입력"/>
+			 	<label for="cdgrRegDate" class="form -label">regDate <sup>*</sup></label>
+			 	<input type="text"  class="form-control" name="cdgrRegDate" id="cdgrRegDate" placeholder="날짜를 입력"/>
 			 </div>
 			 <div class="col-md-3">
-			 	<label for="modDate" class="form -label">modDate <sup>*</sup></label>
-			 	<input type="text" class="form-control" name="modDate" id="modDate" placeholder="날짜를 입력"/>
+			 	<label for="cdgrModDate" class="form -label">modDate <sup>*</sup></label>
+			 	<input type="text" class="form-control" name="cdgrModDate" id="cdgrModDate" placeholder="날짜를 입력"/>
 			 </div>
 			<!-- Button trigger modal -->
 			<div class="col-md-6"></div>
 			<div class="col-md-6">
-				<a href="/xdm/codeGroup/codeGroupXdmList" class="btn btn-outline-dark"><i class="bi bi-blockquote-right"></i></a>
+				<a href="/codeGroup/codeGroupXdmList" class="btn btn-outline-dark"><i class="bi bi-blockquote-right"></i></a>
 				<button class="btn btn-danger">X</button>
                 <button type="button" class="btn btn-danger" id="btnUelete" ><i class="bi bi-trash"></i></button>
 			</div>
@@ -124,7 +124,7 @@
 <script src="/xdm/template/admin_ui/js/theme.min.js"></script>
 
 <script type="text/javascript">
-	let seq = document.querySelector("input[name=seq]");
+	let seq = document.querySelector("input[name=cdgrSeq]");
 	let form = document.querySelector("form[name=form]");
 
 	function validationInst() {
@@ -132,9 +132,13 @@
 	}
 
 	function validationUpdt() {
-		if(document.getElementById("name").value.trim() == null || document.getElementById("name").value.trim() == "") {
+		if(document.getElementById("cdgrName").value.trim() == null || document.getElementById("cdgrName").value.trim() == "") {
 			alertModal()
-			document.getElementById("name").focus();
+			document.getElementById("cdgrName").focus();
+			return false;
+		}
+		if(document.getElementById("cdgrNameEng").value.trim() == null || document.getElementById("cdgrNameEng").value.trim() == "") {
+			alertModal()
 			return false;
 		}
 	}
@@ -142,12 +146,12 @@
 	document.getElementById("btnSubmit").onclick = function () {
 		if(seq.value == "0" || seq.value == "") {
 			if(validationInst() == false) return false;
-			form.action = "/xdm/codeGroup/codeGroupXdmInst";
+			form.action = "/codegroup/codegroupXdmInst";
 			form.submit();
 		} else {
 			if(validationUpdt() == false) return false;
 // 			alert(new Date());
-			form.action = "/xdm/codeGroup/codeGroupXdmUpdt";
+			form.action = "/codegroup/codegroupXdmUpdt";
 			form.submit();
 		}
 	}
@@ -168,13 +172,13 @@
 	}
 	
 	document.getElementById("btnModalUelete").onclick = function () {
-		form.action = "/xdm/codeGroup/codeGroupXdmUele";
+		form.action = "/codegroup/codegroupXdmUele";
 		form.submit();
 	}
 	
 	document.getElementById("closeModal").onclick = function() {
-		if(document.getElementById("name").value.trim() == null || document.getElementById("cdgName").value.trim() == "") {
-			document.getElementById("name").focus();
+		if(document.getElementById("cdgrName").value.trim() == null || document.getElementById("cdgName").value.trim() == "") {
+			document.getElementById("cdgrName").focus();
 			return false;
 		}
 	}

@@ -8,8 +8,8 @@ public class ProductDto extends BaseDto {
 
 //	 기본 필드
 	private String ifbnSeq;
-    private Integer uploadImg1Type;
-    private Integer uploadImg1MaxNumber;
+    private Integer uploadImg1Type = 1;
+    private Integer uploadImg1MaxNumber = 5;
     
 	private MultipartFile[] uploadImg1;
 //-----
