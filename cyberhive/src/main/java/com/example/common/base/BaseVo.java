@@ -36,6 +36,9 @@ public class BaseVo {
 	private String shValue;
 	
 	private String shStatus;
+	
+	private String searchKeyword;
+    private String searchOption;
 //	-----
 
 	public int getThisPage() {
@@ -318,6 +321,22 @@ public class BaseVo {
 
 	public void setShStatus(String shStatus) {
 		this.shStatus = shStatus;
+	}
+
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
+
+	public String getSearchOption() {
+		return searchOption;
+	}
+
+	public void setSearchOption(String searchOption) {
+		this.searchOption = searchOption;
 	}
 	
 	

@@ -1,6 +1,8 @@
 package com.example.module.member;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.common.base.BaseController;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 @Controller
 public class MemberController extends BaseController {
@@ -41,13 +44,13 @@ public class MemberController extends BaseController {
 		return "xdm/member/SigninXdmForm";
 	}
 	
-	@RequestMapping(value = "/xdm/member/memberXdmForm")
+	@RequestMapping(value = "/member/memberXdmForm")
 	public String memberXdmForm() {
 		
 		return "xdm/member/memberXdmForm";
 	}
 	
-	@RequestMapping(value = "/xdm/member/memberXdmInst")
+	@RequestMapping(value = "/member/memberXdmInst")
 	public String memberXdmInst(MemberDto memberDto) {
 		System.out.println("memberDto.getSeq(): " + memberDto.getMembSeq());
 		System.out.println("memberDto.getName(): " + memberDto.getName());
@@ -59,7 +62,7 @@ public class MemberController extends BaseController {
 		return "redirect:xdm/member/memberXdmList";
 	}
 	
-	@RequestMapping(value = "/xdm/member/memberXdmMfom")
+	@RequestMapping(value = "/member/memberXdmMfom")
 	public String memberXdmMfom(MemberDto memberDto, Model model) {
 		
 		model.addAttribute("item", memberService.selectOne(memberDto));
@@ -67,7 +70,7 @@ public class MemberController extends BaseController {
 		return "xdm/member/memberXdmMfom";
 	}
 	
-	@RequestMapping(value = "/xdm/member/memberXdmUpdt")
+	@RequestMapping(value = "/member/memberXdmUpdt")
 	public String memberXdmUpdt(MemberDto memberDto) {
 		
 		memberService.update(memberDto);
@@ -75,7 +78,7 @@ public class MemberController extends BaseController {
 		return "redirect:xdm/member/memberXdmList";
 	}
 	
-	@RequestMapping(value = "/xdm/member/memberXdmDele")
+	@RequestMapping(value = "/member/memberXdmDele")
 	public String memberXdmDele(MemberDto memberDto) {
 		
 		memberService.delete(memberDto);
@@ -83,12 +86,37 @@ public class MemberController extends BaseController {
 		return "redirect:xdm/member/memberXdmList";
 	}
 	
-	@RequestMapping(value = "/xdm/member/memberXdmUele")
+	@RequestMapping(value = "/member/memberXdmUele")
 	public String memberXdmUele(MemberDto memberDto) {
 		
 		memberService.uelete(memberDto);
 		
 		return "redirect:xdm/member/memberXdmList";
+	}
+	
+	@RequestMapping(value = "/member/membersXdmExcel")
+	public void exportMembersToCsv(HttpServletResponse response,MemberVo vo) throws Exception {
+		vo.setParamsPaging(memberService.selectOneCount(vo));
+	    List<MemberDto> members = memberService.selectList(vo);
+
+	    response.setContentType("text/xls; charset=UTF-8");
+	    response.setHeader("Content-Disposition", "attachment; filename = members.xls");
+	   
+	    PrintWriter writer = response.getWriter();
+	    writer.println("번호,작성자,카테고리,제목,등록일,수정일");
+
+	    for (MemberDto member : members) {
+	        writer.printf("%s,%s,%s,%s,%s,%s\n",
+	        	member.getMembSeq(),
+	        	member.getSurName(),
+	        	member.getName(),
+	        	member.getId(),
+	        	member.getMembRegDate(),
+	        	member.getMembModDate()
+	        );
+	    }
+	    writer.flush();
+	    writer.close();
 	}
 	
 	@ResponseBody

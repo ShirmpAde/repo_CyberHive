@@ -20,4 +20,17 @@ public class BaseController {
 	  BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(strength);
 	  return passwordEncoder.matches(planeText, hashValue);
 	}
+	
+	protected void setSearch(BaseVo vo) {
+        if (vo.getSearchKeyword() != null) {
+            vo.setSearchKeyword(vo.getSearchKeyword().trim());
+        }
+
+        // 필요 시 검색 구분 값 등 추가 설정 가능
+        if (vo.getSearchOption() != null) {
+            vo.setSearchOption(vo.getSearchOption().trim());
+        }
+
+        // 날짜 검색 등 공통 조건 처리도 여기에 넣을 수 있음
+    }
 }

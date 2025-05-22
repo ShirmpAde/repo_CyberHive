@@ -858,11 +858,14 @@
 							</li>
 						</ul>
 						<div class="d-flex justify-content-end mt-3">
-                        	<button class="btn btn-primary" type="button" id="btnForm">
-                        		<i class="fas fa-plus fa-lg"></i>
-                             	<img src="/xdm/template/admin_ui/images/plus.svg" alt="이미지 설명">            
-                        	</button>
-                        </div>
+						  <button class="btn btn-primary me-2" type="button" id="btnForm">
+						    <i class="fas fa-plus fa-lg"></i>
+						    <img src="/xdm/template/admin_ui/images/plus.svg" alt="추가">            
+						  </button>
+						  <button class="btn btn-success" onclick="excel()">
+						    <img src="/xdm/template/admin_ui/images/excel.svg" alt="엑셀">
+						  </button>
+						</div>
                      </div>
                   </div>
                </div>
@@ -879,6 +882,9 @@
 
 <!-- Theme JS -->
 <script src="/xdm/template/admin_ui/js/theme.min.js"></script>
+<!-- excel-download JS -->
+<script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
+<script src="/xdm/template/admin_ui/js/vendors/excelDownload.js"></script>
 <script type="text/javascript">
 let form = document.querySelector("form[name=formList]");
 let seq = document.querySelector("input[name=cdgrSeq]");

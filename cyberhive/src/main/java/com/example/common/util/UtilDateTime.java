@@ -1,7 +1,9 @@
 package com.example.common.util;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import com.example.module.product.ProductVo;
 
@@ -42,4 +44,10 @@ public class UtilDateTime {
             );
         }
     }
+    
+    public static String dateTimeToString(Date dateParam) {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String dateRt = simpleDateFormat.format(dateParam);
+		return dateRt;
+	}
 }

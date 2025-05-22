@@ -1,14 +1,17 @@
 package com.example.module.code;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class CodeDto {
+import com.example.common.base.BaseDto;
+
+public class CodeDto extends BaseDto {
 	private String codeSeq;
 	private String codeName;
 	private Integer codeUseNy;
-	private String codeRegDate;
-	private String codeModDate;
+	private Date codeRegDate;
+	private Date codeModDate;
 	private Integer codeDelNy;
 	private String codegroup_cdgrSeq;
 	private String cdgrSeq;
@@ -42,19 +45,19 @@ public class CodeDto {
 		this.codeUseNy = codeUseNy;
 	}
 
-	public String getCodeRegDate() {
+	public Date getCodeRegDate() {
 		return codeRegDate;
 	}
 
-	public void setCodeRegDate(String codeRegDate) {
+	public void setCodeRegDate(Date codeRegDate) {
 		this.codeRegDate = codeRegDate;
 	}
 
-	public String getCodeModDate() {
+	public Date getCodeModDate() {
 		return codeModDate;
 	}
 
-	public void setCodeModDate(String codeModDate) {
+	public void setCodeModDate(Date codeModDate) {
 		this.codeModDate = codeModDate;
 	}
 
