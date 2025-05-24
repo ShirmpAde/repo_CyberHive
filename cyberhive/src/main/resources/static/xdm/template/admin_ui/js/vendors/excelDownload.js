@@ -5,7 +5,7 @@ function excel() {
         exclude: "",
         name: "",
         filename: $("table").attr("data-value") + date, //확장자를 여기서 붙여줘야한다.
-        fileext: ".xls",
+        fileext: ".xlsx",
         exclude_img: true,
         exclude_links: true,
         exclude_inputs: true
