@@ -7,7 +7,7 @@
 	<sql id="selectCommon">
 		FROM 
 			code a
-			left join codegroup b on a.codegroup_cdgrSeq = b.cdgrSeq
+			left join codeGroup b on a.codegroup_cdgrSeq = b.cdgrSeq
 		WHERE 1=1
         <if test="shUseNy != null and !shUseNy.equals('')">AND a.codeUseNy = #{shUseNy}</if>
         <if test="shDelNy != null and !shDelNy.equals('')">AND a.codeDelNy = #{shDelNy}</if>
@@ -50,7 +50,7 @@
 			cdgrSeq
 			,cdgrName
 		from
-			codegroup
+			codeGroup
 		where 1=1			
 		order by cdgrSeq desc
 	</select>

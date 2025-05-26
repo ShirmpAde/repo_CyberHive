@@ -125,7 +125,7 @@
 			<div class="container">
 				<div class="row w-100 align-items-center gx-lg-2 gx-0">
 					<div class="col-xxl-2 col-lg-3 col-md-6 col-5">
-						<a class="navbar-brand d-none d-lg-block" href="../index.html">
+						<a class="navbar-brand d-none d-lg-block" href="/user/index/indexUserForm">
 							<img src="/xdm/template/admin_ui/images/logo/freshcart-logo.svg" alt="eCommerce HTML Template" />
 						</a>
 						<div class="d-flex justify-content-between w-100 d-lg-none">
@@ -1090,10 +1090,10 @@
 								<div class="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
 									<!-- button -->
 									<!-- btn -->
-									<a href="shop-cart.html" class="btn btn-primary">
+									<button type="button" class="btn btn-primary" onclick="initiatePayment()">
 										<i class="feather-icon icon-shopping-bag me-2"></i>
 										결제하기
-									</a>
+									</button>
 								</div>
 								<div class="col-md-4 col-4">
 									<!-- btn -->
@@ -2374,6 +2374,79 @@
 	<script src="/xdm/template/admin_ui/js/vendors/tns-slider.js"></script>
 	<script src="/xdm/template/admin_ui/js/vendors/zoom.js"></script>
 	<script src="/xdm/template/admin_ui/js/vendors/dropzone.js"></script>
+	
+	<script src="https://js.tosspayments.com/v1"></script>
+<script>
+    const clientKey = "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq";
+
+    async function initiatePayment() {
+        // 수량 가져오기
+        const quantityInput = document.querySelector('input[name="quantity"]');
+        const productCount = parseInt(quantityInput.value);
+
+        // 입력 검증
+        if (productCount <= 0 || isNaN(productCount)) {
+            alert('수량을 1개 이상 선택하세요.');
+            return;
+        }
+
+        // 가격 가져오기
+        const priceElement = document.querySelector('.fw-bold.text-dark');
+        const unitPrice = parseInt(priceElement.textContent.replace('원', '').replace(/,/g, ''));
+        const amount = productCount * unitPrice;
+
+        // 상품 정보
+        const productName = "나폴리탄케 례스냐크";
+        const orderId = "Order_" + new Date().getTime();
+
+        try {
+            // 토스 페이먼츠 초기화
+            const tossPayments = TossPayments(clientKey);
+
+            // requestCookiePayment 호출 (requestPayment와 동일한 인터페이스 가정)
+            await tossPayments.requestPayment("카드", {
+                amount: amount,
+                orderId: orderId,
+                orderName: `${productName} ${productCount}개 구매`,
+                successUrl: `${window.location.origin}/payment/PaymentSuccess`,
+                failUrl: `${window.location.origin}/payment/PaymentFail`,
+                customerEmail: "test@example.com",
+                customerName: "테스터"
+            });
+
+        } catch (error) {
+            alert(`결제 실패: ${error.message}`);
+        }
+    }
+
+    // 결제 성공 후 PaymentConfirm 호출
+    async function confirmPayment(paymentKey, orderId, amount) {
+        try {
+            const response = await fetch('/payment/PaymentConfirm', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    paymentKey: paymentKey,
+                    orderId: orderId,
+                    amount: amount
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('결제 확인 실패');
+            }
+
+            const result = await response.json();
+            console.log('결제 확인 성공:', result);
+            return result;
+        } catch (error) {
+            console.error('결제 확인 오류:', error);
+            alert('결제 확인 중 오류가 발생했습니다.');
+        }
+    }
+</script>
 </body>
 
 </html>
