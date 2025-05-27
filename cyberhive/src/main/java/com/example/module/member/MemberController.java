@@ -150,7 +150,7 @@ public class MemberController extends BaseController {
 	}
 	
 	
-	@RequestMapping(value = "/xdm/member/signupXdmForm")
+	@RequestMapping(value = "/member/signupXdmForm")
 	public String signupXdmForm(MemberVo vo, HttpSession httpSession) throws Exception {
 		
 	    return "xdm/member/signupXdmForm";
@@ -168,12 +168,12 @@ public class MemberController extends BaseController {
 	
 	@RequestMapping(value = "/user/index/signinUserForm")
 	public String signinUserForm(MemberVo vo, HttpSession httpSession) throws Exception {
-		return "user/index/signinUserForm";
+		return "user/index/SigninUserForm";
 	}
 	
 	@RequestMapping(value = "/user/index/signupUserForm")
 	public String signupUserForm(MemberVo vo, HttpSession httpSession) throws Exception {
-		return "user/index/signupUserForm";
+		return "user/index/SignupUserForm";
 	}
 	
 	
