@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.common.base.BaseController;
@@ -69,11 +70,17 @@ public class ProductController extends BaseController {
 	        }
 	    }
 		
-		productService.insert(productDto);
-	    
 		System.out.println("[SUCCESS] 상품 등록 완료 - 생성된 seq: " + productDto.getPrdtSeq());
 		
 	    return "redirect:/xdm/product/ProductXdmList";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/xdm/product/ProductImageProc")
+	public String ProductImageProc(ProductDto dto) throws Exception {
+		productService.insertProductImages(dto);
+
+		return "redirect:\"/xdm/product/ProductXdmList";
 	}
 }
 

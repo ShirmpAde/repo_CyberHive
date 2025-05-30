@@ -18,4 +18,7 @@ public interface ProductDao extends BaseDao{
 	
 	public List<ProductDto> selectListProduct();
 	public int selectListWithoutPaging(ProductVo productVo);
+	
+	public int ueleteProductImage(ProductDto productDto);
+	public int ueleteBackgroundImage(ProductDto productDto);
 }

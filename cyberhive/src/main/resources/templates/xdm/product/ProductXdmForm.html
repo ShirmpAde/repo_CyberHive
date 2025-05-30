@@ -27,7 +27,22 @@
           <form id="form" name="form" method="post" autocomplete="off" enctype="multipart/form-data"
                 class="row g-3 needs-validation" novalidate="">
             
-            <input type="file" name="uploadImg1" multiple>
+<!--             <label for="profile_input"><i class="far fa-edit"></i></label> -->
+<!-- 			<input id="profile_input" name="profileInput" type="file" accept="image/*" style="display: none;" /> -->
+<!-- 		        <button type="button" id="btnImageSubmit" class="btn btn-primary-sm" style="justify-content: end;">사진변경</button> -->
+            
+            <!-- 기존 이미지 표시 및 새 이미지 업로드 -->
+		  <div class="col-md-12 mb-3">
+		    <label for="productImage" class="form-label">상품 이미지</label>
+		    <!-- 기존 이미지 표시 -->
+		    <div th:if="${item?.imagePath}"> <!-- item 객체에 이미지 경로가 있다고 가정 -->
+		      <img id="currentImage" th:src="@{${item.imagePath}}" alt="Current Product Image" style="max-width: 200px; max-height: 200px; display: block; margin-bottom: 10px;">
+		      <p>기존 이미지입니다. 새 이미지를 업로드하면 대체됩니다.</p>
+		    </div>
+		    <input type="file" class="form-control" name="uploadFile" id="uploadFile" accept="image/*">
+		    <!-- 이미지 미리보기 영역 -->
+		    <img id="imagePreview" src="#" alt="Image Preview" style="max-width: 200px; max-height: 200px; display: none; margin-top: 10px;"/>
+		  </div>
             
             <!-- seq (PK) -->
             <input type="hidden" name="prdtSeq" th:value="${item?.prdtSeq}" />
@@ -38,7 +53,7 @@
               <input type="text" class="form-control" name="prdtName" id="prdtName"
                      placeholder="예: Brooklyn IPA" th:value="${item?.prdtName}" required />
             </div>
-
+			
             <!-- 카테고리 (스타일) -->
             <div class="col-md-4">
               <label for="prdtCateCd" class="form-label">상품분류</label>
@@ -163,6 +178,31 @@
 <script src="/xdm/template/admin_ui/js/theme.min.js"></script>
 
 <script type="text/javascript">
+document.getElementById('uploadFile').addEventListener('change', function(event) {
+	  const file = event.target.files[0];
+	  const preview = document.getElementById('imagePreview');
+	  const currentImage = document.getElementById('currentImage');
+
+	  if (file) {
+	    const reader = new FileReader();
+	    reader.onload = function(e) {
+	      preview.src = e.target.result;
+	      preview.style.display = 'block';
+	      if (currentImage) {
+	        // 새 이미지를 선택하면 기존 이미지 숨기거나, 사용자에게 명확히 안내
+	        // currentImage.style.display = 'none'; 
+	      }
+	    }
+	    reader.readAsDataURL(file);
+	  } else {
+	    preview.src = '#';
+	    preview.style.display = 'none';
+	    if (currentImage) {
+	      // currentImage.style.display = 'block';
+	    }
+	  }
+	});
+  
   // 양조장 데이터 (국가 코드별)
   const breweriesByCountry = {
     "840": [
@@ -306,7 +346,7 @@
 //     }
 //     return true;
 //   }
-
+ 
   document.getElementById("btnSubmit").onclick = function () {
 		if(seq.value == "0" || seq.value == "") {
 			if(validationInst() == false) return false;
@@ -359,6 +399,26 @@
 	document.getElementById("savechanges").onclick = function() {
 		alert("savechanges");
 	}
+	
+// 	$("#btnImageSubmit").click(function () {
+// 	    const formI = $('#formImg')[0];
+// 	    const formIData = new FormData(formI);
+
+// 	    $.ajax({
+// 	        url: '/xdm/product/ProductImageProc', // 실제 업로드 처리하는 백엔드 URL로 변경하세요
+// 	        type: 'POST',
+// 	        data: formIData,
+// 	        contentType: false,
+// 	        processData: false,
+// 	        success: function (response) {
+// 	            alert("업로드 성공");
+// 	            // 필요 시 이미지 변경 후 처리 추가
+// 	        },
+// 	        error: function (xhr, status, error) {
+// 	            alert("업로드 실패: " + error);
+// 	        }
+// 	    });
+// 	});
 </script>
 </body>
 </html>

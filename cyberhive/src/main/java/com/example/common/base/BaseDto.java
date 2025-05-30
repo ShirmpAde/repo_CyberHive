@@ -1,25 +1,13 @@
 package com.example.common.base;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class BaseDto {
 	
 //	uploaded
 	private String tableName;
 	
-	private String prdtSeq;
-	private String prdtName;
-	private Integer prdtCateCd;
-	private String prdtStatus;
-	private Integer prdtPrice;
-	private Integer  prdtUseNy;
-	private Integer  prdtDelNy;
-	private String prdtRegDate;
-	private String prdtModDate;
-	private String prdtDesc;
-	private Double abv;
-	private Integer ibu;
-	private String volume;
-	private Integer countryCode;
-	private String brewery;
+	private String seq;
 	private Integer type;
 	private Integer defaultNy;
 	private Integer sort;
@@ -30,12 +18,12 @@ public class BaseDto {
 	private long size;
 	private Integer delNy;
 	private String pseq;
+
+	private MultipartFile[] uploadImg1;
 	
-    // 공통 필드 추가 가능
-    private String regId;
-    private String regDt;
-    private String modId;
-    private String modDt;
+	private Integer uploadImg1Type;
+	private Integer uploadImg1MaxNumber;
+	private String ifbnSeq;
 //-----
 	public String getTableName() {
 		return tableName;
@@ -43,95 +31,11 @@ public class BaseDto {
 	public void setTableName(String tableName) {
 		this.tableName = tableName;
 	}
-	public String getPrdtSeq() {
-		return prdtSeq;
+	public String getSeq() {
+		return seq;
 	}
-	public void setPrdtSeq(String prdtSeq) {
-		this.prdtSeq = prdtSeq;
-	}
-	public String getPrdtName() {
-		return prdtName;
-	}
-	public void setPrdtName(String prdtName) {
-		this.prdtName = prdtName;
-	}
-	public Integer getPrdtCateCd() {
-		return prdtCateCd;
-	}
-	public void setPrdtCateCd(Integer prdtCateCd) {
-		this.prdtCateCd = prdtCateCd;
-	}
-	public String getPrdtStatus() {
-		return prdtStatus;
-	}
-	public void setPrdtStatus(String prdtStatus) {
-		this.prdtStatus = prdtStatus;
-	}
-	public Integer getPrdtPrice() {
-		return prdtPrice;
-	}
-	public void setPrdtPrice(Integer prdtPrice) {
-		this.prdtPrice = prdtPrice;
-	}
-	public Integer getPrdtUseNy() {
-		return prdtUseNy;
-	}
-	public void setPrdtUseNy(Integer prdtUseNy) {
-		this.prdtUseNy = prdtUseNy;
-	}
-	public Integer getPrdtDelNy() {
-		return prdtDelNy;
-	}
-	public void setPrdtDelNy(Integer prdtDelNy) {
-		this.prdtDelNy = prdtDelNy;
-	}
-	public String getPrdtRegDate() {
-		return prdtRegDate;
-	}
-	public void setPrdtRegDate(String prdtRegDate) {
-		this.prdtRegDate = prdtRegDate;
-	}
-	public String getPrdtModDate() {
-		return prdtModDate;
-	}
-	public void setPrdtModDate(String prdtModDate) {
-		this.prdtModDate = prdtModDate;
-	}
-	public String getPrdtDesc() {
-		return prdtDesc;
-	}
-	public void setPrdtDesc(String prdtDesc) {
-		this.prdtDesc = prdtDesc;
-	}
-	public Double getAbv() {
-		return abv;
-	}
-	public void setAbv(Double abv) {
-		this.abv = abv;
-	}
-	public Integer getIbu() {
-		return ibu;
-	}
-	public void setIbu(Integer ibu) {
-		this.ibu = ibu;
-	}
-	public String getVolume() {
-		return volume;
-	}
-	public void setVolume(String volume) {
-		this.volume = volume;
-	}
-	public Integer getCountryCode() {
-		return countryCode;
-	}
-	public void setCountryCode(Integer countryCode) {
-		this.countryCode = countryCode;
-	}
-	public String getBrewery() {
-		return brewery;
-	}
-	public void setBrewery(String brewery) {
-		this.brewery = brewery;
+	public void setSeq(String seq) {
+		this.seq = seq;
 	}
 	public Integer getType() {
 		return type;
@@ -193,29 +97,29 @@ public class BaseDto {
 	public void setPseq(String pseq) {
 		this.pseq = pseq;
 	}
-	public String getRegId() {
-		return regId;
+	public MultipartFile[] getUploadImg1() {
+		return uploadImg1;
 	}
-	public void setRegId(String regId) {
-		this.regId = regId;
+	public void setUploadImg1(MultipartFile[] uploadImg1) {
+		this.uploadImg1 = uploadImg1;
 	}
-	public String getRegDt() {
-		return regDt;
+	public Integer getUploadImg1Type() {
+		return uploadImg1Type;
 	}
-	public void setRegDt(String regDt) {
-		this.regDt = regDt;
+	public void setUploadImg1Type(Integer uploadImg1Type) {
+		this.uploadImg1Type = uploadImg1Type;
 	}
-	public String getModId() {
-		return modId;
+	public Integer getUploadImg1MaxNumber() {
+		return uploadImg1MaxNumber;
 	}
-	public void setModId(String modId) {
-		this.modId = modId;
+	public void setUploadImg1MaxNumber(Integer uploadImg1MaxNumber) {
+		this.uploadImg1MaxNumber = uploadImg1MaxNumber;
 	}
-	public String getModDt() {
-		return modDt;
+	public String getIfbnSeq() {
+		return ifbnSeq;
 	}
-	public void setModDt(String modDt) {
-		this.modDt = modDt;
+	public void setIfbnSeq(String ifbnSeq) {
+		this.ifbnSeq = ifbnSeq;
 	}
 
 }

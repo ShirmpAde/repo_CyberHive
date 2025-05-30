@@ -6,44 +6,126 @@ import com.example.common.base.BaseDto;
 
 public class ProductDto extends BaseDto {
 
-//	 기본 필드
-	private String ifbnSeq;
-    private Integer uploadImg1Type = 1;
-    private Integer uploadImg1MaxNumber = 5;
-    
-	private MultipartFile[] uploadImg1;
+	private String prdtSeq;
+	private String prdtName;
+	private Integer prdtCateCd;
+	private String prdtStatus;
+	private Integer prdtPrice;
+	private Integer  prdtUseNy;
+	private Integer  prdtDelNy;
+	private String prdtRegDate;
+	private String prdtModDate;
+	private String prdtDesc;
+	private Double abv;
+	private Integer ibu;
+	private String volume;
+	private Integer countryCode;
+	private String brewery;
+	
+	private MultipartFile[] backgroundInput;
+	private MultipartFile[] profileInput;
 //-----
-
-	public String getIfbnSeq() {
-		return ifbnSeq;
+	public String getPrdtSeq() {
+		return prdtSeq;
 	}
-
-	public void setIfbnSeq(String ifbnSeq) {
-		this.ifbnSeq = ifbnSeq;
+	public void setPrdtSeq(String prdtSeq) {
+		this.prdtSeq = prdtSeq;
 	}
-
-	public Integer getUploadImg1Type() {
-		return uploadImg1Type;
+	public String getPrdtName() {
+		return prdtName;
 	}
-
-	public void setUploadImg1Type(Integer uploadImg1Type) {
-		this.uploadImg1Type = uploadImg1Type;
+	public void setPrdtName(String prdtName) {
+		this.prdtName = prdtName;
 	}
-
-	public Integer getUploadImg1MaxNumber() {
-		return uploadImg1MaxNumber;
+	public Integer getPrdtCateCd() {
+		return prdtCateCd;
 	}
-
-	public void setUploadImg1MaxNumber(Integer uploadImg1MaxNumber) {
-		this.uploadImg1MaxNumber = uploadImg1MaxNumber;
+	public void setPrdtCateCd(Integer prdtCateCd) {
+		this.prdtCateCd = prdtCateCd;
 	}
-
-	public MultipartFile[] getUploadImg1() {
-		return uploadImg1;
+	public String getPrdtStatus() {
+		return prdtStatus;
 	}
-
-	public void setUploadImg1(MultipartFile[] uploadImg1) {
-		this.uploadImg1 = uploadImg1;
+	public void setPrdtStatus(String prdtStatus) {
+		this.prdtStatus = prdtStatus;
+	}
+	public Integer getPrdtPrice() {
+		return prdtPrice;
+	}
+	public void setPrdtPrice(Integer prdtPrice) {
+		this.prdtPrice = prdtPrice;
+	}
+	public Integer getPrdtUseNy() {
+		return prdtUseNy;
+	}
+	public void setPrdtUseNy(Integer prdtUseNy) {
+		this.prdtUseNy = prdtUseNy;
+	}
+	public Integer getPrdtDelNy() {
+		return prdtDelNy;
+	}
+	public void setPrdtDelNy(Integer prdtDelNy) {
+		this.prdtDelNy = prdtDelNy;
+	}
+	public String getPrdtRegDate() {
+		return prdtRegDate;
+	}
+	public void setPrdtRegDate(String prdtRegDate) {
+		this.prdtRegDate = prdtRegDate;
+	}
+	public String getPrdtModDate() {
+		return prdtModDate;
+	}
+	public void setPrdtModDate(String prdtModDate) {
+		this.prdtModDate = prdtModDate;
+	}
+	public String getPrdtDesc() {
+		return prdtDesc;
+	}
+	public void setPrdtDesc(String prdtDesc) {
+		this.prdtDesc = prdtDesc;
+	}
+	public Double getAbv() {
+		return abv;
+	}
+	public void setAbv(Double abv) {
+		this.abv = abv;
+	}
+	public Integer getIbu() {
+		return ibu;
+	}
+	public void setIbu(Integer ibu) {
+		this.ibu = ibu;
+	}
+	public String getVolume() {
+		return volume;
+	}
+	public void setVolume(String volume) {
+		this.volume = volume;
+	}
+	public Integer getCountryCode() {
+		return countryCode;
+	}
+	public void setCountryCode(Integer countryCode) {
+		this.countryCode = countryCode;
+	}
+	public String getBrewery() {
+		return brewery;
+	}
+	public void setBrewery(String brewery) {
+		this.brewery = brewery;
+	}
+	public MultipartFile[] getBackgroundInput() {
+		return backgroundInput;
+	}
+	public void setBackgroundInput(MultipartFile[] backgroundInput) {
+		this.backgroundInput = backgroundInput;
+	}
+	public MultipartFile[] getProfileInput() {
+		return profileInput;
+	}
+	public void setProfileInput(MultipartFile[] profileInput) {
+		this.profileInput = profileInput;
 	}
 
 }
