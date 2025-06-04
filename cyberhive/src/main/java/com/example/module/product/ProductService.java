@@ -6,15 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.example.common.base.BaseService;
+import com.example.module.filesupload.FilesUploadDao;
+import com.example.module.filesupload.FilesUploadService;
 
 @Service
-public class ProductService extends BaseService {
+public class ProductService extends FilesUploadService {
 	@Autowired
 	ProductDao productDao;
 	
 	@Autowired
 	private AmazonS3Client amazonS3Client;
+	
+	@Autowired
+	FilesUploadDao filesUploadDao;
 	
 	public List<ProductDto> selectList(ProductVo vo){
 		return productDao.selectList(vo);
@@ -52,23 +56,17 @@ public class ProductService extends BaseService {
 		return productDao.selectListWithoutPaging(productVo);
 	}
 	
-	public void insertProductImages(ProductDto dto) throws Exception {
-			
-			if (dto.getBackgroundInput() != null && dto.getBackgroundInput().toString().isEmpty()) {
-				productDao.ueleteBackgroundImage(dto);
-				dto.setUploadImg1(dto.getBackgroundInput());
-				dto.setUploadImg1Type(11);
-				dto.setUploadImg1MaxNumber(11);
-				uploadFilesToS3(dto.getUploadImg1(), dto, "image", dto.getUploadImg1Type(), dto.getUploadImg1MaxNumber()
-						, dto.getPrdtSeq(), productDao, amazonS3Client);
-			}
-			if (dto.getProfileInput() != null && dto.getProfileInput().toString().isEmpty()) {
-				productDao.ueleteProductImage(dto);
-				dto.setUploadImg1(dto.getProfileInput());
-				dto.setUploadImg1Type(12);
-				dto.setUploadImg1MaxNumber(12);
-				uploadFilesToS3(dto.getUploadImg1(), dto, "image", dto.getUploadImg1Type(), dto.getUploadImg1MaxNumber()
-						, dto.getPrdtSeq(), productDao, amazonS3Client);
-			}
-		}
+	public int insert(ProductDto productDto) throws Exception {
+		productDao.insert(productDto);
+		uploadFilesToS3(
+				productDto.getUploadImg1()
+			, productDto
+			, "infrBannerUploaded"
+			, productDto.getUploadImg1Type()
+			, productDto.getUploadImg1MaxNumber()
+			, productDto.getSeq()
+			, filesUploadDao
+			, amazonS3Client);
+	return 1;
+	}
 }

@@ -1,10 +1,8 @@
 package com.example.module.product;
 
-import org.springframework.web.multipart.MultipartFile;
+import com.example.module.filesupload.FilesUploadDto;
 
-import com.example.common.base.BaseDto;
-
-public class ProductDto extends BaseDto {
+public class ProductDto extends FilesUploadDto {
 
 	private String prdtSeq;
 	private String prdtName;
@@ -22,8 +20,10 @@ public class ProductDto extends BaseDto {
 	private Integer countryCode;
 	private String brewery;
 	
-	private MultipartFile[] backgroundInput;
-	private MultipartFile[] profileInput;
+	private String path; // 이미지
+	
+	private int uploadImg1Type = 1001;
+	private int uploadImg1MaxNumber = 1001;
 //-----
 	public String getPrdtSeq() {
 		return prdtSeq;
@@ -115,17 +115,23 @@ public class ProductDto extends BaseDto {
 	public void setBrewery(String brewery) {
 		this.brewery = brewery;
 	}
-	public MultipartFile[] getBackgroundInput() {
-		return backgroundInput;
+	public String getPath() {
+		return path;
 	}
-	public void setBackgroundInput(MultipartFile[] backgroundInput) {
-		this.backgroundInput = backgroundInput;
+	public void setPath(String path) {
+		this.path = path;
 	}
-	public MultipartFile[] getProfileInput() {
-		return profileInput;
+	public int getUploadImg1Type() {
+		return uploadImg1Type;
 	}
-	public void setProfileInput(MultipartFile[] profileInput) {
-		this.profileInput = profileInput;
+	public void setUploadImg1Type(int uploadImg1Type) {
+		this.uploadImg1Type = uploadImg1Type;
+	}
+	public int getUploadImg1MaxNumber() {
+		return uploadImg1MaxNumber;
+	}
+	public void setUploadImg1MaxNumber(int uploadImg1MaxNumber) {
+		this.uploadImg1MaxNumber = uploadImg1MaxNumber;
 	}
 
 }

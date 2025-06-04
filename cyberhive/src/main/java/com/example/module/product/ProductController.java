@@ -5,10 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.common.base.BaseController;
+import com.example.module.filesupload.FilesUploadDto;
+import com.example.module.filesupload.FilesUploadService;
 
 
 @Controller
@@ -16,6 +17,9 @@ public class ProductController extends BaseController {
 
 	@Autowired
 	ProductService productService;
+	
+	@Autowired
+    FilesUploadService filesUploadService;
 	
 	@RequestMapping(value = "/xdm/product/ProductXdmList")
 	public String productXdmList(Model model, @ModelAttribute("vo") ProductVo vo) {
@@ -30,9 +34,21 @@ public class ProductController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/xdm/product/ProductXdmForm")
-	public String productXdmForm(@ModelAttribute("vo") ProductVo vo, Model model) throws Exception{
-		return "xdm/product/ProductXdmForm";
-	}
+	public String productXdmForm(@ModelAttribute("vo") ProductVo vo, ProductDto productDto, FilesUploadDto filesUploadDto, Model model) throws Exception {
+			
+			if (vo.getSeq().equals("0") || vo.getSeq().equals("")) {
+	//			insert mode
+			} else {
+	//			update mode
+				filesUploadDto.setPseq(productDto.getSeq());
+				FilesUploadDto dto = filesUploadService.selectOne(filesUploadDto);
+				System.out.println(dto.getPath());
+				
+				model.addAttribute("item", productService.selectOne(productDto));
+				model.addAttribute("itemFile", dto);
+			}
+			return "xdm/product/ProductXdmForm";
+		}
 	
 	@RequestMapping(value = "/xdm/product/ProductXdmUpdt")
 	public String productXdmUpdt(ProductDto productDto) {
@@ -60,27 +76,10 @@ public class ProductController extends BaseController {
 	
 	@RequestMapping(value = "/xdm/product/ProductXdmInst")
 	public String productXdmInst(ProductDto productDto) throws Exception {
-		System.out.println("[INFO] ProductXdmInst 호출됨 - DTO: " + productDto);
-		System.out.println("[DATA] " + productDto.toString()); 
-	    
-		if (productDto.getUploadImg1() != null) {
-	        System.out.println("[FILE] 업로드 파일 개수: " + productDto.getUploadImg1().length);
-	        for (MultipartFile file : productDto.getUploadImg1()) {
-	            System.out.println("[FILE] " + file.getOriginalFilename() + " (" + file.getSize() + " bytes)");
-	        }
-	    }
+		productService.insert(productDto);
 		
-		System.out.println("[SUCCESS] 상품 등록 완료 - 생성된 seq: " + productDto.getPrdtSeq());
-		
-	    return "redirect:/xdm/product/ProductXdmList";
+		return "redirect:/xdm/product/ProductXdmList";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value = "/xdm/product/ProductImageProc")
-	public String ProductImageProc(ProductDto dto) throws Exception {
-		productService.insertProductImages(dto);
-
-		return "redirect:\"/xdm/product/ProductXdmList";
-	}
 }
 

@@ -31,18 +31,25 @@
 <!-- 			<input id="profile_input" name="profileInput" type="file" accept="image/*" style="display: none;" /> -->
 <!-- 		        <button type="button" id="btnImageSubmit" class="btn btn-primary-sm" style="justify-content: end;">사진변경</button> -->
             
-            <!-- 기존 이미지 표시 및 새 이미지 업로드 -->
-		  <div class="col-md-12 mb-3">
-		    <label for="productImage" class="form-label">상품 이미지</label>
-		    <!-- 기존 이미지 표시 -->
-		    <div th:if="${item?.imagePath}"> <!-- item 객체에 이미지 경로가 있다고 가정 -->
-		      <img id="currentImage" th:src="@{${item.imagePath}}" alt="Current Product Image" style="max-width: 200px; max-height: 200px; display: block; margin-bottom: 10px;">
-		      <p>기존 이미지입니다. 새 이미지를 업로드하면 대체됩니다.</p>
-		    </div>
-		    <input type="file" class="form-control" name="uploadFile" id="uploadFile" accept="image/*">
-		    <!-- 이미지 미리보기 영역 -->
-		    <img id="imagePreview" src="#" alt="Image Preview" style="max-width: 200px; max-height: 200px; display: none; margin-top: 10px;"/>
-		  </div>
+		    <!-- 상품 이미지 -->
+			<div class="col-md-12 mb-3">
+			    <label class="form-label">상품 이미지 <sup>*</sup></label>
+			    <div>
+			        <!-- 기존 이미지 표시 (수정 시) -->
+			        <div th:if="${item?.mainImageUrl != null}" style="margin-bottom: 10px;">
+			            <img id="currentImage" th:src="${item.mainImageUrl}" alt="Current Product Image" style="max-width: 200px; max-height: 200px; display: block;">
+			            <p>기존 이미지입니다. 새 이미지를 선택하면 대체됩니다.</p>
+			        </div>
+			        <!-- 새 이미지 미리보기 영역 -->
+			        <img id="imagePreview" src="#" alt="Image Preview" style="max-width: 200px; max-height: 200px; display: none; margin-bottom: 10px;"/>
+			        <!-- 파일 선택 버튼/라벨 -->
+			        <label for="uploadFile" class="btn btn-outline-primary btn-sm">
+			            <i class="bi bi-upload"></i> 이미지 선택
+			        </label>
+			        <input type="file" class="form-control" name="uploadImg1" id="uploadFile" accept="image/*" multiple style="display: none;">
+			        <!-- 참고: style="display: none;"으로 input을 숨기고 label로 제어 -->
+			    </div>
+			</div>
             
             <!-- seq (PK) -->
             <input type="hidden" name="prdtSeq" th:value="${item?.prdtSeq}" />
@@ -179,29 +186,39 @@
 
 <script type="text/javascript">
 document.getElementById('uploadFile').addEventListener('change', function(event) {
-	  const file = event.target.files[0];
-	  const preview = document.getElementById('imagePreview');
-	  const currentImage = document.getElementById('currentImage');
+    const file = event.target.files[0];
+    const preview = document.getElementById('imagePreview');
+    const currentImage = document.getElementById('currentImage'); // 기존 이미지 요소 ID 확인
 
-	  if (file) {
-	    const reader = new FileReader();
-	    reader.onload = function(e) {
-	      preview.src = e.target.result;
-	      preview.style.display = 'block';
-	      if (currentImage) {
-	        // 새 이미지를 선택하면 기존 이미지 숨기거나, 사용자에게 명확히 안내
-	        // currentImage.style.display = 'none'; 
-	      }
-	    }
-	    reader.readAsDataURL(file);
-	  } else {
-	    preview.src = '#';
-	    preview.style.display = 'none';
-	    if (currentImage) {
-	      // currentImage.style.display = 'block';
-	    }
-	  }
-	});
+    if (file) {
+        if (file.type.match('image.*')) { // 이미지 파일인지 확인
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+                if (currentImage) {
+                    currentImage.style.display = 'none'; // 새 이미지 선택 시 기존 이미지 숨김
+                }
+            }
+            reader.readAsDataURL(file);
+        } else {
+            alert('이미지 파일만 업로드 가능합니다.');
+            this.value = ''; // 잘못된 파일 선택 시 input 초기화
+            preview.src = '#';
+            preview.style.display = 'none';
+            if (currentImage) {
+                currentImage.style.display = 'block'; // 기존 이미지 다시 표시
+            }
+        }
+    } else {
+        // 파일 선택 취소 시
+        preview.src = '#';
+        preview.style.display = 'none';
+        if (currentImage) {
+            currentImage.style.display = 'block';
+        }
+    }
+});
   
   // 양조장 데이터 (국가 코드별)
   const breweriesByCountry = {
@@ -267,158 +284,139 @@ document.getElementById('uploadFile').addEventListener('change', function(event)
   document.getElementById('countryCode').addEventListener('change', function() {
     const countryCode = this.value;
     const brewerySelect = document.getElementById('brewery');
-    
-    // 기존 옵션 초기화
     brewerySelect.innerHTML = '<option value="">-- 양조장 선택 --</option>';
-    
     if (countryCode) {
-      // 양조장 활성화
-      brewerySelect.disabled = false;
-      
-      // 해당 국가의 양조장 목록 가져오기
-      const breweries = breweriesByCountry[countryCode] || breweriesByCountry['default'];
-      
-      // 양조장 옵션 추가
-      breweries.forEach(brewery => {
-        const option = document.createElement('option');
-        option.value = brewery.code;
-        option.textContent = brewery.name;
-        brewerySelect.appendChild(option);
-      });
-      
-      // 기존에 선택된 값이 있으면 설정
-      if (document.querySelector("input[name=seq]").value) {
-        const selectedBrewery = "${item?.brewery}";
-        if (selectedBrewery) {
-          brewerySelect.value = selectedBrewery;
+        brewerySelect.disabled = false;
+        const breweries = breweriesByCountry[countryCode] || breweriesByCountry['default'];
+        breweries.forEach(brewery => {
+            const option = document.createElement('option');
+            option.value = brewery.code;
+            option.textContent = brewery.name;
+            brewerySelect.appendChild(option);
+        });
+        // 수정 시 기존 양조장 값 설정 (item.brewery가 있다고 가정)
+        const currentBrewery = "[[${item?.brewery}]]"; // Thymeleaf 인라인 사용
+        if (currentBrewery) {
+             brewerySelect.value = currentBrewery;
         }
-      }
     } else {
-      // 국가가 선택되지 않았을 때 양조장 비활성화
-      brewerySelect.disabled = true;
+        brewerySelect.disabled = true;
     }
-  });
+});
 
-  // 페이지 로드 시 국가가 이미 선택되어 있다면 양조장 목록 로드
-  document.addEventListener('DOMContentLoaded', function() {
+// 페이지 로드 시 국가가 이미 선택되어 있다면 양조장 목록 로드 - 기존 코드 유지
+document.addEventListener('DOMContentLoaded', function() {
     const countrySelect = document.getElementById('countryCode');
     if (countrySelect.value) {
-      countrySelect.dispatchEvent(new Event('change'));
+        countrySelect.dispatchEvent(new Event('change'));
     }
-  });
+    // Bootstrap 5 유효성 검사 초기화 (폼 제출 시 자동으로 검사됨)
+    // 필요한 경우 추가적인 초기화 로직
+});
 
-  let seq = document.querySelector("input[name=prdtSeq]");
-  let form = document.querySelector("form[name=form]");
-	 
-  function validationInst() {
-	    if(validationUpdt() == false) return false;
-	}
-	
-	function validationUpdt() {
-		if(document.getElementById("prdtName").value.trim() == null || document.getElementById("prdtName").value.trim() == "") {
-			alertModal()
-			document.getElementById("prdtName").focus();
-			return false;
-		}
-	}
-  
-//   function validateForm() {
-//     if(!document.getElementById("prdtName").value.trim()) {
-//       return showAlert("입력오류", "상품 이름을 입력해주세요", "prdtName");
-//     }
-//     if(!document.getElementById("prdtCateCd").value) {
-//       return showAlert("입력오류", "스타일을 선택해주세요", "prdtCateCd");
-//     }
-//     if(!document.getElementById("prdtStatus").value) {
-//       return showAlert("입력오류", "상태를 선택해주세요", "prdtStatus");
-//     }
-//     if(!document.getElementById("prdtPrice").value) {
-//       return showAlert("입력오류", "가격을 입력해주세요", "prdtPrice");
-//     }
-//     if(!document.getElementById("abv").value) {
-//       return showAlert("입력오류", "ABV를 입력해주세요", "abv");
-//     }
-//     if(!document.getElementById("countryCode").value) {
-//       return showAlert("입력오류", "국가를 선택해주세요", "countryCode");
-//     }
-//     if(!document.getElementById("brewery").value) {
-//       return showAlert("입력오류", "양조장을 선택해주세요", "brewery");
-//     }
-//     return true;
-//   }
- 
-  document.getElementById("btnSubmit").onclick = function () {
-		if(seq.value == "0" || seq.value == "") {
-			if(validationInst() == false) return false;
-			form.action = "/xdm/product/ProductXdmInst";
-			form.submit();
-		} else {
-			if(validationUpdt() == false) return false;
-// 			alert(new Date());
-			form.action = "/xdm/product/ProductXdmUpdt";
-			form.submit();
-		}
-	}
+// 폼 관련 변수
+let prdtSeqInput = document.querySelector("input[name=prdtSeq]");
+let form = document.querySelector("form[name=form]"); // 또는 document.getElementById('form');
 
-  function showAlert(title, msg, focusId) {
-    $("#modalAlertTitle").text(title);
-    $("#modalAlertBody").text(msg);
-    $("#modalAlert").modal("show");
-    document.getElementById(focusId).focus();
-    return false;
-  }
-  
-  function alertModal() {
-		document.querySelector("#modalAlertTitle").textContent = "입력오류";
-		document.querySelector("#modalAlertBody").textContent = "형식에 맞는 값을 입력해주세요";
-		$("#modalAlert").modal("show");
-	}
-		
-		
-	document.getElementById("btnUelete").onclick = function () {
-		document.querySelector("#modalConfirmTitle").textContent = "확 인";
-		document.querySelector("#modalConfirmBody").textContent = "해당 데이터를 삭제하시겠습니까 ?";
-		document.querySelector("#btnModalUelete").style.display = '';
-		document.querySelector("#btnModalDelete").style.display = 'none';
-		document.getElementById("modalConfirm").style.display = 'block';
-		$("#modalConfirm").modal("show");
-	}
+// 유효성 검사 함수 (필요시 구체화)
+function validationInst() {
+    // 예: 상품 이름 필수 체크
+    if(document.getElementById("prdtName").value.trim() === "") {
+        showAlertModal("입력 오류", "상품 이름을 입력해주세요.", "prdtName");
+        return false;
+    }
+    // 추가적인 등록 시 유효성 검사
+    return true;
+}
 
-	document.getElementById("btnModalUelete").onclick = function () {
-		form.action = "/xdm/product/productXdmUele";
-		form.submit();
-	}
-	
-	document.getElementById("closeModal").onclick = function() {
-		if(document.getElementById("prdtName").value.trim() == null || document.getElementById("prdtName").value.trim() == "") {
-			document.getElementById("prdtName").focus();
-			return false;
-		}
-	}
-	
-	document.getElementById("savechanges").onclick = function() {
-		alert("savechanges");
-	}
-	
-// 	$("#btnImageSubmit").click(function () {
-// 	    const formI = $('#formImg')[0];
-// 	    const formIData = new FormData(formI);
+function validationUpdt() {
+    // 예: 상품 이름 필수 체크
+    if(document.getElementById("prdtName").value.trim() === "") {
+        showAlertModal("입력 오류", "상품 이름을 입력해주세요.", "prdtName");
+        return false;
+    }
+    // 추가적인 수정 시 유효성 검사
+    return true;
+}
 
-// 	    $.ajax({
-// 	        url: '/xdm/product/ProductImageProc', // 실제 업로드 처리하는 백엔드 URL로 변경하세요
-// 	        type: 'POST',
-// 	        data: formIData,
-// 	        contentType: false,
-// 	        processData: false,
-// 	        success: function (response) {
-// 	            alert("업로드 성공");
-// 	            // 필요 시 이미지 변경 후 처리 추가
-// 	        },
-// 	        error: function (xhr, status, error) {
-// 	            alert("업로드 실패: " + error);
-// 	        }
-// 	    });
-// 	});
+// 모달 알림 함수 (Bootstrap 모달 사용)
+function showAlertModal(title, msg, focusId) {
+    // Bootstrap 5 모달을 사용하려면 해당 모달 HTML이 페이지에 있어야 합니다.
+    // 예시: <div class="modal fade" id="commonAlertModal" ...>
+    const alertModalElement = document.getElementById('commonAlertModal'); // 실제 모달 ID로 변경
+    if (alertModalElement) {
+        document.getElementById('commonAlertModalTitle').textContent = title; // 모달 타이틀 ID
+        document.getElementById('commonAlertModalBody').textContent = msg;   // 모달 바디 ID
+        
+        var myModal = new bootstrap.Modal(alertModalElement);
+        myModal.show();
+
+        if (focusId) {
+            // 모달이 완전히 표시된 후 포커스
+            alertModalElement.addEventListener('shown.bs.modal', function onModalShown() {
+                document.getElementById(focusId).focus();
+                alertModalElement.removeEventListener('shown.bs.modal', onModalShown); // 이벤트 리스너 한번만 실행 후 제거
+            });
+        }
+    } else {
+        // 모달이 없다면 기본 alert 사용
+        alert(title + "\n" + msg);
+        if (focusId) document.getElementById(focusId).focus();
+    }
+    return false; // showAlert 함수의 반환값과 통일
+}
+
+
+// 폼 제출 버튼 클릭 이벤트
+document.getElementById("btnSubmit").onclick = function () {
+    // Bootstrap 5 유효성 검사 트리거
+    if (!form.checkValidity()) {
+        form.classList.add('was-validated');
+        // 첫 번째 invalid 필드로 포커스 이동 (선택적)
+        const firstInvalidField = form.querySelector(':invalid');
+        if(firstInvalidField) firstInvalidField.focus();
+        return false;
+    }
+
+    if (prdtSeqInput.value === "0" || prdtSeqInput.value === "") {
+        if (validationInst() === false) return false;
+        form.action = "/xdm/product/ProductXdmInst";
+    } else {
+        if (validationUpdt() === false) return false;
+        // cdUpdtDate와 같은 필드가 있다면 여기서 값 설정
+        // document.querySelector("input[name=cdUpdtDate]").value = new Date().toISOString();
+        form.action = "/xdm/product/ProductXdmUpdt";
+    }
+    form.submit();
+};
+
+// 삭제 확인 모달 관련 (기존 코드)
+document.getElementById("btnUelete").onclick = function () {
+    document.querySelector("#modalConfirmTitle").textContent = "확 인";
+    document.querySelector("#modalConfirmBody").textContent = "해당 데이터를 삭제하시겠습니까 ?";
+    document.querySelector("#btnModalUelete").style.display = ''; // 삭제 버튼 보이기
+    document.querySelector("#btnModalDelete").style.display = 'none'; // 다른 삭제 버튼 숨기기 (필요시)
+    
+    var confirmModal = new bootstrap.Modal(document.getElementById('modalConfirm'));
+    confirmModal.show();
+};
+
+document.getElementById("btnModalUelete").onclick = function () {
+    form.action = "/xdm/product/productXdmUele"; // uelete 처리 URL 확인
+    form.submit();
+};
+
+// 나머지 필요한 JavaScript 함수들 (closeModal, savechanges 등)은
+// 실제 기능에 맞게 구현하거나, 현재 폼에 필요 없다면 제거합니다.
+
+// 예시: closeModal - 폼 유효성 검사 후 모달 닫기 (어떤 모달인지 명확해야 함)
+/*
+if(document.getElementById("closeModal")){ // closeModal 버튼이 있다면
+    document.getElementById("closeModal").onclick = function() {
+        // 특정 입력 필드 유효성 검사 로직 (필요시)
+    }
+}
+*/
 </script>
 </body>
 </html>

@@ -9,8 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.example.common.base.BaseDao;
-import com.example.common.base.BaseDto;
 import com.example.common.util.UtilDateTime;
 
 @Service
@@ -23,7 +21,7 @@ public class FilesUploadService{
 	@Value(value = "${cloud_aws_bucket}")
 	private String bucket;
 	
-public void uploadFilesToS3(MultipartFile[] multipartFiles, BaseDto dto, String tableName, int type, int maxNumber, String pSeq, BaseDao dao, AmazonS3Client amazonS3Client) throws Exception {
+public void uploadFilesToS3(MultipartFile[] multipartFiles, FilesUploadDto dto, String tableName, int type, int maxNumber, String pSeq, FilesUploadDao dao, AmazonS3Client amazonS3Client) throws Exception {
 		
 		for(int i=0; i<multipartFiles.length; i++) {
 			
@@ -67,5 +65,8 @@ public void uploadFilesToS3(MultipartFile[] multipartFiles, BaseDto dto, String 
 				dao.insertUploaded(dto);
 			}
 		}
+	}
+	public FilesUploadDto selectOne(FilesUploadDto dto) {
+		return dao.selectOne(dto);
 	}
 }

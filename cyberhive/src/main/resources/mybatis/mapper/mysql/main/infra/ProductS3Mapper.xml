@@ -4,28 +4,34 @@
 <mapper namespace="com.example.module.product.ProductDao">
 	<resultMap id="resultMapObj" type="com.example.module.product.ProductDto"></resultMap> 
 	
-	<sql id="selectCommon">	    
-	    from
-			product a
-			<!-- left join codegroup b on a.codegroup_cdgrSeq = b.cdgrSeq -->
-		where 1=1
-		<if test="shUseNy != null and !shUseNy.equals('')">AND a.prdtUseNy = #{prdtUseNy}</if>
-        <if test="shDelNy != null and !shDelNy.equals('')">AND a.prdtDelNy = #{prdtDelNy}</if>
+	<sql id = "selectCommon">
+		FROM product as a
+		WHERE 1=1
+<!-- 		AND a.mealDelNy = 0 -->
+		<if test="shUseNy != null and !shUseNy.equals('')">AND a.mealUseNy = #{shUseNy}</if>
+        <if test="shDelNy != null and !shDelNy.equals('')">AND a.mealDelNy = #{shDelNy}</if>
+ 				
 				<choose>
-					<when test="shOptionDate == 1">AND a.prdtRegDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-					<when test="shOptionDate == 2">AND a.prdtModDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+					<when test="shOptionDate == 1">AND a.mealRegDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+					<when test="shOptionDate == 2">AND a.mealModDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
 				</choose>
+				
         <choose>
-            <when test="shOption == 1">AND a.prdtName LIKE CONCAT('%',#{shValue},'%')</when>
-            <when test="shOption == 2">AND a.prdtCateCd LIKE CONCAT('%',#{shValue},'%')</when>
-            <when test="shOption == 3">AND a.prdtStatus LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 1">AND a.prdtSeq = #{shValue}</when>
+            <when test="shOption == 2">AND a.prdtName LIKE CONCAT('%',#{shValue},'%')</when>
         </choose>
-    </sql>
-	
+        
+        <if test="shOption1 != null and shOption1 != ''">
+	        AND a.prdtName = #{shOption1}
+	    </if>
+        
+		ORDER BY a.prdtSeq DESC
+	</sql>
+
 	<select id="selectOneCount" resultType="Integer">
-    	select count(*)
-    	 <include refid = "selectCommon"></include>
-    </select>
+		SELECT COUNT(*)
+		<include refid="selectCommon"></include>
+	</select>
 	
 	<select id="selectList" resultMap="resultMapObj">
 	select aa.* from (
@@ -64,16 +70,6 @@
 			,volume
 			,countryCode
 			,brewery
-			,type
-			,defaultNy
-			,sort
-			,path
-			,originalName
-			,uuidName
-			,ext
-			,size
-			,delNy
-			,pseq
 	    ) values (			
 	        #{prdtName}
 	        ,#{prdtCateCd}
@@ -89,16 +85,6 @@
 	        ,#{volume}
 	        ,#{countryCode}
 	        ,#{brewery}
-	        ,#{type}
-	        ,#{defaultNy}
-	        ,#{sort}
-	        ,#{path}
-	        ,#{originalName}
-	        ,#{uuidName}
-	        ,#{ext}
-	        ,#{size}
-	        ,#{delNy}
-	        ,#{pseq}
 	    )
 		<selectKey resultType="String" keyProperty="prdtSeq" order="AFTER">
 	        SELECT last_insert_id()

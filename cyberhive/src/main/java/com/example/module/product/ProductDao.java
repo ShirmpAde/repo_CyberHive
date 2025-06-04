@@ -2,9 +2,7 @@ package com.example.module.product;
 
 import java.util.List;
 
-import com.example.common.base.BaseDao;
-
-public interface ProductDao extends BaseDao{
+public interface ProductDao{
 	
 	public int selectOneCount(ProductVo Vo);
 	public List<ProductDto> selectList(ProductVo vo);
