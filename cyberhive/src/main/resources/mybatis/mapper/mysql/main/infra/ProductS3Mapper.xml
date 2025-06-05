@@ -8,8 +8,8 @@
 		FROM product as a
 		WHERE 1=1
 <!-- 		AND a.mealDelNy = 0 -->
-		<if test="shUseNy != null and !shUseNy.equals('')">AND a.mealUseNy = #{shUseNy}</if>
-        <if test="shDelNy != null and !shDelNy.equals('')">AND a.mealDelNy = #{shDelNy}</if>
+		<if test="shUseNy != null and !shUseNy.equals('')">AND a.prdtUseNy = #{shUseNy}</if>
+        <if test="shDelNy != null and !shDelNy.equals('')">AND a.prdtDelNy = #{shDelNy}</if>
  				
 				<choose>
 					<when test="shOptionDate == 1">AND a.mealRegDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
@@ -49,7 +49,6 @@
 			,a.prdtRegDate
 			,a.prdtModDate
 		<include refid = "selectCommon"></include>
-		order by prdtSeq desc
 	) aa
 	limit #{rowNumToShow} offset #{startRnumForMysql}
 	</select>

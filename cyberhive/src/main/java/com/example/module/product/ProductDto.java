@@ -9,8 +9,8 @@ public class ProductDto extends FilesUploadDto {
 	private Integer prdtCateCd;
 	private String prdtStatus;
 	private Integer prdtPrice;
-	private Integer  prdtUseNy;
-	private Integer  prdtDelNy;
+	private Integer  prdtUseNy = 1;
+	private Integer  prdtDelNy = 0;
 	private String prdtRegDate;
 	private String prdtModDate;
 	private String prdtDesc;

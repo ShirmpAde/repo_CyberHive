@@ -64,7 +64,7 @@ public class ProductService extends FilesUploadService {
 			, "infrBannerUploaded"
 			, productDto.getUploadImg1Type()
 			, productDto.getUploadImg1MaxNumber()
-			, productDto.getSeq()
+			, productDto.getPrdtSeq()
 			, filesUploadDao
 			, amazonS3Client);
 	return 1;
