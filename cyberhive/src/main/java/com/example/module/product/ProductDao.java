@@ -19,4 +19,6 @@ public interface ProductDao{
 	
 	public int ueleteProductImage(ProductDto productDto);
 	public int ueleteBackgroundImage(ProductDto productDto);
+	
+	public List<ProductDto> selectListWithImages(ProductVo vo);
 }

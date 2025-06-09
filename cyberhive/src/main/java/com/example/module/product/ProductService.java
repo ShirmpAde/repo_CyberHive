@@ -69,4 +69,10 @@ public class ProductService extends FilesUploadService {
 			, amazonS3Client);
 	return 1;
 	}
+	
+	public List<ProductDto> selectListWithImages(ProductVo vo) throws Exception {
+        // DAO(Mapper)에 있는 동일한 이름의 메서드를 호출하여 DB 결과를 반환합니다.
+        return productDao.selectListWithImages(vo); 
+    }
+
 }
