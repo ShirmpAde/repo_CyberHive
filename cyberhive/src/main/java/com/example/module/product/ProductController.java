@@ -50,6 +50,14 @@ public class ProductController extends BaseController {
 			return "xdm/product/ProductXdmForm";
 		}
 	
+	@RequestMapping(value = "/xdm/product/ProductXdmView")
+	public String productXdmView(Model model, ProductDto productDto) {
+//		System.out.println("전달할 데이터: " + productService.selectOne(productDto));
+		model.addAttribute("item", productService.selectOne(productDto));
+//		model.addAttribute("list", productService.selectOneList(productDto));
+		return "xdm/product/ProductXdmView";
+	}
+	
 	@RequestMapping(value = "/xdm/product/ProductXdmUpdt")
 	public String productXdmUpdt(ProductDto productDto) {
 		System.out.println("[INFO] ProductXdmUpdt 호출됨 - DTO: " + productDto);

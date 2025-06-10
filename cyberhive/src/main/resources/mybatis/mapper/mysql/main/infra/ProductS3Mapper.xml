@@ -53,6 +53,32 @@
 	limit #{rowNumToShow} offset #{startRnumForMysql}
 	</select>
 	
+	<select id="selectOne" resultMap="resultMapObj">
+		select
+			p.prdtSeq
+	        ,p.prdtName
+	        ,p.prdtPrice
+	        ,p.prdtCateCd
+	        ,p.prdtStatus
+	        ,p.prdtUseNy
+	        ,p.prdtDelNy
+	        ,p.prdtRegDate
+	        ,p.prdtModDate
+	        ,p.prdtDesc
+	        ,p.abv            
+	        ,p.ibu
+	        ,p.volume
+	        ,p.countryCode
+	        ,p.brewery
+	        ,f.path
+		from
+			product p
+		LEFT JOIN
+		fileUploaded f ON p.prdtSeq = f.pseq AND f.type = 1001 AND f.delNy = 0
+		where 1=1
+			and p.prdtSeq = #{prdtSeq}
+	</select>
+	
 	<insert id="insert">
 	    INSERT INTO product (					
 			prdtName
@@ -124,16 +150,20 @@
 	</select>
 	
 	<update id="update">
-		update product set
-			prdtName = #{prdtName}
-			,prdtStatus = #{prdtStatus}
-			,prdtPrice = #{prdtPrice}
-			,prdtCateCd = #{prdtCateCd}
-			,prdtUseNy = #{prdtUseNy}
-			,prdtDelNy = #{prdtDelNy}
-			,prdtModDate = CURRENT_TIMESTAMP
-		where
-			prdtSeq = #{prdtSeq}
+		UPDATE product SET
+        prdtName = #{prdtName},
+        prdtStatus = #{prdtStatus},
+        prdtPrice = #{prdtPrice},
+        prdtCateCd = #{prdtCateCd},
+        prdtDesc = #{prdtDesc},
+        abv = #{abv},
+        ibu = #{ibu},
+        volume = #{volume},
+        countryCode = #{countryCode},
+        brewery = #{brewery},
+        prdtModDate = CURRENT_TIMESTAMP 
+    WHERE
+        prdtSeq = #{prdtSeq}
 	</update>
 	
 	<update id="uelete">

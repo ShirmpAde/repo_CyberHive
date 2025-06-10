@@ -22,8 +22,13 @@ public class GridController {
 	
 	@RequestMapping(value = "/user/grid/GridUserForm")
 	public String gridUserForm(Model model, ProductVo vo) throws Exception {
+		int totalCount = productService.selectOneCount(vo);
+		
+		vo.setParamsPaging(totalCount);
+		
 	    List<ProductDto> list = productService.selectListWithImages(vo);
-	    model.addAttribute("products", list);		
+	    model.addAttribute("products", list);
+	    model.addAttribute("vo", vo);
 		return "user/grid/GridUserForm";
 	}
 }

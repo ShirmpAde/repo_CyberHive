@@ -21,6 +21,24 @@
 
    <!-- Theme CSS -->
    <link rel="stylesheet" href="/xdm/template/admin_ui/css/theme.min.css">
+   
+   <style>
+      .custom-image-container {
+         width: 100%; /* 카드의 너비에 맞춤 */
+         height: 250px; /* 모든 이미지 높이를 250px로 고정 (원하는 높이로 조절) */
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         overflow: hidden; /* 영역을 벗어나는 이미지는 잘라냄 */
+         margin-bottom: 1rem; /* 이미지 아래쪽 여백 (기존 mb-3 클래스 역할) */
+      }
+      
+      .custom-image-container img {
+         width: 100%;
+         height: 100%;
+         object-fit: cover; /* ★핵심★: 비율을 유지하면서 컨테이너를 꽉 채움 */
+      }
+   </style>
 </head>
 
 <body>
@@ -894,7 +912,7 @@
                      <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item"><a href="#!">홈</a></li>
                         <li class="breadcrumb-item"><a href="#!">Shop</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">스낵 & 과자류</li>
+                        <li class="breadcrumb-item active" aria-current="page">상품목록</li>
                      </ol>
                   </nav>
                </div>
@@ -1376,7 +1394,7 @@
                   <div class="card mb-4 bg-light border-0">
                      <!-- card body -->
                      <div class="card-body p-9">
-                        <h2 class="mb-0 fs-1">스낵 & 과자류</h2>
+                        <h2 class="mb-0 fs-1">상품목록</h2>
                      </div>
                   </div>
                   <!-- list icon -->
@@ -1445,18 +1463,32 @@
                                  <div class="position-absolute top-0 start-0">
                                     <span class="badge bg-danger">할인특가</span>
                                  </div>
-                                 <a th:href="@{/payment/PaymentForm(prdtSeq=${product.prdtSeq})}">
-				                    <!-- 이미지 표시 부분 -->
-				                    <img th:if="${product.path != null}" 
-				                         th:src="${product.path}" 
-				                         th:alt="${product.prdtName}" 
-				                         class="mb-3 img-fluid" />
-				                    <!-- 이미지가 없을 경우 기본 이미지 표시 -->
-				                    <img th:unless="${product.path != null}" 
-				                         src="/xdm/template/admin_ui/images/products/product-img-1.jpg" 
-				                         th:alt="${product.prdtName}" 
-				                         class="mb-3 img-fluid" />
-				                </a>
+<!--                                  <a th:href="@{/payment/PaymentForm(prdtSeq=${product.prdtSeq})}"> -->
+<!-- 				                    이미지 표시 부분 -->
+<!-- 				                    <img th:if="${product.path != null}"  -->
+<!-- 				                         th:src="${product.path}"  -->
+<!-- 				                         th:alt="${product.prdtName}"  -->
+<!-- 				                         class="mb-3 img-fluid" /> -->
+<!-- 				                    이미지가 없을 경우 기본 이미지 표시 -->
+<!-- 				                    <img th:unless="${product.path != null}"  -->
+<!-- 				                         src="/xdm/template/admin_ui/images/products/product-img-1.jpg"  -->
+<!-- 				                         th:alt="${product.prdtName}"  -->
+<!-- 				                         class="mb-3 img-fluid" /> -->
+<!-- 				                </a> -->
+									<div class="custom-image-container">
+									    <a th:href="@{/payment/PaymentForm(prdtSeq=${product.prdtSeq})}">
+									        <!-- 이미지 표시 부분 -->
+									        <img th:if="${product.path != null}" 
+									             th:src="${product.path}" 
+									             th:alt="${product.prdtName}" 
+									             class="img-fluid" /> <!-- "mb-3" 삭제 -->
+									        <!-- 이미지가 없을 경우 기본 이미지 표시 -->
+									        <img th:unless="${product.path != null}" 
+									             src="/xdm/template/admin_ui/images/products/product-img-1.jpg" 
+									             th:alt="${product.prdtName}" 
+									             class="img-fluid" /> <!-- "mb-3" 삭제 -->
+									    </a>
+									</div>
                                  <!-- action btn -->
                                  <div class="card-product-action">
                                     <a href="#!" class="btn-action" data-bs-toggle="modal"
@@ -1510,30 +1542,7 @@
                         </div>
                      </div>
                   </div>
-                  <div class="row mt-8">
-                     <div class="col">
-                        <!-- nav -->
-                        <nav>
-                           <ul class="pagination">
-                              <li class="page-item disabled">
-                                 <a class="page-link mx-1" href="#" aria-label="Previous">
-                                    <i class="feather-icon icon-chevron-left"></i>
-                                 </a>
-                              </li>
-                              <li class="page-item"><a class="page-link mx-1 active" href="#">1</a></li>
-                              <li class="page-item"><a class="page-link mx-1" href="#">2</a></li>
-
-                              <li class="page-item"><a class="page-link mx-1" href="#">...</a></li>
-                              <li class="page-item"><a class="page-link mx-1" href="#">12</a></li>
-                              <li class="page-item">
-                                 <a class="page-link mx-1" href="#" aria-label="Next">
-                                    <i class="feather-icon icon-chevron-right"></i>
-                                 </a>
-                              </li>
-                           </ul>
-                        </nav>
-                     </div>
-                  </div>
+						<div th:replace="~{user/include/pagination :: pagination}"></div>
                </section>
             </div>
          </div>
@@ -1882,6 +1891,14 @@
    <script src="/xdm/template/admin_ui/libs/tiny-slider/dist/min/tiny-slider.js"></script>
    <script src="/xdm/template/admin_ui/js/vendors/tns-slider.js"></script>
    <script src="/xdm/template/admin_ui/js/vendors/zoom.js"></script>
+   <script>
+function goList(page) {
+    // 현재 URL에서 쿼리 파라미터 유지하면서 페이지 이동
+    const url = new URL(window.location.href);
+    url.searchParams.set('thisPage', page);
+    window.location.href = url.toString();
+}
+</script>
 </body>
 
 </html>

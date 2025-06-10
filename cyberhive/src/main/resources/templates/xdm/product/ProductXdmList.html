@@ -772,7 +772,7 @@
 			                   <tr th:if="${!#lists.isEmpty(list)}" th:each ="list : ${list}">
 			                   <th><div class="checked"><input type="checkbox" class="form-check" name="eachChk" onclick='checkSelectAll()' th:value="${list.prdtSeq}" value=""></div></th>
 			                   <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
-			                   <td><a th:href="@{/product/productXdmMfom(prdtSeq=${list.prdtSeq})}" th:text = "${list.prdtName}"></a></td>
+			                   <td><a th:href="@{/xdm/product/ProductXdmView(prdtSeq=${list.prdtSeq})}" th:text = "${list.prdtName}"></a></td>
 		                       <td th:text = "${@codeService.selectOneCachedCode(list.prdtCateCd)}"></td>
 		                       <td th:text = "${@codeService.selectOneCachedCode(list.prdtStatus)}"></td>
 			                   <td th:text = "${list.prdtPrice}"></td>

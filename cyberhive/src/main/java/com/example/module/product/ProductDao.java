@@ -8,6 +8,7 @@ public interface ProductDao{
 	public List<ProductDto> selectList(ProductVo vo);
 	public ProductDto selectOne(ProductDto productDto);
 	public ProductDto selectOne(ProductVo productVo);
+	public List<ProductDto> selectOneList(ProductDto productDto);
 	
 	public int insert(ProductDto productDto);
 	public int update(ProductDto productDto);

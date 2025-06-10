@@ -36,6 +36,10 @@ public class ProductService extends FilesUploadService {
 		return productDao.selectOne(Vo);
 	}
 	
+	public List<ProductDto> selectOneList(ProductDto productDto) {
+		return productDao.selectOneList(productDto);
+	}
+	
 	public int update(ProductDto productDto) {
 		return productDao.update(productDto);
 	}
@@ -74,5 +78,5 @@ public class ProductService extends FilesUploadService {
         // DAO(Mapper)에 있는 동일한 이름의 메서드를 호출하여 DB 결과를 반환합니다.
         return productDao.selectListWithImages(vo); 
     }
-
+	
 }
