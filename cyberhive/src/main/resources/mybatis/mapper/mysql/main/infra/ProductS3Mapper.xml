@@ -167,11 +167,11 @@
 	</update>
 	
 	<update id="uelete">
-		update product set
-			prdtDelNy = 1
-		where
-			prdtSeq = #{prdtSeq}
-	</update>
+    UPDATE product SET
+        prdtDelNy = 1
+    WHERE
+        prdtSeq = #{prdtSeq}
+</update>
 	
 	<select id="selectListCachedCodeArrayList" resultMap="resultMapObj">
 		SELECT 

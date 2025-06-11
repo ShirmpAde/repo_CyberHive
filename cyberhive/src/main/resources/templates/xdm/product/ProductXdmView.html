@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{xdm/include/headXdm :: headXdm}"></div>
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -86,10 +87,10 @@
                   </p>
                 </div>
                 
-                <div class="mb-3">
-                  <p><small class="text-muted">등록일: <span th:text="${#temporals.format(item.prdtRegDate, 'yyyy-MM-dd HH:mm')}"></span></small></p>
-    			  <p><small class="text-muted">수정일: <span th:text="${item.prdtModDate != null ? #temporals.format(item.prdtModDate, 'yyyy-MM-dd HH:mm') : '수정내역 없음'}"></span></small></p>
-                </div>
+<!--                 <div class="mb-3"> -->
+<!--                   <p><small class="text-muted">등록일: <span th:text="${#temporals.format(item.prdtRegDate, 'yyyy-MM-dd HH:mm')}"></span></small></p> -->
+<!--     			  <p><small class="text-muted">수정일: <span th:text="${item.prdtModDate != null ? #temporals.format(item.prdtModDate, 'yyyy-MM-dd HH:mm') : '수정내역 없음'}"></span></small></p> -->
+<!--                 </div> -->
               </div>
             </div>
           </div>

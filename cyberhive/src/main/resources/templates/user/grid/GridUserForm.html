@@ -923,6 +923,8 @@
       <div class="mt-8 mb-lg-14 mb-8">
          <!-- container -->
          <div class="container">
+         <form id="searchForm" name="searchForm" th:action="@{/user/grid/GridUserForm}" method="get">
+         <input type="hidden" name="thisPage" th:value="${vo.thisPage}">
             <!-- row -->
             <div class="row gx-10">
                <!-- col -->
@@ -1397,59 +1399,43 @@
                         <h2 class="mb-0 fs-1">상품목록</h2>
                      </div>
                   </div>
-                  <!-- list icon -->
+                  
+                  <div class="input-group mb-4">
+                     <input class="form-control rounded" type="search" name="shValue" th:value="${vo.shValue}" placeholder="상품 이름으로 검색" />
+                     <span class="input-group-append">
+                         <button class="btn bg-white border border-start-0 ms-n10 rounded-0 rounded-end" type="submit">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                                 <circle cx="11" cy="11" r="8"></circle>
+                                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                             </svg>
+                         </button>
+                     </span>
+              	  </div>
+                  <!-- 정렬 및 보기 옵션 -->
                   <div class="d-lg-flex justify-content-between align-items-center">
-                     <div class="mb-3 mb-lg-0">
-                        <p class="mb-0">
-                           <span class="text-dark">24</span>
-                           상품을 찾았습니다
-                        </p>
-                     </div>
-
-                     <!-- icon -->
-                     <div class="d-md-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center justify-content-between">
-                           <div>
-                              <a href="shop-list.html" class="text-muted me-3"><i class="bi bi-list-ul"></i></a>
-                              <a href="shop-grid.html" class="me-3 active"><i class="bi bi-grid"></i></a>
-                              <a href="shop-grid-3-column.html" class="me-3 text-muted"><i
-                                    class="bi bi-grid-3x3-gap"></i></a>
-                           </div>
-                           <div class="ms-2 d-lg-none">
-                              <a class="btn btn-outline-gray-400 text-muted" data-bs-toggle="offcanvas"
-                                 href="#offcanvasCategory" role="button" aria-controls="offcanvasCategory">
-                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="feather feather-filter me-2">
-                                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-                                 </svg>
-                                 Filters
-                              </a>
-                           </div>
-                        </div>
-
-                        <div class="d-flex mt-2 mt-lg-0">
-                           <div class="me-2 flex-grow-1">
-                              <!-- select option -->
-                              <select class="form-select">
-                                 <option selected>보기: 50</option>
-                                 <option value="10">10</option>
-                                 <option value="20">20</option>
-                                 <option value="30">30</option>
+                      <div class="mb-3 mb-lg-0">
+                          <p class="mb-0">
+                              <span class="text-dark" th:text="${vo.totalRows}">0</span>
+                              상품을 찾았습니다
+                          </p>
+                      </div>
+                      <div class="d-flex mt-2 mt-lg-0">
+                          <div class="me-2 flex-grow-1">
+                              <select class="form-select" name="rowNumToShow" id="rowNumToShow">
+                                  <option value="8" th:selected="${vo.rowNumToShow == 8}">보기: 8</option>
+                                  <option value="12" th:selected="${vo.rowNumToShow == 12}">보기: 12</option>
+                                  <option value="20" th:selected="${vo.rowNumToShow == 20}">보기: 20</option>
                               </select>
-                           </div>
-                           <div>
-                              <!-- select option -->
-                              <select class="form-select">
-                                 <option selected>정렬 기준: 추천</option>
-                                 <option value="Low to High">가격: 낮은순</option>
-                                 <option value="High to Low">가격: 높은순</option>
-                                 <option value="Release Date">출시일</option>
-                                 <option value="Avg. Rating">평점순</option>
+                          </div>
+                          <div>
+                              <select class="form-select" name="shOptionOrder" id="shOptionOrder">
+                                  <option value="new" th:selected="${vo.shOptionOrder == 'new' or vo.shOptionOrder == null}">정렬 기준: 추천</option>
+                                  <option value="priceAsc" th:selected="${vo.shOptionOrder == 'priceAsc'}">가격: 낮은순</option>
+                                  <option value="priceDesc" th:selected="${vo.shOptionOrder == 'priceDesc'}">가격: 높은순</option>
+                                  <option value="rating" th:selected="${vo.shOptionOrder == 'rating'}">평점순</option>
                               </select>
-                           </div>
-                        </div>
-                     </div>
+                          </div>
+                      </div>
                   </div>
                   <!-- row -->
                   <div class="row g-4 row-cols-xl-4 row-cols-lg-3 row-cols-2 row-cols-md-2 mt-2">
@@ -1544,7 +1530,8 @@
                   </div>
 						<div th:replace="~{user/include/pagination :: pagination}"></div>
                </section>
-            </div>
+              </div>
+            </form>
          </div>
       </div>
    </main>
@@ -1897,6 +1884,23 @@ function goList(page) {
     const url = new URL(window.location.href);
     url.searchParams.set('thisPage', page);
     window.location.href = url.toString();
+}
+
+const searchForm = document.getElementById('searchForm');
+const rowNumToShowSelect = document.getElementById('rowNumToShow');
+const shOptionOrderSelect = document.getElementById('shOptionOrder');
+
+rowNumToShowSelect.addEventListener('change', function() {
+   searchForm.submit();
+});
+
+shOptionOrderSelect.addEventListener('change', function() {
+   searchForm.submit();
+});
+
+function goList(page) {
+    document.querySelector("input[name=thisPage]").value = page;
+    searchForm.submit();
 }
 </script>
 </body>

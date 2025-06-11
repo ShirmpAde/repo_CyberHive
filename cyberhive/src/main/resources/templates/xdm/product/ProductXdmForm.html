@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{xdm/include/headXdm :: headXdm}"></div>
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -22,9 +23,9 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
-          <h1 class="card-title mb-4">크래프트 맥주 상품등록</h1>
+          <h1 class="card-title mb-4" th:text="${item.prdtSeq != null ? '크래프트 맥주 상품수정' : '크래프트 맥주 상품등록'}">크래프트 맥주 상품등록</h1>
           
-          <form id="form" name="form" method="post" autocomplete="off" enctype="multipart/form-data"
+          <form id="form" name="form" method="post" th:object="${item}" autocomplete="off" enctype="multipart/form-data"
                 class="row g-3 needs-validation" novalidate="">
             
 <!--             <label for="profile_input"><i class="far fa-edit"></i></label> -->
@@ -36,8 +37,8 @@
 			    <label class="form-label">상품 이미지 <sup>*</sup></label>
 			    <div>
 			        <!-- 기존 이미지 표시 (수정 시) -->
-			        <div th:if="${item?.mainImageUrl != null}" style="margin-bottom: 10px;">
-			            <img id="currentImage" th:src="${item.mainImageUrl}" alt="Current Product Image" style="max-width: 200px; max-height: 200px; display: block;">
+			        <div th:if="*{path != null and !path.isEmpty()}" style="margin-bottom: 10px;">
+			            <img id="currentImage" th:src="*{path}" alt="Current Product Image" style="max-width: 200px; max-height: 200px; display: block;">
 			            <p>기존 이미지입니다. 새 이미지를 선택하면 대체됩니다.</p>
 			        </div>
 			        <!-- 새 이미지 미리보기 영역 -->
@@ -52,57 +53,56 @@
 			</div>
             
             <!-- seq (PK) -->
-            <input type="hidden" name="prdtSeq" th:value="${item?.prdtSeq}" />
+            <input type="hidden" th:field="*{prdtSeq}" />
 			<input type="hidden" name="cdUpdtDate" >
             <!-- 상품 이름 -->
             <div class="col-md-4">
               <label for="prdtName" class="form-label">상품 이름 <sup>*</sup></label>
-              <input type="text" class="form-control" name="prdtName" id="prdtName"
-                     placeholder="예: Brooklyn IPA" th:value="${item?.prdtName}" required />
+              <input type="text" class="form-control" th:field="*{prdtName}"
+                     placeholder="예: Brooklyn IPA" required />
             </div>
 			
             <!-- 카테고리 (스타일) -->
             <div class="col-md-4">
               <label for="prdtCateCd" class="form-label">상품분류</label>
-              <select class="form-select" id="prdtCateCd" name="prdtCateCd" th:value="${item?.prdtCateCd}" aria-label="Default select example">
-                  <option th:each="list : ${@codeService.selectListCachedCode(3)}" th:value="${list.codeSeq}" th:text="${list.codeName}" th:selected="${list.codeSeq} == ${item?.prdtCateCd}"></option>
+              <select class="form-select" id="prdtCateCd" name="prdtCateCd" aria-label="Default select example">
+                  <option th:each="list : ${@codeService.selectListCachedCode(3)}" th:value="${list.codeSeq}" th:text="${list.codeName}" th:selected="${list.codeSeq} == *{prdtCateCd}"></option>
               </select>
             </div>
 
             <!-- 상태 -->
             <div class="col-md-4">
-              <label for="prdtStatus" class="form-label">상품분류</label>
-              <select class="form-select" id="prdtStatus" name="prdtStatus" th:value="${item?.prdtStatus}" aria-label="Default select example">
-                  <option th:each="list : ${@codeService.selectListCachedCode(4)}" th:value="${list.codeSeq}" th:text="${list.codeName}" th:selected="${list.codeSeq} == ${item?.prdtStatus}"></option>
+              <label for="prdtStatus" class="form-label">상태</label>
+              <select class="form-select" id="prdtStatus" name="prdtStatus" aria-label="Default select example">
+                  <option th:each="list : ${@codeService.selectListCachedCode(4)}" th:value="${list.codeSeq}" th:text="${list.codeName}" th:selected="${list.codeSeq} == *{prdtStatus}"></option>
               </select>
             </div>
 
             <!-- 가격 -->
             <div class="col-md-3">
               <label for="prdtPrice" class="form-label">가격 (₩) <sup>*</sup></label>
-              <input type="number" class="form-control" name="prdtPrice" id="prdtPrice"
-                     placeholder="예: 12000" th:value="${item?.prdtPrice}" required />
+              <input type="number" class="form-control" th:field="*{prdtPrice}" placeholder="예: 12000" required />
             </div>
 
             <!-- ABV -->
             <div class="col-md-3">
               <label for="abv" class="form-label">ABV (%) <sup>*</sup></label>
               <input type="number" step="0.1" class="form-control" name="abv" id="abv"
-                     placeholder="예: 5.5" th:value="${item?.abv}" required />
+                     placeholder="예: 5.5" th:field="*{abv}" required/>
             </div>
 
             <!-- IBU -->
             <div class="col-md-3">
               <label for="ibu" class="form-label">IBU</label>
               <input type="number" class="form-control" name="ibu" id="ibu"
-                     placeholder="예: 60" th:value="${item?.ibu}" />
+                     placeholder="예: 60" th:field="*{ibu}" />
             </div>
 
             <!-- 용량 / 포장 -->
             <div class="col-md-3">
               <label for="volume" class="form-label">용량/포장</label>
               <input type="text" class="form-control" name="volume" id="volume"
-                     placeholder="예: 330ml 캔 / 4병 세트" th:value="${item?.volume}" />
+                     placeholder="예: 330ml 캔 / 4병 세트" th:field="*{volume}" />
             </div>
 
             <!-- 국가 코드 (ISO 숫자 코드) -->
@@ -138,7 +138,7 @@
               <label for="prdtDesc" class="form-label">테이스팅 노트</label>
               <textarea class="form-control" name="prdtDesc" id="prdtDesc" rows="2"
                         placeholder="향 / 맛 / 바디감 등을 간단히 입력"
-                        th:text="${item?.prdtDesc}"></textarea>
+                        th:field="*{prdtDesc}"></textarea>
             </div>
           </form>
           
@@ -146,7 +146,7 @@
           	<div class="row">
                 <div class="col-md-6">
                   <a href="/product/ProductXdmList" class="btn btn-outline-dark"><i class="bi bi-blockquote-right"></i></a>
-                  <button class="btn btn-danger">X</button>
+                  <button class="btn btn-danger my-custom-class">X</button>
                   <button type="button" class="btn btn-danger" id="btnUelete" ><i class="bi bi-trash"></i></button>
                 </div>
                 <div class="col-md-6">
@@ -280,10 +280,14 @@ document.getElementById('uploadFile').addEventListener('change', function(event)
   };
 
   // 국가 선택 시 양조장 목록 업데이트
-  document.getElementById('countryCode').addEventListener('change', function() {
-    const countryCode = this.value;
+  function updateBreweryOptions() {
+    const countrySelect = document.getElementById('countryCode');
     const brewerySelect = document.getElementById('brewery');
-    brewerySelect.innerHTML = '<option value="">-- 양조장 선택 --</option>';
+    const countryCode = countrySelect.value;
+    const currentBreweryValue = "[[${item?.brewery}]]"; // 수정 모드일 때의 기존 양조장 값
+
+    brewerySelect.innerHTML = '<option value="">-- 양조장 선택 --</option>'; // 목록 초기화
+
     if (countryCode) {
         brewerySelect.disabled = false;
         const breweries = breweriesByCountry[countryCode] || breweriesByCountry['default'];
@@ -291,26 +295,24 @@ document.getElementById('uploadFile').addEventListener('change', function(event)
             const option = document.createElement('option');
             option.value = brewery.code;
             option.textContent = brewery.name;
+            // 수정 모드에서 기존 값과 일치하면 selected 처리
+            if (brewery.code === currentBreweryValue) {
+                option.selected = true;
+            }
             brewerySelect.appendChild(option);
         });
-        // 수정 시 기존 양조장 값 설정 (item.brewery가 있다고 가정)
-        const currentBrewery = "[[${item?.brewery}]]"; // Thymeleaf 인라인 사용
-        if (currentBrewery) {
-             brewerySelect.value = currentBrewery;
-        }
     } else {
         brewerySelect.disabled = true;
     }
-});
+}
+
+// 국가 선택 변경 이벤트 리스너
+document.getElementById('countryCode').addEventListener('change', updateBreweryOptions);
 
 // 페이지 로드 시 국가가 이미 선택되어 있다면 양조장 목록 로드 - 기존 코드 유지
 document.addEventListener('DOMContentLoaded', function() {
-    const countrySelect = document.getElementById('countryCode');
-    if (countrySelect.value) {
-        countrySelect.dispatchEvent(new Event('change'));
-    }
-    // Bootstrap 5 유효성 검사 초기화 (폼 제출 시 자동으로 검사됨)
-    // 필요한 경우 추가적인 초기화 로직
+    // 수정 모드일 경우를 대비해 양조장 목록을 한번 업데이트
+    updateBreweryOptions(); 
 });
 
 // 폼 관련 변수
@@ -368,40 +370,62 @@ function showAlertModal(title, msg, focusId) {
 
 // 폼 제출 버튼 클릭 이벤트
 document.getElementById("btnSubmit").onclick = function () {
-    // Bootstrap 5 유효성 검사 트리거
+    const form = document.getElementById('form');
+    const prdtSeqInput = document.querySelector("input[name='prdtSeq']");
+
+    // Bootstrap 5 유효성 검사 클래스 추가하여 시각적 피드백 표시
+    form.classList.add('was-validated');
+
+    // form.checkValidity()로 HTML5 required 등을 검사
     if (!form.checkValidity()) {
-        form.classList.add('was-validated');
-        // 첫 번째 invalid 필드로 포커스 이동 (선택적)
         const firstInvalidField = form.querySelector(':invalid');
-        if(firstInvalidField) firstInvalidField.focus();
-        return false;
+        if (firstInvalidField) {
+            firstInvalidField.focus();
+        }
+        return; // 유효성 검사 실패 시 제출 중단
     }
 
-    if (prdtSeqInput.value === "0" || prdtSeqInput.value === "") {
-        if (validationInst() === false) return false;
-        form.action = "/xdm/product/ProductXdmInst";
-    } else {
-        if (validationUpdt() === false) return false;
-        // cdUpdtDate와 같은 필드가 있다면 여기서 값 설정
-        // document.querySelector("input[name=cdUpdtDate]").value = new Date().toISOString();
+    // prdtSeq 값의 존재 여부로 등록/수정 분기
+    const isUpdate = prdtSeqInput.value && prdtSeqInput.value !== "0";
+
+    if (isUpdate) {
+        // 수정
         form.action = "/xdm/product/ProductXdmUpdt";
+    } else {
+        // 등록
+        form.action = "/xdm/product/ProductXdmInst";
     }
     form.submit();
 };
 
 // 삭제 확인 모달 관련 (기존 코드)
-document.getElementById("btnUelete").onclick = function () {
-    document.querySelector("#modalConfirmTitle").textContent = "확 인";
-    document.querySelector("#modalConfirmBody").textContent = "해당 데이터를 삭제하시겠습니까 ?";
-    document.querySelector("#btnModalUelete").style.display = ''; // 삭제 버튼 보이기
-    document.querySelector("#btnModalDelete").style.display = 'none'; // 다른 삭제 버튼 숨기기 (필요시)
+document.getElementById("btnUelete").onclick = function() {
+    const prdtSeqInput = document.querySelector("input[name='prdtSeq']");
+    const isUpdate = prdtSeqInput.value && prdtSeqInput.value !== "0";
+
+    // 신규 등록 폼에서는 삭제 버튼이 동작하지 않도록 방어
+    if (!isUpdate) {
+        alert("삭제할 상품이 없습니다.");
+        return;
+    }
+    
+    document.querySelector("#modalConfirmTitle").textContent = "삭제 확인";
+    document.querySelector("#modalConfirmBody").textContent = "정말 삭제하시겠습니까?";
+    
+    // 모달의 삭제 버튼을 보이게 설정
+    document.querySelector("#btnModalUelete").style.display = 'inline-block';
+    if(document.querySelector("#btnModalDelete")) {
+         document.querySelector("#btnModalDelete").style.display = 'none';
+    }
     
     var confirmModal = new bootstrap.Modal(document.getElementById('modalConfirm'));
     confirmModal.show();
 };
 
+// 모달의 '삭제' 버튼 클릭 시 폼 제출
 document.getElementById("btnModalUelete").onclick = function () {
-    form.action = "/xdm/product/productXdmUele"; // uelete 처리 URL 확인
+    const form = document.getElementById('form');
+    form.action = "/xdm/product/ProductXdmUele";
     form.submit();
 };
 

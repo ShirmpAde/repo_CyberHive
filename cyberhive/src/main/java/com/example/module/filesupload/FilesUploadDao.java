@@ -9,5 +9,7 @@ public interface FilesUploadDao {
 	
 	public int insertUploaded(FilesUploadDto dto);
 	
+	public int uelete(FilesUploadDto dto);
+	
 	public FilesUploadDto selectOne(FilesUploadDto dto);
 }
