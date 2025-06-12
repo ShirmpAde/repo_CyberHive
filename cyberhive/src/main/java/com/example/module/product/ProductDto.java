@@ -1,5 +1,7 @@
 package com.example.module.product;
 
+import java.util.List;
+
 import com.example.module.filesupload.FilesUploadDto;
 
 public class ProductDto extends FilesUploadDto {
@@ -26,6 +28,8 @@ public class ProductDto extends FilesUploadDto {
 	private int uploadImg1MaxNumber = 1001;
 	
 	private String prdtCateName;
+	
+	private List<FilesUploadDto> imageList;
 //-----
 
 	public String getPrdtSeq() {
@@ -178,6 +182,14 @@ public class ProductDto extends FilesUploadDto {
 
 	public void setPrdtCateName(String prdtCateName) {
 		this.prdtCateName = prdtCateName;
+	}
+
+	public List<FilesUploadDto> getImageList() {
+		return imageList;
+	}
+
+	public void setImageList(List<FilesUploadDto> imageList) {
+		this.imageList = imageList;
 	}
 
 }

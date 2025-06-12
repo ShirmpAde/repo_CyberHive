@@ -183,45 +183,15 @@
          </main>
       </div>
 </form>
-<script src="/xdm/jquery/jquery-3.7.1.min.js"></script>
-      <!-- Libs JS -->
-<!-- <script src="/xdm/template/admin_ui/libs/jquery/dist/jquery.min.js"></script> -->
-<script src="/xdm/template/admin_ui/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/xdm/template/admin_ui/libs/simplebar/dist/simplebar.min.js"></script>
-
-<!-- Theme JS -->
-<script src="/xdm/template/admin_ui/js/theme.min.js"></script>
+<div th:replace="~{xdm/include/footerXdm :: footerXdm}"></div>
 <script type="text/javascript">
-let form = document.querySelector("form[name=formList]");
-let seq = document.querySelector("input[name=codeSeq]");
-
-document.getElementById("btnForm").onclick = function () {
-    goForm(0);
-}
-
-goForm = function (keyValue) {
-    seq.value = keyValue;
-    form.action = goUrlXdmForm;
-    form.submit();
-	}
-document.getElementById("btnSearch").onclick = function () {
-  	form.action = "/code/codeXdmList";
-  	form.submit();
-	}
-	
-document.getElementById("btnReset").onclick = function () {
-	location = "/code/codeXdmList";
-};
+const listUrl = "/code/codeXdmList";
+const formUrl = "/code/codeXdmForm";
+const seqName = "codeSeq";
 
 document.getElementById("exportExcel").onclick = function () {
     location.href = "/code/excelDownload";
 };
-
-goList = function (thisPage) {
-    document.querySelector("input[name=thisPage]").value = thisPage;
-    form.action = "/code/codeXdmList";
-    form.submit();
-	}
 </script>
 
 </body>

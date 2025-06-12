@@ -1,21 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{xdm/include/headXdm :: headXdm}"></div>
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta content="Codescandy" name="author">
-  <title>크래프트 맥주 상품등록</title>
-  <!-- Favicon icon-->
-  <link rel="shortcut icon" type="image/x-icon" href="/xdm/template/admin_ui/images/favicon/favicon.ico">
-  <!-- Libs CSS -->
-  <link href="/xdm/template/admin_ui/libs/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
-  <link href="/xdm/template/admin_ui/libs/feather-webfont/dist/feather-icons.css" rel="stylesheet">
-  <link href="/xdm/template/admin_ui/libs/simplebar/dist/simplebar.min.css" rel="stylesheet">
-  <!-- Theme CSS -->
-  <link rel="stylesheet" href="/xdm/template/admin_ui/css/theme.min.css">
-</head>
 
 <body>
 <section class="section">
@@ -178,11 +163,7 @@
   </div>
 </section>
 
-<!-- JS 라이브러리 -->
-<script src="/xdm/jquery/jquery-3.7.1.min.js"></script>
-<script src="/xdm/template/admin_ui/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/xdm/template/admin_ui/libs/simplebar/dist/simplebar.min.js"></script>
-<script src="/xdm/template/admin_ui/js/theme.min.js"></script>
+<div th:replace="~{xdm/include/footerXdm :: footerXdm}"></div>
 
 <script type="text/javascript">
 document.getElementById('uploadFile').addEventListener('change', function(event) {

@@ -208,112 +208,16 @@
          </main>
       </div>
 </form>
-<script src="/xdm/jquery/jquery-3.7.1.min.js"></script>
-<script src="/xdm/jquery/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
-<!-- Libs JS -->
-<!-- <script src="/xdm/template/admin_ui/libs/jquery/dist/jquery.min.js"></script> -->
-<script src="/xdm/template/admin_ui/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/xdm/template/admin_ui/libs/simplebar/dist/simplebar.min.js"></script>
+<div th:replace="~{xdm/include/footerXdm :: footerXdm}"></div>
 
-<!-- Theme JS -->
-<script src="/xdm/template/admin_ui/js/theme.min.js"></script>
 <script type="text/javascript">
-  function logoutLogic (){
-$("#btnSignout").on("click", function(){
-	$.ajax({
-		async: true 
-		,cache: false
-		,type: "post"
-		,url: "/member/signoutXdmProc"
-		,data: {}
-		,success: function(response) {
-			if(response.rt == "success") {
-				location.href = "/member/signinXdmForm";
-			} else {
-				// by pass
-			}
-		}
-		,error : function(jqXHR, textStatus, errorThrown){
-			alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
-		}
-	});
-});
-}
-  document.getElementById("btnSignout").onclick = function () {
-	logoutLogic();
+const listUrl = "/member/memberXdmList";
+const formUrl = "/member/memberXdmForm";
+const seqName = "membSeq";
 
-	}
-  
-</script>
-<script type="text/javascript">
-let form = document.querySelector("form[name=formList]");
-let seq = document.querySelector("input[name=membSeq]");
-
-let goUrlXdmForm = "/member/memberXdmForm";
-
-document.getElementById("btnForm").onclick = function () {
-    goForm(0);
-}
-
-goForm = function (keyValue) {
-    seq.value = keyValue;
-    form.action = goUrlXdmForm;
-    form.submit();
-}
-document.getElementById("btnSearch").onclick = function () {
-  	form.action = "/member/memberXdmList";
-  	form.submit();
-	}
-document.getElementById("btnReset").onclick = function () {
-	location = "/member/memberXdmList";
-};
 document.getElementById("exportExcel").onclick = function () {
     location.href = "/member/membersXdmExcel";
 };
-goList = function (thisPage) {
-    document.querySelector("input[name=thisPage]").value = thisPage;
-    form.action = "/member/memberXdmList";
-    form.submit();
-}
-
-
-</script>
-<script type="text/javascript">
-jQuery("#shDateStart").datetimepicker({
-	i18n:{
-		  de:{
-		   months:[
-		    'Januar','Februar','März','April',
-		    'Mai','Juni','Juli','August',
-		    'September','Oktober','November','Dezember',
-		   ],
-		   dayOfWeek:[
-		    "So.", "Mo", "Di", "Mi",
-		    "Do", "Fr", "Sa.",
-		   ]
-		  }
-		 },
-		 timepicker:false,
-		 format:'Y-m-d'
-});
-
-jQuery("#shDateEnd").datetimepicker({
-	i18n:{
-		  de:{
-		   months:[
-		    'Januar','Februar','März','April',
-		    'Mai','Juni','Juli','August',
-		    'September','Oktober','November','Dezember',
-		   ],
-		   dayOfWeek:[
-		    "So.", "Mo", "Di", "Mi",
-		    "Do", "Fr", "Sa.",
-		   ]
-		  }
-		 },
-		 timepicker:false,
-		 format:'Y-m-d'
-});
 </script>
    </body>
 </html>

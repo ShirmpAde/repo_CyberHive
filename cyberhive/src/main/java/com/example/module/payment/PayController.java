@@ -6,19 +6,42 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.example.module.product.ProductDto;
+import com.example.module.product.ProductService;
 
 @Controller
 @RequestMapping(value = "/payment")
 public class PayController {
-
+	
+	private static final Logger logger = LoggerFactory.getLogger(PayController.class);
+	
+	@Autowired
+	ProductService productService;
+	
 	@RequestMapping(value = "/PaymentForm")
-	public String paymentList() {
+	public String paymentForm(@RequestParam("prdtSeq") String prdtSeq, Model model) {
+		
+		logger.info("### Received prdtSeq: {}", prdtSeq);
+		
+		ProductDto dto = new ProductDto();
+		dto.setPrdtSeq(prdtSeq);
+		
+		ProductDto product = productService.selectOne(dto);
+		
+		model.addAttribute("item", product);
+		
 		return "user/payment/PaymentForm";
 	}
 	

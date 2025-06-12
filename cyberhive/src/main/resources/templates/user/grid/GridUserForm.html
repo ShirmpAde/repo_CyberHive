@@ -1463,16 +1463,17 @@
 <!-- 				                </a> -->
 									<div class="custom-image-container">
 									    <a th:href="@{/payment/PaymentForm(prdtSeq=${product.prdtSeq})}">
-									        <!-- 이미지 표시 부분 -->
+									    
 									        <img th:if="${product.path != null}" 
 									             th:src="${product.path}" 
 									             th:alt="${product.prdtName}" 
-									             class="img-fluid" /> <!-- "mb-3" 삭제 -->
-									        <!-- 이미지가 없을 경우 기본 이미지 표시 -->
+									             class="img-fluid" />
+									             
 									        <img th:unless="${product.path != null}" 
 									             src="/xdm/template/admin_ui/images/products/product-img-1.jpg" 
 									             th:alt="${product.prdtName}" 
-									             class="img-fluid" /> <!-- "mb-3" 삭제 -->
+									             class="img-fluid" />
+									             
 									    </a>
 									</div>
                                  <!-- action btn -->
@@ -1492,8 +1493,11 @@
                               <div class="text-small mb-1">
                     			<a href="#!" class="text-decoration-none text-muted"><small th:text="${product.prdtCateName}"></small></a>
                 			  </div>
-                              <h2 class="fs-6"><a th:href="@{/payment/PaymentForm(prdtSeq=${product.prdtSeq})}"
-                        		class="text-inherit text-decoration-none" th:text="${product.prdtName}"></a></h2>
+                              <h2 class="fs-6">
+							    <a class="text-inherit text-decoration-none" 
+							       th:href="@{/payment/PaymentForm(prdtSeq=${product.prdtSeq})}" 
+							       th:text="${product.prdtName}">상품 이름</a>
+							  </h2>
                               <div>
                                  <!-- rating -->
                                  <small class="text-warning">
@@ -1902,6 +1906,7 @@ function goList(page) {
     document.querySelector("input[name=thisPage]").value = page;
     searchForm.submit();
 }
+
 </script>
 </body>
 

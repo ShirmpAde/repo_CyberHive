@@ -164,84 +164,15 @@
          </main>
       </div>
 </form>
-<script src="/xdm/jquery/jquery-3.7.1.min.js"></script>
-<script src="/xdm/jquery/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
-<!-- Libs JS -->
-<!-- <script src="/xdm/template/admin_ui/libs/jquery/dist/jquery.min.js"></script> -->
-<script src="/xdm/template/admin_ui/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/xdm/template/admin_ui/libs/simplebar/dist/simplebar.min.js"></script>
-
-<!-- Theme JS -->
-<script src="/xdm/template/admin_ui/js/theme.min.js"></script>
+<div th:replace="~{xdm/include/footerXdm :: footerXdm}"></div>
 <!-- excel-download JS -->
 <script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
 <script src="/xdm/template/admin_ui/js/vendors/excelDownload.js"></script>
 <script type="text/javascript">
-let form = document.querySelector("form[name=formList]");
-let seq = document.querySelector("input[name=cdgrSeq]");
+const listUrl = "/codeGroup/codeGroupXdmList";
+const formUrl = "/codeGroup/codeGroupXdmForm";
+const seqName = "cdgrSeq";
 
-let goUrlXdmForm = "/codeGroup/codeGroupXdmForm";
-
-document.getElementById("btnForm").onclick = function () {
-    goForm(0);
-}
-
-goForm = function (keyValue) {
-    seq.value = keyValue;
-    form.action = "/codeGroup/codeGroupXdmForm";
-    form.submit();
-}
-
-document.getElementById("btnSearch").onclick = function () {
-  	form.action = "/codeGroup/codeGroupXdmList";
-  	form.submit();
-	}
-	
-document.getElementById("btnReset").onclick = function () {
-	location = "/codeGroup/codeGroupXdmList";
-};
-
-goList = function (thisPage) {
-    document.querySelector("input[name=thisPage]").value = thisPage;
-    form.action = "/codeGroup/codeGroupXdmList";
-    form.submit();
-}
-
-jQuery("#shDateStart").datetimepicker({
-	i18n:{
-		  de:{
-		   months:[
-		    'Januar','Februar','März','April',
-		    'Mai','Juni','Juli','August',
-		    'September','Oktober','November','Dezember',
-		   ],
-		   dayOfWeek:[
-		    "So.", "Mo", "Di", "Mi",
-		    "Do", "Fr", "Sa.",
-		   ]
-		  }
-		 },
-		 timepicker:false,
-		 format:'Y-m-d'
-});
-
-jQuery("#shDateEnd").datetimepicker({
-	i18n:{
-		  de:{
-		   months:[
-		    'Januar','Februar','März','April',
-		    'Mai','Juni','Juli','August',
-		    'September','Oktober','November','Dezember',
-		   ],
-		   dayOfWeek:[
-		    "So.", "Mo", "Di", "Mi",
-		    "Do", "Fr", "Sa.",
-		   ]
-		  }
-		 },
-		 timepicker:false,
-		 format:'Y-m-d'
-});
 </script>
    </body>
 </html>

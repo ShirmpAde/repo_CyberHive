@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="footerXdm">
+
+<script src="/xdm/jquery/jquery-3.7.1.min.js"></script>
+<script src="/xdm/jquery/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
+
+<!-- Libs JS -->
+<!-- <script src="/xdm/template/admin_ui/libs/jquery/dist/jquery.min.js"></script> -->
+<script src="/xdm/template/admin_ui/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/xdm/template/admin_ui/libs/simplebar/dist/simplebar.min.js"></script>
+
+<!-- Theme JS -->
+<script src="/xdm/template/admin_ui/js/theme.min.js"></script>
+
+<script type="text/javascript">
+const form = document.querySelector("form[name=formList]");
+
+		//-- 페이지 이동 함수
+		function goList(thisPage) {
+			if (form) {
+				form.querySelector("input[name=thisPage]").value = thisPage;
+				form.action = listUrl; // 페이지별로 선언된 listUrl 사용
+				form.submit();
+			}
+		}
+
+		//-- 등록/수정 폼으로 이동하는 함수
+		function goForm(keyValue) {
+			if (form) {
+				let seqInput = form.querySelector(`input[name=${seqName}]`);
+				if (!seqInput) {
+					seqInput = document.createElement('input');
+					seqInput.type = 'hidden';
+					seqInput.name = seqName; // 페이지별로 선언된 seqName 사용
+					form.appendChild(seqInput);
+				}
+				seqInput.value = keyValue;
+				form.action = formUrl; // 페이지별로 선언된 formUrl 사용
+				form.submit();
+			}
+		}
+		
+		//-- 로그아웃 함수
+		function logout() {
+			$.ajax({
+				async: true,
+				cache: false,
+				type: "post",
+				url: "/member/signoutXdmProc",
+				success: function(response) {
+					if (response.rt == "success") {
+						location.href = "/member/signinXdmForm";
+					} else { alert("로그아웃 실패"); }
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					alert("ajax Error: " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+				}
+			});
+		}
+
+		//-- jQuery: 문서 로딩 완료 후 공통 이벤트 바인딩
+		$(document).ready(function() {
+			// 검색 버튼 클릭
+			$("#btnSearch").on("click", function() {
+				if (form) {
+					form.querySelector("input[name=thisPage]").value = 1; // 검색 시 1페이지로
+					form.action = listUrl;
+					form.submit();
+				}
+			});
+
+			// 초기화 버튼 클릭
+			$("#btnReset").on("click", function() {
+				location.href = listUrl;
+			});
+
+			// 등록 버튼 클릭
+			$("#btnForm").on("click", function() {
+				goForm(0);
+			});
+			
+			// 로그아웃 버튼 클릭 (헤더에 있을 경우)
+			$("#btnSignout").on("click", function(){
+				logout();
+			});
+
+			// 검색어 입력 후 엔터 키
+			$("#shValue").on("keyup", function(e) {
+				if (e.keyCode === 13) { $("#btnSearch").click(); }
+			});
+
+			// 날짜 선택기 (Datepicker) 초기화
+			jQuery("#shDateStart, #shDateEnd").datetimepicker({
+				i18n: {
+					de: {
+						months: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+						dayOfWeek: ["일", "월", "화", "수", "목", "금", "토"]
+					}
+				},
+				timepicker: false,
+				format: 'Y-m-d'
+			});
+		});
+	</script>
+</th:block>
+</html>
