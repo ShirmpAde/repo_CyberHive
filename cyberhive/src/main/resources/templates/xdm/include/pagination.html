@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en-US" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="pagination">
+    <div class="row mt-4">
+        <div class="col">
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <!-- 이전 페이지 -->
+                    <li class="page-item" th:classappend="${vo.startPage gt vo.pageNumToShow} ? '' : 'disabled'">
+                        <a class="page-link mx-1" href="javascript:void(0)" th:attr="onclick=|goList('${vo.startPage - 1}')|" aria-label="Previous">
+                            <i class="feather-icon icon-chevron-left"></i>
+                        </a>
+                    </li>
+
+                    <!-- 페이지 번호 -->
+                    <li class="page-item"
+                        th:each="num : ${#numbers.sequence(vo.startPage, vo.endPage)}"
+                        th:classappend="${num eq vo.thisPage} ? 'active' : ''">
+                        <a class="page-link mx-1" href="javascript:void(0)" th:attr="onclick=|goList('${num}')|" th:text="${num}"></a>
+                    </li>
+
+                    <!-- 다음 페이지 -->
+                    <li class="page-item" th:classappend="${vo.endPage lt vo.totalPages} ? '' : 'disabled'">
+                        <a class="page-link mx-1" href="javascript:void(0)" th:attr="onclick=|goList('${vo.endPage + 1}')|" aria-label="Next">
+                            <i class="feather-icon icon-chevron-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</th:block>

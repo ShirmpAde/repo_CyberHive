@@ -1,0 +1,32 @@
+/* 슬라이더 기본 스타일 */
+.hero-slider, 
+.category-slider {
+  position: relative;
+  overflow: hidden;
+}
+
+/* 슬라이드 아이템 스타일 */
+.hero-slider > div,
+.category-slider .item {
+  position: relative;
+}
+
+/* 슬라이더 네비게이션 스타일 */
+.tns-nav {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.tns-nav button {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: #ddd;
+  margin: 0 5px;
+  padding: 0;
+}
+
+.tns-nav button.tns-nav-active {
+  background: #007bff;
+}
