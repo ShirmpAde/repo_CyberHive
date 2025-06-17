@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.common.base.BaseController;
+import com.example.module.product.ProductDto;
+import com.example.module.product.ProductService;
+import com.example.module.product.ProductVo;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -27,6 +30,9 @@ public class MemberController extends BaseController {
 	
 	@Autowired
 	MailService mailService;
+	
+	@Autowired
+	ProductService productService;
 	
 	@RequestMapping(value = "/member/memberXdmList")
 	public String memberXdmList(MemberVo vo, MemberDto dto, Model model) {
@@ -157,12 +163,17 @@ public class MemberController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/user/index/indexUserForm")
-	public String indexUserForm(Model model, MemberVo vo) throws Exception{
+	public String indexUserForm(Model model) throws Exception{
+		ProductVo popularVo = new ProductVo();
+        popularVo.setRowNumToShow(10);
+        List<ProductDto> popularList = productService.selectListWithImages(popularVo); 
+        model.addAttribute("popularProducts", popularList);
 		
-		model.addAttribute("list", memberService.selectList(vo));
-		
-		model.addAttribute("vo", vo);
-		
+        ProductVo bestsellerVo = new ProductVo();
+        bestsellerVo.setRowNumToShow(3);
+        List<ProductDto> bestsellerList = productService.selectListWithImages(bestsellerVo); 
+        model.addAttribute("bestsellerProducts", bestsellerList);
+        
 		return "user/index/IndexUserForm";
 	}
 	
