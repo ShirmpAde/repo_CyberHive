@@ -696,13 +696,15 @@
 								</div>
 							</div>
 						</div>
-						<div class="col">
+						<div class="col" th:each="product : ${bestsellerProducts}" th:if="${!#lists.isEmpty(bestsellerProducts)}">
 							<div class="card card-product">
 								<div class="card-body">
 									<div class="text-center position-relative">
-										<a href="./pages/shop-single.html"><img
-												src="/xdm/template/admin_ui/images/products/product-img-11.jpg"
-												alt="Grocery Ecommerce Template" class="mb-3 img-fluid" /></a>
+										<a th:href="@{/payment/PaymentForm(prdtSeq=${product.prdtSeq})}">
+		                                    <img th:src="${product.path != null ? product.path : '/xdm/template/admin_ui/images/products/product-img-11.jpg'}"
+		                                        alt="Product Image" class="mb-3 img-fluid" 
+		                                        style="height: 220px; object-fit: cover;" />
+		                                </a>
 
 										<div class="card-product-action">
 											<a href="#!" class="btn-action" data-bs-toggle="modal"
@@ -717,16 +719,15 @@
 										</div>
 									</div>
 									<div class="text-small mb-1">
-										<a href="#!" class="text-decoration-none text-muted"><small>차, 커피 &
-												음료수</small></a>
-									</div>
-									<h2 class="fs-6"><a href="./pages/shop-single.html"
-											class="text-inherit text-decoration-none">스타벅스 로스트 커피</a></h2>
+                                		<a href="#!" class="text-decoration-none text-muted"><small th:text="${product.prdtCateName}">카테고리</small></a>
+                            		</div>
+									<h2 class="fs-6">
+		                                <a th:href="@{/payment/PaymentForm(prdtSeq=${product.prdtSeq})}" class="text-inherit text-decoration-none" th:text="${product.prdtName}">상품 이름</a>
+		                            </h2>
 
 									<div class="d-flex justify-content-between align-items-center mt-3">
 										<div>
-											<span class="text-dark">14,293원</span>
-											<span class="text-decoration-line-through text-muted">18,584</span>
+											<span class="text-dark" th:text="${#numbers.formatInteger(product.prdtPrice, 0, 'COMMA')} + '원'">14,293원</span>
 										</div>
 										<div>
 											<small class="text-warning">
@@ -740,144 +741,26 @@
 										</div>
 									</div>
 									<div class="d-grid mt-2">
-										<a href="/payment/PaymentForm" class="btn btn-primary">
-											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-												viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-												stroke-linecap="round" stroke-linejoin="round"
-												class="feather feather-plus">
-												<line x1="12" y1="5" x2="12" y2="19"></line>
-												<line x1="5" y1="12" x2="19" y2="12"></line>
-											</svg>
-											장바구니 담기
-										</a>
-									</div>
+		                                <a th:href="@{/payment/PaymentForm(prdtSeq=${product.prdtSeq})}" class="btn btn-primary">
+		                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+		                                        <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>
+		                                    </svg>
+		                                    장바구니 담기
+		                                </a>
+		                            </div>
 									<div class="d-flex justify-content-start text-center mt-3">
 										<div class="deals-countdown w-100" data-countdown="2028/10/10 00:00:00"></div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="col">
-							<div class="card card-product">
-								<div class="card-body">
-									<div class="text-center position-relative">
-										<a href="./pages/shop-single.html"><img
-												src="/xdm/template/admin_ui/images/products/product-img-12.jpg"
-												alt="Grocery Ecommerce Template" class="mb-3 img-fluid" /></a>
-										<div class="card-product-action">
-											<a href="#!" class="btn-action" data-bs-toggle="modal"
-												data-bs-target="#quickViewModal">
-												<i class="bi bi-eye" data-bs-toggle="tooltip" data-bs-html="true"
-													title="Quick View"></i>
-											</a>
-											<a href="#!" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true"
-												title="Wishlist"><i class="bi bi-heart"></i></a>
-											<a href="#!" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true"
-												title="Compare"><i class="bi bi-arrow-left-right"></i></a>
-										</div>
-									</div>
-									<div class="text-small mb-1">
-										<a href="#!" class="text-decoration-none text-muted"><small>과일류 &
-												야채류</small></a>
-									</div>
-									<h2 class="fs-6"><a href="./pages/shop-single.html"
-											class="text-inherit text-decoration-none">으깬 토마토 통조림</a></h2>
-									<div class="d-flex justify-content-between align-items-center mt-3">
-										<div>
-											<span class="text-dark">14,950원</span>
-											<span class="text-decoration-line-through text-muted">18,595</span>
-										</div>
-										<div>
-											<small class="text-warning">
-												<i class="bi bi-star-fill"></i>
-												<i class="bi bi-star-fill"></i>
-												<i class="bi bi-star-fill"></i>
-												<i class="bi bi-star-fill"></i>
-												<i class="bi bi-star-half"></i>
-											</small>
-											<span><small>4.5</small></span>
-										</div>
-									</div>
-									<div class="d-grid mt-2">
-										<a href="/payment/PaymentForm" class="btn btn-primary">
-											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-												viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-												stroke-linecap="round" stroke-linejoin="round"
-												class="feather feather-plus">
-												<line x1="12" y1="5" x2="12" y2="19"></line>
-												<line x1="5" y1="12" x2="19" y2="12"></line>
-											</svg>
-											장바구니 담기
-										</a>
-									</div>
-									<div class="d-flex justify-content-start text-center mt-3 w-100">
-										<div class="deals-countdown w-100" data-countdown="2028/12/9 00:00:00"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col">
-							<div class="card card-product">
-								<div class="card-body">
-									<div class="text-center position-relative">
-										<a href="/payment/PaymentForm"><img
-												src="/xdm/template/admin_ui/images/products/product-img-13.jpg"
-												alt="Grocery Ecommerce Template" class="mb-3 img-fluid" /></a>
-										<div class="card-product-action">
-											<a href="#!" class="btn-action" data-bs-toggle="modal"
-												data-bs-target="#quickViewModal">
-												<i class="bi bi-eye" data-bs-toggle="tooltip" data-bs-html="true"
-													title="Quick View"></i>
-											</a>
-											<a href="#!" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true"
-												title="Wishlist"><i class="bi bi-heart"></i></a>
-											<a href="#!" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true"
-												title="Compare"><i class="bi bi-arrow-left-right"></i></a>
-										</div>
-									</div>
-									<div class="text-small mb-1">
-										<a href="#!" class="text-decoration-none text-muted"><small>과일류 &
-												야채류</small></a>
-									</div>
-									<h2 class="fs-6"><a href="./pages/shop-single.html"
-											class="text-inherit text-decoration-none">골든 파인애플</a></h2>
-									<div class="d-flex justify-content-between align-items-center mt-3">
-										<div>
-											<span class="text-dark">14,550원</span>
-											<span class="text-decoration-line-through text-muted">17,850</span>
-										</div>
-										<div>
-											<small class="text-warning">
-												<i class="bi bi-star-fill"></i>
-												<i class="bi bi-star-fill"></i>
-												<i class="bi bi-star-fill"></i>
-												<i class="bi bi-star-fill"></i>
-												<i class="bi bi-star-half"></i>
-											</small>
-											<span><small>4.5</small></span>
-										</div>
-									</div>
-									<div class="d-grid mt-2">
-										<a href="#!" class="btn btn-primary">
-											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-												viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-												stroke-linecap="round" stroke-linejoin="round"
-												class="feather feather-plus">
-												<line x1="12" y1="5" x2="12" y2="19"></line>
-												<line x1="5" y1="12" x2="19" y2="12"></line>
-											</svg>
-											Add to cart
-										</a>
-									</div>
-									<div class="d-flex justify-content-start text-center mt-3">
-										<div class="deals-countdown w-100" data-countdown="2028/11/11 00:00:00"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+						
+						<div class="col" th:if="${#lists.isEmpty(bestsellerProducts)}">
+		                     <p class="mt-4">오늘의 베스트셀러 상품이 없습니다.</p>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
 		</section>
 		<section class="my-lg-14 my-8">
 			<div class="container">
