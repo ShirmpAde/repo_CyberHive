@@ -145,22 +145,22 @@ public class CodeController extends BaseController {
 	        	cell.setCellStyle(cellStyle);
 	        	cell.setCellValue(Integer.parseInt(list.get(i).getCodeSeq()));
 	        	
-	            cell = row.createCell(4);
+	            cell = row.createCell(3);
 	            cellStyle.setAlignment(HorizontalAlignment.CENTER);
 	            cell.setCellStyle(cellStyle);
 	            cell.setCellValue(list.get(i).getCodeName());
 	            
-	            cell = row.createCell(6);
+	            cell = row.createCell(4);
 	            cellStyle.setAlignment(HorizontalAlignment.CENTER);
 	            cell.setCellStyle(cellStyle);
 	            if(list.get(i).getCodeUseNy() != null) cell.setCellValue(list.get(i).getCodeUseNy() == 0 ? "N" : "Y");
 	            
-	            cell = row.createCell(8);
+	            cell = row.createCell(5);
 	        	cellStyle.setAlignment(HorizontalAlignment.CENTER);
 	        	cell.setCellStyle(cellStyle);
 	        	if(list.get(i).getCodeRegDate() != null) cell.setCellValue(UtilDateTime.dateTimeToString(list.get(i).getCodeRegDate()));
 	        	
-	        	cell = row.createCell(9);
+	        	cell = row.createCell(6);
 	        	cellStyle.setAlignment(HorizontalAlignment.CENTER);
 	        	cell.setCellStyle(cellStyle);
 	        	if(list.get(i).getCodeModDate() != null) cell.setCellValue(UtilDateTime.dateTimeToString(list.get(i).getCodeModDate()));
